@@ -135,7 +135,7 @@ variable.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.85\linewidth]{figures/trajectories.png}
+\includegraphics[width=0.85\linewidth]{figures/trajectories_subplots.png}
 \caption{Réalisation de $q_a$ (haut) et $q_b$ (bas) jusqu'à atteinte de zéro,
 avec $\lambda^+ = 1{,}2$, $\lambda^- = 2$, $q_0 = 10$. Ici l'ask se vide
 légèrement avant le bid.}
@@ -260,7 +260,7 @@ Test KS & \multicolumn{3}{c}{$D = 0{,}013$, \quad $p\text{-value} = 0{,}369$} \\
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.62\linewidth]{figures/ig_validation.png}
+\includegraphics[width=0.62\linewidth]{figures/ig_distribution.png}
 \caption{Histogramme des temps d'arrêt simulés et densité IG théorique. Le test
 de Kolmogorov-Smirnov ne rejette pas l'hypothèse d'adéquation.}
 \label{fig:igval}
@@ -322,7 +322,7 @@ $p \approx 1/2$.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\linewidth]{figures/poisson_3d.png}
+\includegraphics[width=\linewidth]{figures/time_proba_3d_poisson.png}
 \caption{Modèle Poisson indépendant. Gauche~: temps moyen $\E[\min(\tau_a,
 \tau_b)]$ avec IC 95\,\% (wireframes rouge et noire). Droite~: probabilité que
 l'ask atteigne zéro en premier.}
@@ -435,7 +435,7 @@ trajectoires courtes (avalanches de cancellations) et étire la queue droite
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.6\linewidth]{figures/hawkes_stopping_time.png}
+\includegraphics[width=0.6\linewidth]{figures/hawkes_stopping_dist.png}
 \caption{Distribution empirique du temps d'arrêt sous Hawkes individuel
 ($\mu^- = 2$, $\alpha = 0{,}5$, $\beta = 1$).}
 \label{fig:hawkes_stop}
@@ -465,7 +465,7 @@ correspondante du temps d'arrêt.
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.49\linewidth}
   \centering
-  \includegraphics[width=\linewidth]{figures/coupled_hawkes_dist.png}
+  \includegraphics[width=\linewidth]{figures/coupled_hawkes_stopping.png}
   \caption{Distribution empirique de $\min(\tau_a, \tau_b)$.}
 \end{subfigure}
 \caption{Modèle de Hawkes couplé bid/ask, $\mu^-_a = \mu^-_b = 2$.}
@@ -561,7 +561,7 @@ de baisser.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\linewidth]{figures/q2_poisson_cond.png}
+\includegraphics[width=\linewidth]{figures/q2_asymmetric.png}
 \caption{Distribution conditionnelle de $q_2(\tau)$ selon le côté qui s'épuise
 en premier, dans le cas asymétrique $\mu^-_a = 2$, $\mu^-_b = 1{,}2$. La
 sélection induit un effet visible sur la distribution.}
@@ -595,12 +595,12 @@ côté ask provoque, en moyenne, plus d'insertions sur $q_2$ qu'auparavant.
 \centering
 \begin{subfigure}[t]{0.49\linewidth}
   \centering
-  \includegraphics[width=\linewidth]{figures/q2_excited_a.png}
+  \includegraphics[width=\linewidth]{figures/q2_symmetric_poisson.png}
   \caption{$q_2$ Poisson constant (référence).}
 \end{subfigure}\hfill
 \begin{subfigure}[t]{0.49\linewidth}
   \centering
-  \includegraphics[width=\linewidth]{figures/q2_excited_b.png}
+  \includegraphics[width=\linewidth]{figures/q2_symmetric_excited.png}
   \caption{$q_2$ avec $\lambda^+_2$ excitée par les décréments d'ask.}
 \end{subfigure}
 \caption{Distribution conditionnelle de $q_2(\tau)$ dans le cas symétrique
