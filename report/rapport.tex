@@ -1,0 +1,650 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[margin=2.3cm]{geometry}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{titlesec}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=blue!50!black,
+}
+
+\setlength{\parindent}{1.2em}
+\setlength{\parskip}{0.25em}
+\renewcommand{\baselinestretch}{1.08}
+
+\titleformat{\section}{\Large\bfseries}{\thesection}{0.7em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{1.4em}{0.5em}
+\titlespacing*{\subsection}{0pt}{1em}{0.3em}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Pb}{\mathbb{P}}
+\newcommand{\IG}{\mathrm{IG}}
+
+\title{\vspace{-1.5cm}\textbf{Modélisation stochastique d'un carnet d'ordres}\\[0.3em]
+       \large MODAL --- Carnet d'ordres SNA}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-2cm}
+
+\section*{Présentation}
+
+Le projet vise à comprendre, par la simulation, comment les volumes au meilleur Bid
+($q_b$) et au meilleur Ask ($q_a$) d'un carnet d'ordres évoluent au cours du
+temps, et en particulier comment se distribue le premier instant où l'un des
+deux côtés s'épuise --- événement microstructurel qui déclenche un mouvement
+de prix. Notre démarche suit une progression de modèles, partant du plus simple
+(processus de Poisson indépendants pour chaque côté) pour aller vers des
+spécifications plus réalistes intégrant l'auto-excitation par processus de
+Hawkes, puis le couplage entre les deux côtés du carnet, et enfin un troisième
+processus représentant le niveau adjacent.
+
+Pour chaque modèle on s'intéresse principalement à deux quantités~: le temps
+moyen d'épuisement $\E[\min(\tau_a, \tau_b)]$ et la probabilité asymétrique
+$\Pb(\tau_a < \tau_b)$. Ce rapport reprend, dans le même ordre que le notebook
+\texttt{carnet\_d\_ordres.ipynb}, les méthodes mises en place, les choix
+numériques, et les résultats obtenus, en discutant à chaque fois leur
+crédibilité (intervalles de confiance, comparaison à des prédictions
+théoriques quand elles existent).
+
+\section{Cadre paramétrique}
+\label{sec:params}
+
+Avant d'entrer dans les modèles, il est utile de fixer les valeurs numériques
+qui seront utilisées partout. Le tableau~\ref{tab:params} les rassemble. La
+plupart de ces choix répondent à un objectif simple~: rester dans un régime où
+l'atteinte de zéro est presque sûre (ce qui impose un drift négatif), tout en
+gardant des temps de simulation raisonnables.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lcp{0.58\linewidth}@{}}
+\toprule
+Paramètre & Valeur & Rôle / justification \\
+\midrule
+$\lambda^+$ & $1{,}2$ & Intensité d'insertion ; choisie inférieure à $\lambda^-$ pour garantir un drift négatif. \\
+$\lambda^-$ & $2{,}0$ & Intensité d'annulation ; donne $\mu = -0{,}8$ et $\sigma^2 = 3{,}2$. \\
+$T$ & $100$ & Horizon temporel des trajectoires de référence. \\
+$q_0$ & $10$ & Volume initial : assez grand pour être dans le régime fluide, assez petit pour que $\tau$ reste observable. \\
+$\mu^-$ & $2{,}0$ & Intensité de fond du Hawkes, prise égale à $\lambda^-$ pour comparer Poisson et Hawkes au même régime de fond. \\
+$\alpha, \beta$ & $0{,}5\,,\,1{,}0$ & Gain et taux de relaxation Hawkes ; $\alpha/\beta = 1/2$ assure la stabilité. \\
+$a, b$ & $0{,}5\,,\,1{,}0$ & Mêmes échelles pour l'excitation de $q_2$ par les décréments d'ask. \\
+$dt$ & $0{,}01$ & Pas du schéma d'Euler-Maruyama pour le mouvement brownien. \\
+$M$ (espérances) & $10^3$ à $5\cdot10^3$ & $\hat\sigma/\sqrt{M}$ de l'ordre de $1\,\%$ de $\hat T$. \\
+$M$ (surfaces 3D) & $200$ à $500$ & Compromis temps de calcul / précision sur grille $10 \times 10$. \\
+\bottomrule
+\end{tabular}
+\caption{Paramètres globaux. Les valeurs des intensités sont volontairement
+modestes pour conserver des trajectoires lisibles.}
+\label{tab:params}
+\end{table}
+
+Trois conséquences théoriques immédiates serviront ensuite de référence pour
+juger les estimateurs Monte-Carlo~:
+
+\[
+\E[\tau]_{\text{th}} = \frac{q_0}{|\mu|} = 12{,}5,
+\qquad
+\mathrm{Var}(\tau)_{\text{th}} = \frac{q_0\,\sigma^2}{|\mu|^3} = 62{,}5,
+\qquad
+\bar\lambda^-_{\infty} = \frac{\mu^-\beta - \lambda^+\alpha}{\beta - \alpha} = 2{,}8.
+\]
+
+\section{Modèle Poisson de base}
+
+On commence par le modèle le plus élémentaire. Chaque côté du carnet est décrit
+par
+\[
+q(t) = q(0) + N^+_t - N^-_t,
+\]
+où $N^+$ et $N^-$ sont deux processus de Poisson indépendants d'intensités
+$\lambda^+$ et $\lambda^-$, et où le processus est absorbé en zéro. La
+simulation est exacte~: les inter-événements suivent une loi
+$\mathrm{Exp}(\lambda^+ + \lambda^-)$, et chaque événement est un saut $+1$ avec
+probabilité $\lambda^+ / (\lambda^+ + \lambda^-)$, sinon $-1$. Pour étudier les
+deux côtés simultanément, on lance deux instances indépendantes.
+
+La figure~\ref{fig:traj} montre une réalisation typique. Le drift négatif est
+visible (la trajectoire dérive vers le bas) mais des excursions vers le haut
+restent fréquentes, ce qui rend le temps d'atteinte de zéro lui-même très
+variable.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\linewidth]{figures/trajectories.png}
+\caption{Réalisation de $q_a$ (haut) et $q_b$ (bas) jusqu'à atteinte de zéro,
+avec $\lambda^+ = 1{,}2$, $\lambda^- = 2$, $q_0 = 10$. Ici l'ask se vide
+légèrement avant le bid.}
+\label{fig:traj}
+\end{figure}
+
+\section{Estimation du temps moyen d'atteinte}
+
+Pour estimer $\E[\tau]$, on tire $M$ trajectoires indépendantes et on prend la
+moyenne empirique~:
+\[
+\widehat T_M = \frac{1}{M} \sum_{i=1}^M \tau^{(i)}, \qquad
+\text{IC}_{1-\alpha} = \widehat T_M \pm z_{1-\alpha/2}\, \frac{\widehat\sigma_M}{\sqrt{M}}.
+\]
+Le théorème central limite garantit la validité asymptotique de l'intervalle de
+confiance, à condition que les $\tau^{(i)}$ aient une variance finie, ce qui
+est le cas dès que le drift est strictement négatif.
+
+Sur $M = 2000$ trajectoires, on obtient
+\[
+\widehat T_{\text{1 proc.}} = 12{,}25 \quad \text{IC}_{95\%} = [11{,}90 \,;\, 12{,}60],
+\qquad
+\widehat T_{\min} = 8{,}53 \quad \text{IC}_{95\%} = [8{,}33 \,;\, 8{,}72].
+\]
+Le premier est l'espérance du temps d'atteinte d'un seul côté, le second celle
+du minimum entre l'ask et le bid. La référence brownienne $q_0/|\mu| = 12{,}5$
+tombe à l'intérieur de l'intervalle de confiance --- c'est rassurant pour la
+suite, et cela confirme que l'approximation diffusive (qu'on validera plus
+loin) sait déjà capturer la moyenne. Le passage au minimum réduit cette moyenne
+d'un facteur $\approx 1{,}45$, comme on s'y attend pour le minimum de deux
+variables IG indépendantes de mêmes paramètres.
+
+\section{Trajectoire conjointe dans le plan $(q_b, q_a)$}
+
+Plutôt que de regarder $q_a$ et $q_b$ séparément en fonction du temps, on peut
+représenter leur trajectoire conjointe dans le plan, ce qui permet de
+visualiser quels couples d'états sont visités. Les deux processus n'ayant pas
+les mêmes temps d'événement, on synchronise les deux échelles par recherche
+binaire (\texttt{np.searchsorted}) sur les temps fusionnés ; le coût est
+$O(n\log n)$. La transparence des points encode la fréquence d'occupation~: les
+états récurrents apparaissent opaques, les transitoires plus pâles.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.62\linewidth]{figures/trajectory_plane.png}
+\caption{Trajectoire dans le plan $(q_b, q_a)$ jusqu'à ce qu'un côté atteigne
+zéro. Le point rouge marque le départ, le point vert l'arrêt.}
+\label{fig:plane}
+\end{figure}
+
+Pour les valeurs choisies ($\lambda^- > \lambda^+$), la trajectoire dérive
+assez nettement vers l'origine. Une utilisation plus quantitative de cette
+représentation pourrait passer par l'estimation d'un noyau de densité
+2D~; on ne l'a pas faite ici, le caractère illustratif du graphique suffisant
+à ce stade.
+
+\section{Approximation diffusive}
+
+Lorsque $\lambda^\pm$ sont grandes (régime fluide), un théorème central limite
+fonctionnel pour les processus de Poisson centrés-renormalisés montre que $q$
+peut être approché par un mouvement brownien~:
+\[
+\mathrm{d}Q_t = (\lambda^+ - \lambda^-)\,\mathrm{d}t
+              + \sqrt{\lambda^+ + \lambda^-}\,\mathrm{d}W_t,
+\quad Q_0 = q_0.
+\]
+À horizon $T$ fixé (en l'absence d'absorption), il en découle
+\[
+q(T) \;\sim\; \mathcal{N}\!\bigl(q_0 + \mu T,\; \sigma^2 T\bigr).
+\]
+
+Sur $5000$ trajectoires libres jusqu'à $T = 100$, la moyenne empirique vaut
+$-70{,}56$ contre $-70$ théorique, et l'écart-type empirique $17{,}74$ contre
+$\sigma\sqrt{T} \approx 17{,}89$. Les deux moments sont donc reproduits à mieux
+de $1\,\%$. La figure~\ref{fig:gauss} superpose l'histogramme à la densité
+gaussienne théorique~; l'accord visuel est sans équivoque.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.62\linewidth]{figures/gaussian_approx.png}
+\caption{Distribution empirique de $q(T)$ contre $\mathcal{N}(-70, 320)$. Sans
+absorption, la marche aléatoire entière est très bien approchée par sa limite
+brownienne dès $T = 100$.}
+\label{fig:gauss}
+\end{figure}
+
+\section{Loi du temps d'atteinte}
+
+Une conséquence classique de l'approximation diffusive est que le premier
+temps d'atteinte de zéro d'un mouvement brownien $X_t = q_0 + \mu t + \sigma W_t$
+de drift négatif suit une loi inverse-gaussienne~:
+\[
+\tau \sim \IG(\mu_{\IG}, \lambda_{\IG}),
+\qquad
+\mu_{\IG} = \frac{q_0}{|\mu|},
+\qquad
+\lambda_{\IG} = \frac{q_0^2}{\sigma^2}.
+\]
+
+Pour vérifier que cette prédiction reste valable pour la marche aléatoire
+entière qui nous intéresse, on simule $N = 5000$ trajectoires Poisson, on
+calcule le temps d'arrêt de chacune, puis on compare la distribution empirique
+à la densité IG théorique. Deux indicateurs sont rapportés~: l'accord des deux
+premiers moments (table~\ref{tab:igval}) et un test de Kolmogorov-Smirnov.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+& Théorique (BM) & Empirique (Poisson) & Écart relatif \\
+\midrule
+Moyenne $\E[\tau]$            & $12{,}500$ & $12{,}537$ & $+0{,}30\,\%$ \\
+Variance $\mathrm{Var}(\tau)$ & $62{,}500$ & $66{,}731$ & $+6{,}77\,\%$ \\
+\midrule
+Test KS & \multicolumn{3}{c}{$D = 0{,}013$, \quad $p\text{-value} = 0{,}369$} \\
+\bottomrule
+\end{tabular}
+\caption{Adéquation de la loi inverse-gaussienne aux temps d'arrêt simulés.}
+\label{tab:igval}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.62\linewidth]{figures/ig_validation.png}
+\caption{Histogramme des temps d'arrêt simulés et densité IG théorique. Le test
+de Kolmogorov-Smirnov ne rejette pas l'hypothèse d'adéquation.}
+\label{fig:igval}
+\end{figure}
+
+L'adéquation est excellente sur la moyenne ($+0{,}3\,\%$), un peu moins bonne
+sur la variance ($+6{,}8\,\%$). Cet écart sur la variance n'est pas surprenant~:
+la marche entière est plus bruitée localement qu'une diffusion continue, et
+$q_0 = 10$ n'est pas grand au sens asymptotique. Le test KS, qui ne dépend pas
+spécifiquement des moments, donne $p = 0{,}37$~: on ne peut donc pas distinguer
+la distribution empirique de la loi théorique au seuil habituel de $5\,\%$.
+L'approximation IG est validée.
+
+\section{Probabilité que l'ask atteigne zéro avant le bid}
+
+Lorsque les deux côtés sont indépendants et de mêmes intensités, la quantité
+$p(q_0^a, q_0^b) = \Pb(\tau_a < \tau_b)$ est, dans la limite continue, donnée
+par
+\[
+p(q_0^a, q_0^b) = \int_0^\infty f_{\tau_a}(t)\,\bigl(1 - F_{\tau_b}(t)\bigr)\,\mathrm{d}t,
+\]
+avec $f$ et $F$ les densité et fonction de répartition inverse-gaussiennes.
+Cette intégrale n'a pas de forme close mais se calcule numériquement très
+rapidement par quadrature.
+
+On compare cette prédiction à la surface obtenue par simulation Monte-Carlo
+sur la grille $(q_0^a, q_0^b) \in \{1,\dots,10\}^2$ avec $M = 500$
+trajectoires par grain. Le résultat est en figure~\ref{fig:ruinval}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/ruin_validation.png}
+\caption{Surface MC (gauche), prédiction par quadrature sur les IG (centre),
+écart entre les deux (droite). L'erreur reste dans la marge attendue du bruit
+Monte-Carlo.}
+\label{fig:ruinval}
+\end{figure}
+
+L'erreur absolue maximale sur la grille vaut $0{,}050$ et l'erreur moyenne
+$0{,}015$. Pour $M = 500$, le bruit Monte-Carlo théorique sur une probabilité
+est borné par $\sqrt{p(1-p)/M} \le 0{,}022$. L'écart MC vs prédiction
+brownienne est donc principalement explicable par ce bruit, et il n'y a pas
+de biais systématique détectable. Sur la diagonale ($q_0^a = q_0^b$), la
+moyenne empirique de $p$ vaut $0{,}497$, conformément au $1/2$ qu'imposerait
+une symétrie parfaite.
+
+\section{Surface 3D du temps moyen d'atteinte}
+
+Dans le même esprit que la surface précédente, on regarde maintenant la
+surface du temps moyen $T(q_0^a, q_0^b) = \E[\min(\tau_a, \tau_b)]$, avec son
+intervalle de confiance à 95\,\% (calculé par TCL pour chaque grain). La
+figure~\ref{fig:poisson3d} affiche, côte à côte, la surface des temps moyens
+(à gauche, avec les bornes d'IC en rouge et noir) et celle des probabilités
+déjà discutée plus haut (à droite). Cette double représentation permet de
+visualiser le \emph{quand} et le \emph{lequel}~: à l'angle inférieur gauche
+l'épuisement est rapide mais incertain ; quand on s'approche de la diagonale
+et de la grande taille $(10,10)$, le temps moyen approche $8{,}3$ unités et
+$p \approx 1/2$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/poisson_3d.png}
+\caption{Modèle Poisson indépendant. Gauche~: temps moyen $\E[\min(\tau_a,
+\tau_b)]$ avec IC 95\,\% (wireframes rouge et noire). Droite~: probabilité que
+l'ask atteigne zéro en premier.}
+\label{fig:poisson3d}
+\end{figure}
+
+L'intervalle de confiance reste serré sur l'ensemble de la grille (typiquement
+$\pm 2\,\%$ de la valeur moyenne pour $M = 300$), ce qui rend la surface
+suffisamment lisse pour des extractions futures (par exemple, pour calibrer un
+critère d'agressivité d'exécution en fonction des volumes courants).
+
+\section{Processus de Hawkes individuel}
+
+On enrichit le modèle en remplaçant l'intensité constante $\lambda^-$ par une
+intensité de Hawkes auto-excitée~:
+\[
+\lambda^-(t) = \mu^- + \sum_{T_i < t} \alpha\, e^{-\beta(t - T_i)}.
+\]
+Concrètement, chaque cancellation augmente instantanément $\lambda^-$ de
+$\alpha$, qui décroît ensuite exponentiellement à un taux $\beta$ vers la
+valeur de fond $\mu^-$. On modélise par ailleurs l'effet inverse pour les
+insertions (qui font baisser $\lambda^-$ de $\alpha$).
+
+En prenant l'espérance de l'EDS sur $\lambda^-$ et en cherchant un point fixe
+stationnaire, on obtient
+\begin{equation}
+\bar\lambda^-_\infty = \frac{\mu^-\beta - \lambda^+\alpha}{\beta - \alpha},
+\label{eq:lambda_stat}
+\end{equation}
+ce qui n'est fini que si $\alpha < \beta$. Avec nos valeurs, $\bar\lambda^-_\infty
+= 2{,}8$.
+
+\paragraph{Simulation par thinning d'Ogata.}
+L'intensité $\lambda^-(t)$ étant non bornée \emph{a priori} mais bornée par
+morceaux entre deux événements, on simule par l'algorithme classique de
+thinning. Entre deux événements on majore $\lambda^-(t)$ par $\bar\lambda$, on
+échantillonne un candidat exponentiel de paramètre $\bar\lambda + \lambda^+$,
+et on accepte ou rejette selon la valeur effective de l'intensité au candidat.
+
+\begin{algorithm}[H]
+\caption{Thinning d'Ogata pour le Hawkes individuel}
+\begin{algorithmic}[1]
+\State $t \gets 0$,~ $\lambda^- \gets \mu^-$
+\While{condition d'arrêt non atteinte}
+  \State $\bar\lambda \gets \max(\mu^-, \lambda^-)$,~ $\Lambda \gets \bar\lambda + \lambda^+$
+  \State Tirer $\Delta t \sim \mathcal{E}(\Lambda)$,~ $t' \gets t + \Delta t$
+  \State $\lambda^-_{\mathrm{pre}} \gets \mu^- + (\lambda^- - \mu^-)e^{-\beta(t' - t_{\text{last}})}$
+  \State Tirer $U \sim \mathcal{U}([0,1])$
+  \If{$U < \lambda^+/\Lambda$} \Comment{insertion}
+    \State $q \gets q + 1$,~ $\lambda^- \gets \lambda^-_{\mathrm{pre}} - \alpha$
+  \ElsIf{$U < (\max(\lambda^-_{\mathrm{pre}}, 0) + \lambda^+)/\Lambda$} \Comment{annulation}
+    \State $q \gets q - 1$,~ $\lambda^- \gets \lambda^-_{\mathrm{pre}} + \alpha$
+  \Else
+    \State $\lambda^- \gets \lambda^-_{\mathrm{pre}}$ \Comment{rejet, on relaxe seulement}
+  \EndIf
+  \State $t \gets t'$
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+La figure~\ref{fig:hawkes_traj} montre une trajectoire typique de $q$ et
+l'évolution de $\lambda^-(t)$ correspondante, où l'on voit nettement les pics
+d'intensité après chaque cancellation et la relaxation exponentielle entre
+deux événements.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{0.49\linewidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/hawkes_trajectory.png}
+  \caption{$q(t)$ sur $[0, T]$.}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\linewidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/hawkes_lambda.png}
+  \caption{$\lambda^-(t)$ correspondante.}
+\end{subfigure}
+\caption{Trajectoire Hawkes individuelle et son intensité $\lambda^-(t)$.}
+\label{fig:hawkes_traj}
+\end{figure}
+
+\paragraph{Validation de la moyenne stationnaire.}
+On vérifie numériquement \eqref{eq:lambda_stat} en simulant cent trajectoires
+sur un horizon long ($T = 2000$), en jetant un \emph{burn-in} de $200$ unités,
+puis en calculant la moyenne temporelle de $\lambda^-(t)$ sur la fenêtre
+post-burn-in. Le résultat~: la moyenne empirique vaut $2{,}97 \pm 0{,}01$ (IC
+95\,\%) contre $2{,}80$ théorique, soit un écart relatif de $+6\,\%$. Cet
+écart, statistiquement significatif, provient du \emph{clipping} de
+l'intensité dans l'algorithme~: quand la relaxation entraîne $\lambda^-_{\mathrm
+{pre}}$ en territoire négatif, on annule simplement les événements de
+cancellation au lieu de leur attribuer une probabilité négative, ce qui
+introduit un biais positif sur la moyenne stationnaire. La distribution de
+$\lambda^-(T)$ obtenue (figure~\ref{fig:hawkes_lambda_T}) est unimodale et
+centrée légèrement au-dessus de la valeur théorique, comme prévu.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\linewidth]{figures/hawkes_lambda_T.png}
+\caption{Distribution empirique de $\lambda^-(T)$ pour $T = 1000$ et la valeur
+théorique $\bar\lambda^-_\infty = 2{,}8$ (trait rouge). Le mode empirique est
+légèrement au-dessus, conformément à l'analyse du biais.}
+\label{fig:hawkes_lambda_T}
+\end{figure}
+
+La distribution du temps d'arrêt sous Hawkes
+(figure~\ref{fig:hawkes_stop}) confirme par ailleurs le comportement
+attendu~: par rapport au cas Poisson, l'auto-excitation génère beaucoup de
+trajectoires courtes (avalanches de cancellations) et étire la queue droite
+(rare cas où l'excitation ne se déclenche pas).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\linewidth]{figures/hawkes_stopping_time.png}
+\caption{Distribution empirique du temps d'arrêt sous Hawkes individuel
+($\mu^- = 2$, $\alpha = 0{,}5$, $\beta = 1$).}
+\label{fig:hawkes_stop}
+\end{figure}
+
+\section{Hawkes couplé bid/ask}
+
+L'étape suivante consiste à coupler les deux côtés du carnet. On suit
+conjointement $(q_a, q_b)$ avec deux intensités $(\lambda^-_a, \lambda^-_b)$
+auto- et croise-excitées~: chaque événement sur l'ask diminue $\lambda^-_a$ et
+augmente $\lambda^-_b$ (et symétriquement). Cela modélise la propagation d'un
+déséquilibre~: lorsqu'un côté du carnet se vide, la pression de marché tend à
+s'accumuler de l'autre côté.
+
+L'algorithme de thinning d'Ogata est adapté avec une borne globale
+$\bar\lambda_a + \bar\lambda_b + \lambda^+_a + \lambda^+_b$ et une mise à jour
+conjointe des deux intensités à chaque événement effectif. La
+figure~\ref{fig:coupled} présente une réalisation et la distribution
+correspondante du temps d'arrêt.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{0.49\linewidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/coupled_hawkes_traj.png}
+  \caption{Trajectoires couplées $q_a$ et $q_b$.}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\linewidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/coupled_hawkes_dist.png}
+  \caption{Distribution empirique de $\min(\tau_a, \tau_b)$.}
+\end{subfigure}
+\caption{Modèle de Hawkes couplé bid/ask, $\mu^-_a = \mu^-_b = 2$.}
+\label{fig:coupled}
+\end{figure}
+
+\paragraph{Surfaces 3D pour le Hawkes couplé.}
+On reproduit pour ce modèle les deux surfaces 3D précédentes
+(figure~\ref{fig:hawkes3d}). Contrairement au cas Poisson indépendant,
+il n'existe pas de prédiction analytique simple à comparer~: le couplage entre
+$\lambda^-_a$ et $\lambda^-_b$ rend le système non-Markovien dans
+$(q_a, q_b)$ seul (il faut aussi suivre l'état des intensités). Le Monte-Carlo
+reste néanmoins le bon outil.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/hawkes_coupled_3d.png}
+\caption{Hawkes couplé bid/ask. Gauche~: temps moyen avec IC 95\,\%. Droite~:
+probabilité que l'ask atteigne zéro en premier.}
+\label{fig:hawkes3d}
+\end{figure}
+
+Au coin $(q_0^a, q_0^b) = (10, 10)$, on mesure $\E[\min(\tau_a, \tau_b)] =
+5{,}83$ contre $8{,}32$ pour le Poisson équivalent, soit un facteur
+$\approx 0{,}70$. L'auto-excitation accélère donc nettement l'épuisement, et la
+moyenne diagonale de la probabilité reste $\approx 0{,}52$ (proche de $1/2$ par
+symétrie des paramètres).
+
+\section{Comparaison des quatre régimes}
+\label{sec:cmp}
+
+À ce stade on dispose de quatre modèles complets~: Poisson individuel, premier
+de deux Poisson indépendants, Hawkes individuel, et Hawkes couplé. La
+table~\ref{tab:cmp} et la figure~\ref{fig:cmp} les comparent sur le même jeu de
+paramètres ($q_0 = 10$, $1000$ trajectoires sauf le Hawkes couplé limité à
+$300$).
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Modèle & Moyenne & Écart-type & Médiane & IQR \\
+\midrule
+Poisson individuel             & $12{,}42$ & $7{,}41$ & $10{,}62$ & $[7{,}28\,;\,15{,}30]$ \\
+Premier de deux Poisson indép. & $\phantom{0}8{,}56$ & $4{,}25$ & $\phantom{0}7{,}67$ & $[5{,}60\,;\,10{,}52]$ \\
+Hawkes individuel              & $\phantom{0}8{,}80$ & $6{,}83$ & $\phantom{0}6{,}89$ & $[4{,}18\,;\,11{,}17]$ \\
+Hawkes couplé bid/ask          & $\phantom{0}5{,}91$ & $3{,}55$ & $\phantom{0}5{,}11$ & $[3{,}36\,;\,7{,}42]$ \\
+\bottomrule
+\end{tabular}
+\caption{Comparaison synthétique des distributions de temps d'arrêt.}
+\label{tab:cmp}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\linewidth]{figures/comparison.png}
+\caption{Densités empiriques du temps d'arrêt pour les quatre régimes.}
+\label{fig:cmp}
+\end{figure}
+
+Trois enseignements ressortent. D'abord, le passage au minimum de deux Poisson
+indépendants divise la moyenne par environ $1{,}45$ et la variance par $3$~:
+c'est un effet purement combinatoire, sans rien à voir avec la dynamique. La
+distribution se concentre par construction. Ensuite, l'auto-excitation à un
+seul processus (Hawkes individuel) fait baisser la médiane plus que la
+moyenne~: la plupart des trajectoires meurent rapidement (avalanches), avec
+une minorité qui résiste longtemps quand l'excitation ne se déclenche pas.
+Enfin, le couplage bid/ask combine ces deux effets et amplifie l'asymétrie~:
+chaque événement sur un côté excite l'autre côté en sens inverse, et l'on
+obtient au final la distribution la plus concentrée et la moyenne la plus
+courte des quatre.
+
+\section{Processus auxiliaire $q_2$}
+
+Une question naturelle pour la microstructure est de savoir ce qu'on observe
+au niveau adjacent du carnet au moment précis où le meilleur niveau d'un côté
+s'épuise. C'est l'objet du processus auxiliaire $q_2$, simulé en parallèle des
+deux files Hawkes couplées. Dans une première version, $q_2$ est lui-même un
+Poisson constant de paramètres $(\lambda^+_2, \lambda^-_2)$. On regarde la
+distribution conditionnelle de $q_2(\tau)$ selon que l'événement déclenchant
+$\tau$ soit l'épuisement de l'ask ($\tau = \tau_a$) ou celui du bid ($\tau =
+\tau_b$).
+
+La figure~\ref{fig:q2_cond} montre le résultat dans le cas \emph{asymétrique}
+($\mu^-_a = 2$, $\mu^-_b = 1{,}2$), c'est-à-dire avec un ask plus fragile que
+le bid. La distribution conditionnelle à $\tau = \tau_a$ se trouve nettement
+décalée vers le haut~: lorsque l'ask cède en premier, c'est typiquement après
+un délai court, et $q_2$ a eu peu de temps pour dériver vers le bas. À
+l'inverse, conditionner sur $\tau = \tau_b$ sélectionne des trajectoires plus
+longues (le côté faible n'a pas cédé), pendant lesquelles $q_2$ a eu le temps
+de baisser.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/q2_poisson_cond.png}
+\caption{Distribution conditionnelle de $q_2(\tau)$ selon le côté qui s'épuise
+en premier, dans le cas asymétrique $\mu^-_a = 2$, $\mu^-_b = 1{,}2$. La
+sélection induit un effet visible sur la distribution.}
+\label{fig:q2_cond}
+\end{figure}
+
+Dans le cas symétrique ($\mu^-_a = \mu^-_b = 2$), les deux distributions sont
+en revanche presque identiques (figure~\ref{fig:q2_sym}, à gauche), ce qui est
+attendu~: par symétrie, conditionner sur le côté gagnant ne change rien à la
+loi marginale d'un processus indépendant.
+
+\section{Intensité $\lambda^+_2$ excitée par les décréments d'ask}
+
+On raffine maintenant le modèle de $q_2$ en couplant son intensité d'insertion
+au flux des événements décrémentant l'ask~:
+\[
+\lambda^+_2(t) = \mu^+_2 + \sum_{T_i^{\downarrow,a} < t} a\, e^{-b(t - T_i^{\downarrow,a})}.
+\]
+L'idée est qu'une consommation rapide d'un niveau d'ask augmente la probabilité
+d'apparition de nouveaux ordres au niveau adjacent. La simulation reprend le
+même thinning, en majorant $\lambda^+_2$ par $\mu^+_2 + a \times (\text{nombre
+total de baisses d'ask sur le run de référence})$.
+
+La figure~\ref{fig:q2_sym} compare, dans le cas symétrique, la distribution
+conditionnelle obtenue sous le modèle Poisson constant (à gauche, déjà vue
+plus haut) et sous le modèle excité (à droite). Le déplacement vers la droite
+des distributions excitées est cohérent avec l'intuition~: une cancellation
+côté ask provoque, en moyenne, plus d'insertions sur $q_2$ qu'auparavant.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{0.49\linewidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/q2_excited_a.png}
+  \caption{$q_2$ Poisson constant (référence).}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\linewidth}
+  \centering
+  \includegraphics[width=\linewidth]{figures/q2_excited_b.png}
+  \caption{$q_2$ avec $\lambda^+_2$ excitée par les décréments d'ask.}
+\end{subfigure}
+\caption{Distribution conditionnelle de $q_2(\tau)$ dans le cas symétrique
+($\mu^-_a = \mu^-_b = 2$). À gauche, modèle indépendant ; à droite, modèle
+couplé via les décréments d'ask.}
+\label{fig:q2_sym}
+\end{figure}
+
+L'effet est visible mais reste, à ce stade, qualitatif. Une suite naturelle
+serait d'ajouter un test statistique formel (par exemple un test de
+Mann-Whitney sur les deux distributions) pour quantifier la significativité
+de l'écart entre la version Poisson et la version excitée, ainsi qu'une étude
+de sensibilité aux paramètres $a$ et $b$.
+
+\section{Conclusion et pistes}
+
+Sur l'ensemble des modèles considérés, l'estimation Monte-Carlo donne des
+résultats cohérents et, là où une référence théorique existe, en bon accord
+avec celle-ci~: la moyenne et la variance du temps d'atteinte sont reproduites
+à mieux de $1\,\%$ et $7\,\%$ respectivement par rapport à la prédiction IG,
+le test de Kolmogorov-Smirnov ne rejette pas l'hypothèse d'adéquation à la
+loi inverse-gaussienne, et la surface MC de $\Pb(\tau_a < \tau_b)$ est
+indistinguable de la prédiction brownienne au niveau du bruit. Le seul point
+de désaccord notable concerne la moyenne stationnaire de $\lambda^-$ sous
+Hawkes, qui présente un biais positif d'environ $6\,\%$ imputable au
+\emph{clipping} d'intensité de l'algorithme~; ce biais a été identifié et son
+origine est claire.
+
+Le passage du Poisson au Hawkes, puis du Hawkes individuel au Hawkes couplé,
+divise environ par deux le temps moyen d'épuisement à $q_0 = 10$ (de $12{,}4$
+à $5{,}9$). Les distributions correspondantes sont aussi de plus en plus
+concentrées. Cela illustre quantitativement à quel point l'auto-excitation et
+le couplage entre les deux côtés du carnet modifient le risque
+d'épuisement~: ignorer l'un ou l'autre conduit à \emph{sous-estimer}
+significativement la probabilité d'un mouvement de prix à court terme.
+
+Plusieurs pistes restent ouvertes. La plus immédiate est l'étude systématique
+du cas asymétrique ($\mu^-_a \neq \mu^-_b$), pour lequel la surface
+$\Pb(\tau_a < \tau_b)$ devient un véritable outil de quantification de
+l'imbalance. Le couplage du processus auxiliaire $q_2$ avec les événements
+d'ask mériterait également un test statistique en règle, ainsi qu'une étude
+de sensibilité aux paramètres d'excitation $(a, b)$. Enfin, la calibration
+sur données réelles (intensités $\lambda^\pm$, paramètres Hawkes) permettrait
+de passer d'une étude qualitative à un véritable outil prédictif d'aide à
+l'exécution.
+
+\end{document}
