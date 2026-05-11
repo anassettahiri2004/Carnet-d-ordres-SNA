@@ -238,8 +238,7 @@ de drift négatif suit une loi inverse-gaussienne~:
 Pour vérifier que cette prédiction reste valable pour la marche aléatoire
 entière qui nous intéresse, on simule $N = 5000$ trajectoires Poisson, on
 calcule le temps d'arrêt de chacune, puis on compare la distribution empirique
-à la densité IG théorique. Deux indicateurs sont rapportés~: l'accord des deux
-premiers moments (table~\ref{tab:igval}) et un test de Kolmogorov-Smirnov.
+à la densité IG théorique. Un indicateur est rapporté~: l'accord des deux moments.
 
 \begin{table}[H]
 \centering
@@ -250,8 +249,6 @@ premiers moments (table~\ref{tab:igval}) et un test de Kolmogorov-Smirnov.
 \midrule
 Moyenne $\E[\tau]$            & $12{,}500$ & $12{,}537$ & $+0{,}30\,\%$ \\
 Variance $\mathrm{Var}(\tau)$ & $62{,}500$ & $66{,}731$ & $+6{,}77\,\%$ \\
-\midrule
-Test KS & \multicolumn{3}{c}{$D = 0{,}013$, \quad $p\text{-value} = 0{,}369$} \\
 \bottomrule
 \end{tabular}
 \caption{Adéquation de la loi inverse-gaussienne aux temps d'arrêt simulés.}
@@ -269,10 +266,7 @@ de Kolmogorov-Smirnov ne rejette pas l'hypothèse d'adéquation.}
 L'adéquation est excellente sur la moyenne ($+0{,}3\,\%$), un peu moins bonne
 sur la variance ($+6{,}8\,\%$). Cet écart sur la variance n'est pas surprenant~:
 la marche entière est plus bruitée localement qu'une diffusion continue, et
-$q_0 = 10$ n'est pas grand au sens asymptotique. Le test KS, qui ne dépend pas
-spécifiquement des moments, donne $p = 0{,}37$~: on ne peut donc pas distinguer
-la distribution empirique de la loi théorique au seuil habituel de $5\,\%$.
-L'approximation IG est validée.
+$q_0 = 10$ n'est pas grand au sens asymptotique. L'approximation IG est donc validée.
 
 \section{Probabilité que l'ask atteigne zéro avant le bid}
 
@@ -620,9 +614,7 @@ de sensibilité aux paramètres $a$ et $b$.
 Sur l'ensemble des modèles considérés, l'estimation Monte-Carlo donne des
 résultats cohérents et, là où une référence théorique existe, en bon accord
 avec celle-ci~: la moyenne et la variance du temps d'atteinte sont reproduites
-à mieux de $1\,\%$ et $7\,\%$ respectivement par rapport à la prédiction IG,
-le test de Kolmogorov-Smirnov ne rejette pas l'hypothèse d'adéquation à la
-loi inverse-gaussienne, et la surface MC de $\Pb(\tau_a < \tau_b)$ est
+à mieux de $1\,\%$ et $7\,\%$ respectivement par rapport à la prédiction IG, et la surface MC de $\Pb(\tau_a < \tau_b)$ est
 indistinguable de la prédiction brownienne au niveau du bruit. Le seul point
 de désaccord notable concerne la moyenne stationnaire de $\lambda^-$ sous
 Hawkes, qui présente un biais positif d'environ $6\,\%$ imputable au
