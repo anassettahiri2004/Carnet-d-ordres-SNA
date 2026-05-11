@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.4.20)  11 MAY 2026 18:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.4.20)  11 MAY 2026 18:46
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -716,116 +716,116 @@ Package pdftex.def Info: figures/gaussian_approx.png  used on input line 218.
 <figures/ig_distribution.png, id=105, 617.9085pt x 396.0396pt>
 File: figures/ig_distribution.png Graphic file (type png)
 <use figures/ig_distribution.png>
-Package pdftex.def Info: figures/ig_distribution.png  used on input line 260.
+Package pdftex.def Info: figures/ig_distribution.png  used on input line 263.
 (pdftex.def)             Requested size: 289.30524pt x 185.42555pt.
  [4 <./figures/gaussian_approx.png>]
 <figures/ruin_validation.png, id=113, 1083.3273pt x 370.7451pt>
 File: figures/ruin_validation.png Graphic file (type png)
 <use figures/ruin_validation.png>
-Package pdftex.def Info: figures/ruin_validation.png  used on input line 289.
+Package pdftex.def Info: figures/ruin_validation.png  used on input line 292.
 (pdftex.def)             Requested size: 466.62503pt x 159.68881pt.
  [5 <./figures/ig_distribution.png> <./figures/ruin_validation.png>]
 <figures/time_proba_3d_poisson.png, id=124, 1124.5212pt x 485.6544pt>
 File: figures/time_proba_3d_poisson.png Graphic file (type png)
 <use figures/time_proba_3d_poisson.png>
-Package pdftex.def Info: figures/time_proba_3d_poisson.png  used on input line 319.
+Package pdftex.def Info: figures/time_proba_3d_poisson.png  used on input line 322.
 (pdftex.def)             Requested size: 466.62503pt x 201.52058pt.
  [6 <./figures/time_proba_3d_poisson.png>]
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 360.
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 363.
 <figures/hawkes_trajectory.png, id=134, 734.9859pt x 397.485pt>
 File: figures/hawkes_trajectory.png Graphic file (type png)
 <use figures/hawkes_trajectory.png>
-Package pdftex.def Info: figures/hawkes_trajectory.png  used on input line 389.
+Package pdftex.def Info: figures/hawkes_trajectory.png  used on input line 392.
 (pdftex.def)             Requested size: 228.64882pt x 123.65576pt.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 390.
+(Font)              <9> on input line 393.
 <figures/hawkes_lambda.png, id=135, 714.0276pt x 397.485pt>
 File: figures/hawkes_lambda.png Graphic file (type png)
 <use figures/hawkes_lambda.png>
-Package pdftex.def Info: figures/hawkes_lambda.png  used on input line 394.
+Package pdftex.def Info: figures/hawkes_lambda.png  used on input line 397.
 (pdftex.def)             Requested size: 228.64882pt x 127.2827pt.
 <figures/hawkes_lambda_T.png, id=138, 611.4042pt x 396.0396pt>
 File: figures/hawkes_lambda_T.png Graphic file (type png)
 <use figures/hawkes_lambda_T.png>
-Package pdftex.def Info: figures/hawkes_lambda_T.png  used on input line 417.
+Package pdftex.def Info: figures/hawkes_lambda_T.png  used on input line 420.
 (pdftex.def)             Requested size: 279.97786pt x 181.36461pt.
  [7 <./figures/hawkes_trajectory.png> <./figures/hawkes_lambda.png>]
 <figures/hawkes_stopping_dist.png, id=156, 617.9085pt x 396.0396pt>
 File: figures/hawkes_stopping_dist.png Graphic file (type png)
 <use figures/hawkes_stopping_dist.png>
-Package pdftex.def Info: figures/hawkes_stopping_dist.png  used on input line 432.
+Package pdftex.def Info: figures/hawkes_stopping_dist.png  used on input line 435.
 (pdftex.def)             Requested size: 279.97786pt x 179.4429pt.
 <figures/coupled_hawkes_traj.png, id=158, 859.2903pt x 426.393pt>
 File: figures/coupled_hawkes_traj.png Graphic file (type png)
 <use figures/coupled_hawkes_traj.png>
-Package pdftex.def Info: figures/coupled_hawkes_traj.png  used on input line 457.
+Package pdftex.def Info: figures/coupled_hawkes_traj.png  used on input line 460.
 (pdftex.def)             Requested size: 228.64882pt x 113.45554pt.
 <figures/coupled_hawkes_stopping.png, id=159, 617.9085pt x 396.0396pt>
 File: figures/coupled_hawkes_stopping.png Graphic file (type png)
 <use figures/coupled_hawkes_stopping.png>
-Package pdftex.def Info: figures/coupled_hawkes_stopping.png  used on input line 462.
+Package pdftex.def Info: figures/coupled_hawkes_stopping.png  used on input line 465.
 (pdftex.def)             Requested size: 228.64882pt x 146.54443pt.
  [8 <./figures/hawkes_lambda_T.png> <./figures/hawkes_stopping_dist.png>]
 <figures/hawkes_coupled_3d.png, id=169, 1124.5212pt x 485.6544pt>
 File: figures/hawkes_coupled_3d.png Graphic file (type png)
 <use figures/hawkes_coupled_3d.png>
-Package pdftex.def Info: figures/hawkes_coupled_3d.png  used on input line 479.
+Package pdftex.def Info: figures/hawkes_coupled_3d.png  used on input line 482.
 (pdftex.def)             Requested size: 466.62503pt x 201.52058pt.
  [9 <./figures/coupled_hawkes_traj.png> <./figures/coupled_hawkes_stopping.png> <./figures/hawkes_coupled_3d.png>]
 <figures/comparison.png, id=182, 729.927pt x 507.3354pt>
 File: figures/comparison.png Graphic file (type png)
 <use figures/comparison.png>
-Package pdftex.def Info: figures/comparison.png  used on input line 519.
+Package pdftex.def Info: figures/comparison.png  used on input line 522.
 (pdftex.def)             Requested size: 396.63411pt x 275.68333pt.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 536.
+(hyperref)                removing `math shift' on input line 539.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 536.
+(hyperref)                removing `subscript' on input line 539.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 536.
+(hyperref)                removing `math shift' on input line 539.
 
 [10 <./figures/comparison.png>]
 <figures/q2_asymmetric.png, id=191, 859.2903pt x 426.393pt>
 File: figures/q2_asymmetric.png Graphic file (type png)
 <use figures/q2_asymmetric.png>
-Package pdftex.def Info: figures/q2_asymmetric.png  used on input line 558.
+Package pdftex.def Info: figures/q2_asymmetric.png  used on input line 561.
 (pdftex.def)             Requested size: 466.62503pt x 231.54352pt.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 570.
+(hyperref)                removing `math shift' on input line 573.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\lambda' on input line 570.
+(hyperref)                removing `\lambda' on input line 573.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 570.
+(hyperref)                removing `superscript' on input line 573.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 570.
+(hyperref)                removing `subscript' on input line 573.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 570.
+(hyperref)                removing `math shift' on input line 573.
 
 <figures/q2_symmetric_poisson.png, id=194, 859.2903pt x 426.393pt>
 File: figures/q2_symmetric_poisson.png Graphic file (type png)
 <use figures/q2_symmetric_poisson.png>
-Package pdftex.def Info: figures/q2_symmetric_poisson.png  used on input line 592.
+Package pdftex.def Info: figures/q2_symmetric_poisson.png  used on input line 595.
 (pdftex.def)             Requested size: 228.64882pt x 113.45554pt.
 <figures/q2_symmetric_excited.png, id=195, 859.2903pt x 426.393pt>
 File: figures/q2_symmetric_excited.png Graphic file (type png)
 <use figures/q2_symmetric_excited.png>
-Package pdftex.def Info: figures/q2_symmetric_excited.png  used on input line 597.
+Package pdftex.def Info: figures/q2_symmetric_excited.png  used on input line 600.
 (pdftex.def)             Requested size: 228.64882pt x 113.45554pt.
 [11 <./figures/q2_asymmetric.png>] [12 <./figures/q2_symmetric_poisson.png> <./figures/q2_symmetric_excited.png>] (./rapport.aux)
  ***********
@@ -840,18 +840,18 @@ Package rerunfilecheck Info: File `rapport.out' has not changed.
 (rerunfilecheck)             Checksum: 22C6D89019C8DF78FB34493A60679108;2882.
  ) 
 Here is how much of TeX's memory you used:
- 18790 strings out of 476080
- 302775 string characters out of 5792744
+ 18804 strings out of 476080
+ 302937 string characters out of 5792744
  1945975 words of memory out of 5000000
- 40213 multiletter control sequences out of 15000+600000
- 688912 words of font info for 262 fonts, out of 8000000 for 9000
+ 40217 multiletter control sequences out of 15000+600000
+ 695193 words of font info for 268 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
  75i,13n,79p,1067b,652s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx9.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi7.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi9.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr9.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy6.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on rapport.pdf (12 pages, 1585285 bytes).
+Output written on rapport.pdf (12 pages, 1585741 bytes).
 PDF statistics:
  333 PDF objects out of 1000 (max. 8388607)
  231 compressed objects within 3 object streams
  46 named destinations out of 1000 (max. 500000)
- 70342 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 74438 words of extra memory for PDF output out of 89155 (max. 10000000)
 

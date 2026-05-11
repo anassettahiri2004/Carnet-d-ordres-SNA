@@ -238,7 +238,8 @@ de drift négatif suit une loi inverse-gaussienne~:
 Pour vérifier que cette prédiction reste valable pour la marche aléatoire
 entière qui nous intéresse, on simule $N = 5000$ trajectoires Poisson, on
 calcule le temps d'arrêt de chacune, puis on compare la distribution empirique
-à la densité IG théorique. Un indicateur est rapporté~: l'accord des deux moments.
+à la densité IG théorique. Deux indicateurs sont rapportés~: l'accord des deux moments
+et le test de Kolmogorov-Smirnov pour l'adéquation de la loi. Le résultat est :
 
 \begin{table}[H]
 \centering
@@ -249,6 +250,8 @@ calcule le temps d'arrêt de chacune, puis on compare la distribution empirique
 \midrule
 Moyenne $\E[\tau]$            & $12{,}500$ & $12{,}537$ & $+0{,}30\,\%$ \\
 Variance $\mathrm{Var}(\tau)$ & $62{,}500$ & $66{,}731$ & $+6{,}77\,\%$ \\
+\midrule
+Test de Kolmogorov-Smirnov & \multicolumn{2}{c}{$D = 0{,}019$} & $p\text{-value} = 0{,}28$ \\
 \bottomrule
 \end{tabular}
 \caption{Adéquation de la loi inverse-gaussienne aux temps d'arrêt simulés.}
@@ -614,7 +617,9 @@ de sensibilité aux paramètres $a$ et $b$.
 Sur l'ensemble des modèles considérés, l'estimation Monte-Carlo donne des
 résultats cohérents et, là où une référence théorique existe, en bon accord
 avec celle-ci~: la moyenne et la variance du temps d'atteinte sont reproduites
-à mieux de $1\,\%$ et $7\,\%$ respectivement par rapport à la prédiction IG, et la surface MC de $\Pb(\tau_a < \tau_b)$ est
+à mieux de $1\,\%$ et $7\,\%$ respectivement par rapport à la prédiction IG, le
+test de Kolmogorov-Smirnov ne rejette pas l’hypothèse d’adéquation à la loi 
+inverse-gaussienne et la surface MC de $\Pb(\tau_a < \tau_b)$ est
 indistinguable de la prédiction brownienne au niveau du bruit. Le seul point
 de désaccord notable concerne la moyenne stationnaire de $\lambda^-$ sous
 Hawkes, qui présente un biais positif d'environ $6\,\%$ imputable au
