@@ -1,0 +1,1053 @@
+% ──────────────────────────────────────────────────────────────────────────────
+%  Rapport final — Modélisation stochastique d'un carnet d'ordres
+%  MODAL — Carnet d'ordres SNA
+%  Ettahiri Anass — Ramlaoui Mohamed Taha
+% ──────────────────────────────────────────────────────────────────────────────
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% ── Style Polytechnique ───────────────────────────────────────────────────────
+\usepackage[a4paper,notitlepage]{polytechnique}
+% polytechnique-logovert.pdf absent : on utilise le logo horizontal disponible
+\renewcommand{\polylogovert}{polytechnique-logohori.pdf}
+
+% ── Packages scientifiques ────────────────────────────────────────────────────
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\usepackage{array}
+\usepackage{multirow}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=bleu303,
+  citecolor=bleu303,
+  urlcolor=bleu315,
+}
+
+\setlength{\parindent}{1.2em}
+\setlength{\parskip}{0.28em}
+\renewcommand{\baselinestretch}{1.07}
+
+% ── Maths shorthand ──────────────────────────────────────────────────────────
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Pb}{\mathbb{P}}
+\newcommand{\IG}{\mathrm{IG}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\dif}{\,\mathrm{d}}
+
+% ── Boîtes résultats ─────────────────────────────────────────────────────────
+\newtcolorbox{resultatnegatif}[1][]{
+  colback=rouge485!6!white, colframe=rouge485!70!black,
+  fonttitle=\bfseries\sffamily\small,
+  title=Résultat négatif, #1
+}
+\newtcolorbox{resultatpositif}[1][]{
+  colback=bleu303!5!white, colframe=bleu303!60!black,
+  fonttitle=\bfseries\sffamily\small,
+  title=Résultat positif, #1
+}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\title[Carnet d'ordres SNA]{%
+  Modélisation stochastique d'un carnet d'ordres \\
+  Simulation, événements rares et calibration
+}
+\subtitle{MODAL --- Carnet d'ordres SNA}
+\author{Ettahiri Anass \& Ramlaoui Mohamed Taha}
+\date{Mai 2026}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\begin{document}
+\maketitle
+\vspace{0.5em}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\begin{abstract}
+\noindent
+Ce rapport présente l'ensemble de notre travail de modélisation stochastique
+d'un carnet d'ordres à cours limité (LOB). Partant d'un modèle de Poisson
+élémentaire, nous développons progressivement des modèles de plus en plus
+réalistes --- processus de Hawkes auto-excité, couplage bid/ask, reconstruction
+de la dynamique de prix sur quatre limites --- et nous les analysons par
+simulation Monte-Carlo, estimation de probabilités d'événements rares (splitting
+AMS et importance sampling), et calibration par maximum de vraisemblance. Nous
+présentons également deux tentatives d'application aux données réelles~: l'une
+couronnée de succès sur le Bitcoin Black Thursday (mars 2020), l'autre
+infructueuse sur le cas GameStop (janvier 2021). Les résultats positifs sont
+validés par confrontation avec des prédictions théoriques ; les résultats
+négatifs sont analysés et les enseignements tirés.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Introduction et présentation du problème}
+\label{sec:intro}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Le carnet d'ordres à cours limité}
+
+Un \emph{carnet d'ordres à cours limité} (LOB) est le mécanisme central par
+lequel la grande majorité des marchés financiers électroniques apparie les offres
+d'achat et de vente. À chaque instant, le carnet recense les ordres en attente~:
+côté \emph{bid} (acheteurs), les volumes $q_b^{(1)}, q_b^{(2)}, \ldots$
+décroissent avec le prix~; côté \emph{ask} (vendeurs), les volumes
+$q_a^{(1)}, q_a^{(2)}, \ldots$ croissent avec le prix. Le \emph{mid-price}
+$p_0$ est la moyenne du meilleur bid et du meilleur ask.
+
+Trois types d'événements modifient le carnet~:
+\begin{itemize}[leftmargin=1.6em,itemsep=0pt]
+  \item \textbf{Insertion} d'un ordre limite ($+1$ au volume d'un niveau)~;
+  \item \textbf{Annulation} ou \textbf{exécution} par un ordre de marché ($-1$
+        au volume).
+\end{itemize}
+
+\subsection{Événement cible : l'épuisement d'un niveau}
+
+Lorsque $q_{a,1}$ tombe à zéro, le mid-price monte d'un demi-tick et la
+deuxième limite ask devient la nouvelle première. Ce mécanisme est la brique
+élémentaire de la dynamique de prix à court terme. Les quantités centrales sont
+\[
+  \tau_a = \inf\{t \ge 0 : q_{a,1}(t) = 0\},\quad
+  \tau_b = \inf\{t \ge 0 : q_{b,1}(t) = 0\},
+\]
+et plus précisément $T_{\min} = \min(\tau_a, \tau_b)$ (prochain mouvement de
+prix) et $\Pb(\tau_a < \tau_b)$ (direction du mouvement).
+
+\subsection{Progression des modèles}
+
+Notre démarche suit cinq niveaux de complexité croissante~:
+\begin{enumerate}[leftmargin=1.6em,itemsep=2pt]
+  \item \textbf{Poisson indépendant}
+        (sections~\ref{sec:poisson}--\ref{sec:surface3d})~: intensités
+        constantes, bid et ask indépendants.
+  \item \textbf{Hawkes individuel}
+        (section~\ref{sec:hawkes_indiv})~: intensité d'annulation auto-excitée.
+  \item \textbf{Hawkes couplé + processus auxiliaire}
+        (sections~\ref{sec:hawkes_couple}--\ref{sec:q2_excite})~: les deux
+        côtés s'inhibent mutuellement, la deuxième limite est simulée en
+        parallèle.
+  \item \textbf{Dynamique de prix multi-niveaux}
+        (section~\ref{sec:prix})~: enchaînement des cycles d'épuisement en une
+        trajectoire de mid-price.
+  \item \textbf{Événements rares, risque et calibration}
+        (sections~\ref{sec:splitting}--\ref{sec:bitcoin})~: splitting AMS,
+        importance sampling, MLE, application aux données de marché.
+\end{enumerate}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Cadre paramétrique}
+\label{sec:params}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lcp{0.58\linewidth}@{}}
+\toprule
+Paramètre & Valeur & Rôle / justification \\
+\midrule
+$\lambda^+$ & $1{,}2$ & Intensité d'insertion~; inférieure à $\lambda^-$ pour garantir $\mu = -0{,}8$. \\
+$\lambda^-$ & $2{,}0$ & Intensité d'annulation~; $\sigma^2 = \lambda^+ + \lambda^- = 3{,}2$. \\
+$q_0$ & $10$ & Volume initial~: régime fluide mais $\tau$ observable. \\
+$T$ & $100$ & Horizon des trajectoires de référence. \\
+$\mu^-$ & $2{,}0$ & Intensité de fond Hawkes (= $\lambda^-$ pour comparabilité). \\
+$\alpha$ & $0{,}5$ & Gain d'excitation Hawkes~; $\rho = \alpha/\beta = 0{,}5 < 1$ (stabilité). \\
+$\beta$ & $1{,}0$ & Taux de relaxation exponentielle. \\
+$a, b$ & $0{,}8\,,\;1{,}0$ & Excitation croisée du niveau $q_2$ par les décréments du niveau 1. \\
+$M$ (MC) & $10^3$--$5\cdot10^3$ & $\hat\sigma/\sqrt{M} \approx 1\,\%$ de l'estimée. \\
+\bottomrule
+\end{tabular}
+\caption{Paramètres globaux du projet. Le choix $\lambda^- > \lambda^+$ garantit un drift négatif $\mu = -0{,}8$, condition nécessaire pour que l'atteinte de zéro soit presque sûre.}
+\label{tab:params}
+\end{table}
+
+Trois références théoriques découlent de ces paramètres~:
+\[
+  \E[\tau]_{\text{BM}} = \frac{q_0}{|\mu|} = 12{,}5,
+  \qquad
+  \Var(\tau)_{\text{BM}} = \frac{q_0\,\sigma^2}{|\mu|^3} = 62{,}5,
+  \qquad
+  \bar\lambda^-_\infty = \frac{\mu^-\beta - \lambda^+\alpha}{\beta - \alpha} = 2{,}8.
+\]
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Modèle de Poisson indépendant}
+\label{sec:poisson}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Simulation exacte}
+
+Chaque côté : $q(t) = q_0 + N^+_t - N^-_t$, $N^\pm$ de Poisson indépendants
+d'intensités $\lambda^\pm$, absorbés en zéro. La simulation est exacte (inter-événements $\sim\mathrm{Exp}(\lambda^++\lambda^-)$, chaque saut $+1$ avec proba $\lambda^+/(\lambda^++\lambda^-)$).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\linewidth]{figures/trajectories_subplots.png}
+\caption{Réalisation de $q_a$ (haut) et $q_b$ (bas) jusqu'à atteinte de zéro
+($\lambda^+=1{,}2$, $\lambda^-=2$, $q_0=10$). Le drift négatif est visible.
+\textit{Horizontal~: temps~; vertical~: volume.}}
+\label{fig:traj}
+\end{figure}
+
+\subsection{Estimation Monte-Carlo et intervalle de confiance}
+\label{sec:mc_mean}
+
+\[
+  \widehat T_M = \frac{1}{M}\sum_{i=1}^M \tau^{(i)},
+  \qquad
+  \mathrm{IC}_{95\,\%} = \widehat T_M \pm 1{,}96\,\frac{\hat\sigma_M}{\sqrt{M}}.
+\]
+
+Sur $M = 2000$ trajectoires~: $\widehat T_{\text{1 proc.}} = 12{,}25$,
+IC $=[11{,}90\,;\,12{,}60]$ et $\widehat T_{\min} = 8{,}53$, IC $=[8{,}33\,;\,8{,}72]$.
+
+\begin{resultatpositif}
+La référence brownienne $\E[\tau]_\mathrm{BM} = 12{,}5$ tombe à l'intérieur
+de l'IC à 95\,\%. L'approximation diffusive prédit correctement la moyenne.
+\end{resultatpositif}
+
+\subsection{Trajectoire conjointe dans le plan $(q_b,\,q_a)$}
+
+Les deux processus ayant des grilles de temps différentes, on synchronise par
+recherche binaire (\texttt{np.searchsorted}) sur l'union des temps d'événements,
+en coût $O(n\log n)$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.58\linewidth]{figures/trajectory_plane.png}
+\caption{Trajectoire conjointe $(q_b(t), q_a(t))$. Point rouge~: départ $(10,10)$~;
+point vert~: arrêt. La transparence encode la densité de visite.
+\textit{Horizontal~: volume bid~; vertical~: volume ask.}}
+\label{fig:plane}
+\end{figure}
+
+\subsection{Approximation diffusive et loi inverse-gaussienne}
+\label{sec:diffusive}
+
+Par TCL fonctionnel pour les processus de Poisson centrés-renormalisés~:
+\[
+  \dif Q_t = \mu\,\dif t + \sigma\,\dif W_t,
+  \quad Q_0 = q_0,
+  \quad \mu = \lambda^+-\lambda^-,
+  \quad \sigma = \sqrt{\lambda^++\lambda^-}.
+\]
+
+Sur 5000 trajectoires libres à $T=100$~: $\hat\mu_\mathrm{emp} = -70{,}56$
+(théorique $-70$, écart $+0{,}8\,\%$) et $\hat\sigma_\mathrm{emp} = 17{,}74$
+(théorique $17{,}89$, écart $-0{,}8\,\%$).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.58\linewidth]{figures/gaussian_approx.png}
+\caption{Distribution empirique de $q(T)$ (bleu) vs densité $\mathcal{N}(-70,\,320)$ (rouge).
+\textit{Horizontal~: position $q(T)$~; vertical~: densité.}}
+\label{fig:gauss}
+\end{figure}
+
+Le premier temps d'atteinte de zéro du mouvement brownien de drift négatif
+suit une loi inverse-gaussienne~:
+\[
+  \tau \sim \IG(\mu_\IG, \lambda_\IG),
+  \qquad
+  \mu_\IG = \frac{q_0}{|\mu|} = 12{,}5,
+  \qquad
+  \lambda_\IG = \frac{q_0^2}{\sigma^2} = 31{,}25.
+\]
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+& Théorique (BM) & Empirique ($N=5000$) & Écart relatif \\
+\midrule
+Moyenne $\E[\tau]$    & $12{,}500$ & $12{,}537$ & $+0{,}30\,\%$ \\
+Variance $\Var(\tau)$ & $62{,}500$ & $66{,}731$ & $+6{,}77\,\%$ \\
+\midrule
+Kolmogorov-Smirnov & \multicolumn{2}{c}{$D = 0{,}019$} & $p=0{,}28$ \\
+\bottomrule
+\end{tabular}
+\caption{Adéquation de la loi IG aux temps d'arrêt simulés (Poisson).}
+\label{tab:igval}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.58\linewidth]{figures/ig_distribution.png}
+\caption{Histogramme des temps d'arrêt simulés (bleu) et densité IG théorique (rouge).
+Le test KS ne rejette pas l'adéquation ($p=0{,}28$).
+\textit{Horizontal~: temps d'arrêt~; vertical~: densité.}}
+\label{fig:igval}
+\end{figure}
+
+\begin{resultatpositif}
+L'adéquation IG est excellente ($+0{,}3\,\%$ sur la moyenne). L'écart de
+$+6{,}8\,\%$ sur la variance est attendu~: la marche entière est plus discrète
+qu'une diffusion continue, et $q_0=10$ n'est pas dans le régime asymptotique.
+\end{resultatpositif}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Probabilité de ruine et surface 3D}
+\label{sec:ruin}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Probabilité que l'ask atteigne zéro avant le bid}
+
+Pour deux Poisson indépendants et de mêmes paramètres~:
+\[
+  p(q_0^a, q_0^b) = \int_0^\infty f_{\tau_a}(t)\,\bigl(1-F_{\tau_b}(t)\bigr)\,\dif t,
+\]
+sans forme close mais calculable par quadrature numérique rapide. On compare
+la surface MC sur la grille $(q_0^a, q_0^b) \in \{1,\ldots,10\}^2$
+($M=500$ par grain) à la prédiction brownienne.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/ruin_validation.png}
+\caption{Surface MC (gauche), prédiction par quadrature IG (centre), écart absolu (droite).
+Erreur max.~: $0{,}050$, conforme au bruit MC ($\sqrt{p(1-p)/M} \le 0{,}022$).
+\textit{Axes~: $q_0^a$ et $q_0^b$~; surface~: probabilité.}}
+\label{fig:ruinval}
+\end{figure}
+
+\subsection{Surface 3D du temps moyen d'épuisement}
+\label{sec:surface3d}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/time_proba_3d_poisson.png}
+\caption{Modèle Poisson indépendant. Gauche~: $\E[\min(\tau_a,\tau_b)]$ avec IC 95\,\%
+(wireframes rouge et noir). Droite~: $\Pb(\tau_a<\tau_b)$.
+\textit{Axes x, y~: $q_0^a$, $q_0^b$~; surface~: valeur.}}
+\label{fig:poisson3d}
+\end{figure}
+
+Sur la diagonale ($q_0^a = q_0^b$), la probabilité empirique vaut
+$0{,}497 \approx 1/2$ et l'IC reste de l'ordre de $\pm 2\,\%$ pour $M=300$.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Processus de Hawkes individuel}
+\label{sec:hawkes_indiv}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Modèle et intensité stationnaire}
+
+\[
+  \lambda^-(t) = \mu^- + \sum_{T_i < t} \alpha\,e^{-\beta(t-T_i)},
+  \qquad
+  \bar\lambda^-_\infty = \frac{\mu^-\beta - \lambda^+\alpha}{\beta-\alpha} = 2{,}8.
+\]
+
+La condition $\rho = \alpha/\beta = 1/2 < 1$ garantit la stabilité.
+
+\subsection{Algorithme de thinning d'Ogata}
+
+\begin{algorithm}[H]
+\caption{Thinning d'Ogata pour le Hawkes individuel}
+\begin{algorithmic}[1]
+\State $t \gets 0$,\; $\lambda^- \gets \mu^-$
+\While{condition d'arrêt non atteinte}
+  \State $\bar\lambda \gets \max(\mu^-, \lambda^-)$,\; $\Lambda \gets \bar\lambda + \lambda^+$
+  \State $\Delta t \sim \mathcal{E}(\Lambda)$,\; $t' \gets t + \Delta t$
+  \State $\lambda^-_\mathrm{pre} \gets \mu^- + (\lambda^--\mu^-)e^{-\beta(t'-t_\mathrm{last})}$ \Comment{relaxation}
+  \State $U \sim \mathcal{U}[0,1]$
+  \If{$U < \lambda^+/\Lambda$}
+    \State $q\gets q+1$,\; $\lambda^- \gets \max(\lambda^-_\mathrm{pre}-\alpha,\,0)$ \Comment{insertion}
+  \ElsIf{$U < (\max(\lambda^-_\mathrm{pre},0)+\lambda^+)/\Lambda$}
+    \State $q\gets q-1$,\; $\lambda^- \gets \lambda^-_\mathrm{pre}+\alpha$ \Comment{annulation}
+  \Else
+    \State $\lambda^- \gets \lambda^-_\mathrm{pre}$ \Comment{rejet}
+  \EndIf
+  \State $t \gets t'$
+\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Résultats numériques}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{figures/hawkes_trajectory.png}
+  \caption{$q(t)$ sur $[0,T]$. \textit{Horizontal~: temps~; vertical~: volume.}}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{figures/hawkes_stopping_dist.png}
+  \caption{Distribution du temps d'arrêt. \textit{Horizontal~: $\tau$~; vertical~: fréquence.}}
+\end{subfigure}
+\caption{Modèle de Hawkes individuel~: trajectoire type et distribution du temps d'arrêt. L'auto-excitation génère des avalanches (queue gauche) et étire la queue droite comparé au Poisson.}
+\label{fig:hawkes_traj}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{figures/hawkes_lambda.png}
+  \caption{$\lambda^-(t)$ pour une trajectoire. \textit{Horizontal~: temps~; vertical~: intensité.}}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{figures/hawkes_lambda_T.png}
+  \caption{Distribution de $\lambda^-(T)$ ($T=1000$). Ligne rouge~: $\bar\lambda^-_\infty=2{,}8$. \textit{Horizontal~: $\lambda^-$~; vertical~: fréquence.}}
+\end{subfigure}
+\caption{Intensité Hawkes~: dynamique intra-trajectoire (gauche) et distribution en régime stationnaire (droite).}
+\label{fig:hawkes_lambda}
+\end{figure}
+
+\paragraph{Validation de la moyenne stationnaire.}
+Sur 100 trajectoires ($T=2000$, burn-in de 200)~:
+$\bar\lambda^-_{\infty,\mathrm{emp}} = 2{,}97 \pm 0{,}01$
+contre $2{,}80$ théorique (écart $+6\,\%$).
+
+\begin{resultatnegatif}
+L'écart de $+6\,\%$ sur la moyenne stationnaire provient du \emph{clipping}~:
+quand la relaxation pousse $\lambda^-_\mathrm{pre}$ en dessous de zéro, on
+clamp à zéro plutôt que d'attribuer une probabilité négative. Ce clamp crée
+un biais positif systématique. L'origine est identifiée~: c'est un biais
+intrinsèque à toute implémentation qui clamp une intensité Hawkes à zéro.
+\end{resultatnegatif}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Hawkes couplé bid/ask et processus auxiliaire}
+\label{sec:hawkes_couple}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Couplage inhibitoire}
+
+Les deux côtés sont simulés conjointement~: chaque annulation ask augmente
+$\lambda^-_a$ (auto-excitation) et diminue $\lambda^-_b$ (inhibition croisée).
+L'algorithme de thinning est adapté avec une borne globale
+$\bar\lambda_a + \bar\lambda_b + \lambda^+_a + \lambda^+_b$.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{figures/coupled_hawkes_traj.png}
+  \caption{Trajectoires couplées. \textit{Horizontal~: temps~; vertical~: volume.}}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{figures/coupled_hawkes_stopping.png}
+  \caption{Distribution de $\min(\tau_a,\tau_b)$. \textit{Horizontal~: temps~; vertical~: fréquence.}}
+\end{subfigure}
+\caption{Hawkes couplé bid/ask ($\mu^-_a=\mu^-_b=2$). Le couplage réduit nettement le temps moyen d'épuisement.}
+\label{fig:coupled}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/hawkes_coupled_3d.png}
+\caption{Hawkes couplé. Gauche~: $\E[\min(\tau_a,\tau_b)]$ avec IC 95\,\%. Droite~: $\Pb(\tau_a<\tau_b)$.
+\textit{Axes x, y~: $q_0^a$, $q_0^b$~; surface~: valeur.}}
+\label{fig:hawkes3d}
+\end{figure}
+
+Au coin $(10,10)$~: $\E[\min(\tau_a,\tau_b)] = 5{,}83$ contre $8{,}32$ pour le
+Poisson équivalent (facteur $\approx 0{,}70$).
+
+\subsection{Comparaison des quatre régimes}
+\label{sec:comparaison}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Modèle & Moyenne & Écart-type & Médiane & IQR \\
+\midrule
+Poisson individuel             & $12{,}42$ & $7{,}41$ & $10{,}62$ & $[7{,}28\,;\,15{,}30]$ \\
+Premier de deux Poisson indép. & $8{,}56$  & $4{,}25$ & $7{,}67$  & $[5{,}60\,;\,10{,}52]$ \\
+Hawkes individuel              & $8{,}80$  & $6{,}83$ & $6{,}89$  & $[4{,}18\,;\,11{,}17]$ \\
+Hawkes couplé bid/ask          & $5{,}91$  & $3{,}55$ & $5{,}11$  & $[3{,}36\,;\,7{,}42]$ \\
+\bottomrule
+\end{tabular}
+\caption{Comparaison synthétique des distributions de temps d'arrêt ($q_0=10$, $M=1000$).}
+\label{tab:cmp}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\linewidth]{figures/comparison.png}
+\caption{Densités empiriques du temps d'arrêt pour les quatre régimes. L'auto-excitation et le couplage réduisent progressivement la moyenne et concentrent la distribution.
+\textit{Horizontal~: temps d'arrêt~; vertical~: densité.}}
+\label{fig:cmp}
+\end{figure}
+
+Trois enseignements~: (1)~le passage au minimum de deux Poisson divise la
+moyenne par $\approx 1{,}45$ (effet combinatoire pur)~; (2)~le Hawkes
+individuel abaisse la \emph{médiane} plus que la \emph{moyenne} (queue droite
+épaisse)~; (3)~le couplage combine et amplifie les deux effets.
+
+\subsection{Processus auxiliaire $q_2$ au niveau adjacent}
+\label{sec:q2}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/q2_asymmetric.png}
+\caption{Distribution conditionnelle de $q_2(\tau)$ selon le côté s'épuisant en premier,
+cas asymétrique $\mu^-_a=2$, $\mu^-_b=1{,}2$. La sélection sur le côté vainqueur
+décale visible\-ment la distribution, reflétant la durée typiquement plus courte
+des trajectoires où l'ask cède en premier.
+\textit{Horizontal~: volume $q_2$ à l'arrêt~; vertical~: fréquence.}}
+\label{fig:q2_cond}
+\end{figure}
+
+\subsection{Intensité $\lambda^+_2$ excitée par les décréments d'ask}
+\label{sec:q2_excite}
+
+\[
+  \lambda^+_2(t) = \mu^+_2 + \sum_{T_i^{\downarrow,a}<t} a\,e^{-b(t-T_i^{\downarrow,a})}.
+\]
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{figures/q2_symmetric_poisson.png}
+  \caption{$q_2$ Poisson constant (référence). \textit{Horizontal~: volume~; vertical~: fréquence.}}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{figures/q2_symmetric_excited.png}
+  \caption{$q_2$ avec $\lambda^+_2$ excitée par décréments ask. \textit{Horizontal~: volume~; vertical~: fréquence.}}
+\end{subfigure}
+\caption{Distribution conditionnelle de $q_2(\tau)$, cas symétrique ($\mu^-_a=\mu^-_b=2$). L'excitation croisée déplace les distributions vers des volumes plus élevés (droite).}
+\label{fig:q2_sym}
+\end{figure}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Passage au prix : modèle à quatre limites}
+\label{sec:prix}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Architecture}
+
+On maintient quatre files~: $q_{a,1}$, $q_{b,1}$ (Hawkes couplé),
+$q_{a,2}$, $q_{b,2}$ (Poisson à intensité variable excitée). Lors de
+l'épuisement de $q_{a,1}$~:
+\[
+  q_{a,1} \leftarrow q_{a,2},\quad
+  q_{a,2} \leftarrow q_0,\quad
+  p_0 \uparrow \tfrac{\delta^p}{2}.
+\]
+Les intensités Hawkes sont continues entre cycles
+($\lambda_a^\tau, \lambda_b^\tau$ initialisent le cycle suivant).
+
+\paragraph{Choix des paramètres.}
+Le cas symétrique ($\mu^-_a = \mu^-_b = 2$) correspond à une quasi-martingale~;
+le cas asymétrique ($\mu^-_a = 3$, $\mu^-_b = 1{,}5$) induit une pression
+vendeuse~: les annulations ask plus fréquentes déclenchent des montées de prix
+plus souvent que des baisses.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{figures/price_sym.png}
+  \caption{Cas symétrique~: quasi-martingale. \textit{Horizontal~: temps~; vertical~: mid-price (ticks).}}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{figures/price_asym.png}
+  \caption{Cas asymétrique~: dérive positive. \textit{Horizontal~: temps~; vertical~: mid-price (ticks).}}
+\end{subfigure}
+\caption{Trajectoires du mid-price sur 100 cycles. Gauche~: $\mu^-_a=\mu^-_b=2$ (quasi-martingale, $\hat p_\uparrow\approx0{,}498$). Droite~: $\mu^-_a=3$, $\mu^-_b=1{,}5$ ($\hat p_\uparrow\approx0{,}943$, dérive $\approx+0{,}44$ tick/cycle).}
+\label{fig:price}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{figures/orderbook_sym.png}
+  \caption{Cas symétrique, 25 cycles. \textit{Horizontal~: temps~; vertical~: volumes et prix.}}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{figures/orderbook_asym.png}
+  \caption{Cas asymétrique, 25 cycles. \textit{Horizontal~: temps~; vertical~: volumes et prix.}}
+\end{subfigure}
+\caption{État du carnet d'ordres~: volumes des quatre limites et mid-price. Dans le cas asymétrique, les épuisements ask sont plus fréquents et les montées de prix dominent.}
+\label{fig:orderbook}
+\end{figure}
+
+\begin{resultatpositif}
+Dans le cas symétrique, $\hat p_\uparrow = 0{,}498 \approx 1/2$ confirme la
+quasi-martingale. Dans le cas asymétrique ($\mu^-_a=3$, $\mu^-_b=1{,}5$),
+$\hat p_\uparrow = 0{,}943$ et la dérive est de $+0{,}44$ tick/cycle~:
+l'asymétrie des intensités d'annulation se traduit directement en dérive du
+prix.
+\end{resultatpositif}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Méthodes pour les événements rares}
+\label{sec:splitting}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Motivation}
+
+Quand $p = \Pb(\tau_a < \tau_b) \ll 1$, le CV de l'estimateur MC naïf diverge~:
+$\mathrm{CV}(\hat p) = \sqrt{(1-p)/(Mp)} \to \infty$ quand $p \to 0$.
+
+\subsection{Splitting AMS (Adaptive Multilevel Splitting)}
+\label{sec:ams}
+
+On décompose l'événement rare en $Q_0$ paliers successifs~:
+$\mathcal{A}_k = \{q_{a,1} \le k\}$, $k = Q_0-1, \ldots, 0$.
+
+\paragraph{Algorithme.} Pour $k = Q_0-1$ jusqu'à $0$~:
+\begin{enumerate}[leftmargin=1.6em,itemsep=2pt]
+  \item Simuler chaque particule jusqu'à succès ($q_{a,1}=k$) ou échec
+        ($q_{b,1}=0$). Enregistrer $\hat p_k = n_k/N$.
+  \item Ré-échantillonner $N$ copies parmi les $n_k$ survivants, en héritant
+        de l'état Hawkes complet
+        $(\lambda_a^\mathrm{fin}, \lambda_b^\mathrm{fin}, t^\mathrm{fin})$.
+\end{enumerate}
+
+\paragraph{Estimateur et IC.}
+\[
+  \hat P_\mathrm{AMS} = \prod_{k=0}^{Q_0-1} \hat p_k,
+  \qquad
+  \mathrm{IC}_{95\,\%} = \hat P_\mathrm{AMS}
+  \pm 1{,}96\,\hat P_\mathrm{AMS}\sqrt{\frac{1}{N}\sum_k\frac{1-\hat p_k}{\hat p_k}}.
+\]
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{figures/splitting_sym_ask.png}
+  \caption{Cas symétrique ($p\approx0{,}5$). \textit{Horizontal~: $q_2$ à l'arrêt~; vertical~: fréquence.}}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{figures/splitting_asym_ask.png}
+  \caption{Cas asymétrique ($p\approx0{,}93$). \textit{Horizontal~: $q_2$ à l'arrêt~; vertical~: fréquence.}}
+\end{subfigure}
+\caption{Distribution de $Q_{a,2}(\tau_a)$ estimée par splitting AMS (bleu) et MC direct (orange). Dans le cas asymétrique, AMS exploite mieux le budget computationnel.}
+\label{fig:splitting}
+\end{figure}
+
+\subsection{Distribution des états aux niveaux de splitting (§16)}
+\label{sec:splitting_levels}
+
+On stocke les distributions empiriques $\hat\pi_k$ des états survivants à chaque
+palier (phase hors-ligne), puis on bootstrappe depuis $\hat\pi_{k^*}$ pour
+simuler uniquement les $k^*$ derniers niveaux (phase en ligne). L'estimateur se
+factorise~:
+\[
+  \hat P(\tau_a < \tau_b)
+  = \underbrace{\prod_{j=Q_0-1}^{k^*+1} \hat p_j}_{P_\mathrm{off}}
+  \times \hat P\bigl(\tau_a < \tau_b \mid q_{a,1} \le k^*\bigr).
+\]
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.72\linewidth]{figures/splitting_levels_offline.png}
+\caption{Distribution de $(\lambda_a, \lambda_b)$ aux niveaux $k=1,3,5$ (phase hors-ligne,
+cas asymétrique $\mu_a^-=3$, $\mu_b^-=1{,}5$). Les survivants ont une intensité ask
+nettement plus élevée que la valeur de fond $\mu_a^-=3$.
+\textit{Horizontal~: $\lambda_a$~; vertical~: $\lambda_b$.}}
+\label{fig:splitting_levels}
+\end{figure}
+
+Phase hors-ligne~: $0{,}10$~s ($N=500$)~; phase en ligne depuis $k^*=5$~:
+$0{,}02$~s ($N=400$). La probabilité totale ($0{,}9326$) est cohérente avec
+le splitting complet ($0{,}9416$).
+
+\subsection{Flash crash de profondeur $k$}
+\label{sec:flashcrash}
+
+Un flash crash de profondeur $k$~:
+\[
+  \mathrm{FC}_k = \{\tau_a^{(1)}<\tau_b,\;\tau_a^{(2)}<\tau_b,\;\ldots,\;\tau_a^{(k)}<\tau_b\}.
+\]
+
+Après chaque épuisement ask, les intensités héritées $(\lambda_a^\mathrm{fin}, \lambda_b^\mathrm{fin})$ initialisent le cycle suivant, rendant le prochain épuisement ask plus probable~: $P(\mathrm{FC}_k) > p_1^k$.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{figures/flash_crash_sym.png}
+  \caption{Cas symétrique ($\mu_a^-=\mu_b^-=2$). \textit{Horizontal~: profondeur $k$~; vertical~: probabilité.}}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{figures/flash_crash_asym.png}
+  \caption{Cas asymétrique ($\mu_a^-=1{,}5$, $\mu_b^-=3$). \textit{Horizontal~: $k$~; vertical~: prob. (log).}}
+\end{subfigure}
+\caption{Probabilité du flash crash de profondeur $k$~: AMS (bleu) vs modèle i.i.d.\ (orange). Le modèle indépendant \emph{sous-estime} systématiquement $P(\mathrm{FC}_k)$ dès $k=2$.}
+\label{fig:flashcrash}
+\end{figure}
+
+\begin{resultatpositif}
+L'héritage des intensités Hawkes rend $P(\mathrm{FC}_k)$ plus de $5\times$
+supérieur à la prédiction i.i.d.\ dès $k=3$. Le modèle à cycles indépendants
+sous-estime structurellement le risque de cascade.
+\end{resultatpositif}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Importance sampling par basculement exponentiel}
+\label{sec:is}
+% ─────────────────────────────────────────────────────────────────────────────
+
+On tord les intensités par $\theta > 0$~:
+$\tilde\lambda_a^- = e^\theta \lambda_a^-$,
+$\tilde\lambda_b^- = e^{-\theta} \lambda_b^-$,
+avec le log-rapport de vraisemblance~:
+\[
+  \log L = (e^\theta-1)I_a + (e^{-\theta}-1)I_b - \theta N_a + \theta N_b,
+\]
+où $I_\ell = \int_0^\tau \lambda_\ell^-\,\dif t$ est le compensateur. Le
+$\theta^*$ minimisant $\mathrm{CV}^2$ est trouvé par balayage sur $[0,3]$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\linewidth]{figures/is_comparison.png}
+\caption{Balayage en $\theta$. Gauche~: $\mathrm{CV}^2(\theta)$ (bleu, $N=800$~par point)~;
+minimum autour de $\theta\approx0{,}3$. Droite~: $\hat p(\theta)$ (bleu) vs AMS (tiret rouge).
+\textit{Horizontal~: $\theta$~; vertical gauche~: $\mathrm{CV}^2$~; vertical droite~: probabilité.}}
+\label{fig:is}
+\end{figure}
+
+\begin{resultatnegatif}
+Pour le régime asymétrique ($\mu_a^-=1{,}5$, $\mu_b^-=3$), le basculement
+exponentiel réduit le $\mathrm{CV}^2$ de $4{,}2$ à $\approx2{,}1$, soit un
+gain modeste. En comparaison, l'AMS est $\mathbf{33\times}$ plus efficace
+que l'IS optimal pour ce problème. Le basculement modifie globalement toutes
+les trajectoires, sans cibler spécifiquement la queue qui mène à l'épuisement~;
+c'est pourquoi la décomposition en niveaux du splitting est naturellement mieux
+adaptée à ce type de problème.
+\end{resultatnegatif}
+
+\subsection{Intervalles de confiance et convergence}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{figures/clt_comparison.png}
+  \caption{Largeur IC vs $N$ (AMS bleu, IS orange). Loi $\propto 1/\sqrt N$ vérifiée.
+  \textit{Horizontal~: $N$~; vertical~: demi-largeur IC.}}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\linewidth}
+  \includegraphics[width=\linewidth]{figures/ams_convergence.png}
+  \caption{Convergence AMS en $1/\sqrt N$ (log-log, pente $-0{,}5$).
+  \textit{Horizontal~: $N$~; vertical~: écart-type de $\hat P_\mathrm{AMS}$.}}
+\end{subfigure}
+\caption{Validation empirique des CLT pour l'AMS (méthode delta) et l'IS (CLT classique). Les deux méthodes convergent bien en $1/\sqrt N$.}
+\label{fig:clt}
+\end{figure}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Métriques de risque de liquidité}
+\label{sec:risque}
+% ─────────────────────────────────────────────────────────────────────────────
+
+Trois métriques sont calculées à partir des simulations~:
+
+\paragraph{Distribution de $\tau_a \mid \tau_a < \tau_b$.}
+Collectée en récupérant le temps final des particules AMS survivantes.
+
+\paragraph{Gradient $\partial P / \partial \mu_a^-$ par score function (REINFORCE).}
+\[
+  \frac{\partial P}{\partial \mu_a^-}
+  = \E\!\bigl[\mathbf{1}_{\tau_a<\tau_b}\cdot s(X)\bigr],
+  \quad
+  s(X) = \sum_{t_i\in\mathcal{D}_a} \frac{1}{\lambda_a^-(t_i)} - \tau.
+\]
+Résultat~: score function $= 0{,}436$ contre $0{,}498$ par différences finies
+(accord à $12\,\%$).
+
+\paragraph{Expected Shortfall du flash crash.}
+$P(K\ge k) = P(\mathrm{FC}_k)$ via splitting (§\ref{sec:flashcrash})~;
+$\mathrm{ES}(\alpha) = \tfrac{\delta}{2}\E[K \mid K\ge k^*(\alpha)]$.
+Résultat (cas symétrique)~: $\E[\text{perte}] \approx 0{,}569\,\delta$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/risk_metrics.png}
+\caption{Métriques de risque (cas symétrique, $N=400$).
+Gauche~: distribution de $\tau_a \mid \tau_a<\tau_b$.
+Centre~: gradient score function (bleu) vs différences finies (rouge).
+Droite~: profil de l'Expected Shortfall.
+\textit{Horizontaux~: $\tau_a$, $\mu_a^-$, niveau $\alpha$~; verticaux~: fréquence, gradient, ES (ticks).}}
+\label{fig:risque}
+\end{figure}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Calibration par maximum de vraisemblance}
+\label{sec:mle}
+% ─────────────────────────────────────────────────────────────────────────────
+
+La log-vraisemblance du Hawkes bivarié s'écrit en $O(n)$ via la récurrence
+$R(t_i) = e^{-\beta(t_i-t_{i-1})}(1+R(t_{i-1}))$~:
+\begin{align*}
+  \ell(\mu_a,\mu_b,\alpha,\beta)
+  &= \sum_{t\in\mathcal{D}_a}\log(\mu_a+\alpha R(t))
+   + \sum_{t\in\mathcal{D}_b}\log(\mu_b+\alpha R(t)) \\
+  &\quad - (\mu_a+\mu_b)T
+   - \frac{2\alpha}{\beta}\sum_{s\in\mathcal{D}}(1-e^{-\beta(T-s)}).
+\end{align*}
+Maximisation par Nelder-Mead avec 8 redémarrages.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+& $\mu_a^-$ & $\mu_b^-$ & $\alpha$ & $\beta$ \\
+\midrule
+Vraies valeurs   & $3{,}0$ & $1{,}5$ & $0{,}5$ & $1{,}0$ \\
+Estimées par MLE & $4{,}38$ & $1{,}03$ & $0{,}000$ & $1{,}76$ \\
+\bottomrule
+\end{tabular}
+\caption{Calibration MLE sur 150 cycles synthétiques ($|D_a|=1996$, $|D_b|=471$).}
+\label{tab:mle}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\linewidth]{figures/mle_calibration.png}
+\caption{Calibration MLE. Gauche~: taux empiriques ask/bid et valeurs calibrées.
+Droite~: profil de log-vraisemblance en fonction de $\mu_a^-$.
+\textit{Horizontaux~: temps~; $\mu_a^-$. Verticaux~: taux~; log-lik.}}
+\label{fig:mle}
+\end{figure}
+
+\begin{resultatnegatif}
+$\hat\alpha = 0$ sur données synthétiques inhibitoires est un biais structurel,
+non une erreur numérique~: le modèle calibré suppose une auto-excitation mutuelle
+positive, alors que le vrai modèle est inhibitoire. Le MLE ne peut pas
+expliquer l'inhibition par une excitation positive, d'où $\hat\alpha \to 0$
+et $\hat\mu_a^-$ absorbant la sur-intensité ask. Un Hawkes avec inhibition
+explicite serait nécessaire pour retrouver les vraies valeurs.
+\end{resultatnegatif}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Comparaison des méthodes en régime très asymétrique}
+\label{sec:comparaison_methodes}
+% ─────────────────────────────────────────────────────────────────────────────
+
+Régime~: $\mu_a^-=1{,}5$, $\mu_b^-=5{,}0$, $Q_0=10$.
+Quatre méthodes comparées sur $R=20$ réplications~:
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Méthode & Budget & $\hat p$ (typique) & RE vs MC \\
+\midrule
+MC naïf              & $N=20\,000$ & $\approx0{,}063$ & $1\times$ \\
+AMS splitting        & $N=1\,000$  & $\approx0{,}065$ & $\mathbf{11{,}6\times}$ \\
+Empirique depuis $\hat\pi_k$ & $N_\mathrm{off}=600+N_\mathrm{on}=1500$ & $\approx0{,}066$ & $\approx8\times$ \\
+IS ($\theta^*=0{,}5$) & $N=5\,000$ & $\approx0{,}063$ & $7{,}7\times$ \\
+\bottomrule
+\end{tabular}
+\caption{Comparaison des méthodes en régime très asymétrique. RE~: efficacité relative par rapport au MC naïf.}
+\label{tab:methods}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\linewidth]{figures/methods_comparison.png}
+\caption{Comparaison des méthodes ($\mu_a^-=1{,}5$, $\mu_b^-=5{,}0$).
+Gauche~: distributions de $\hat p$ sur $R=20$ réplications.
+Droite~: IC 95\,\% pour chaque méthode.
+\textit{Horizontal~: $\hat p$~; vertical~: méthode.}}
+\label{fig:methods}
+\end{figure}
+
+\begin{resultatpositif}
+L'AMS est $11{,}6\times$ plus efficace que le MC naïf et $1{,}5\times$ plus
+efficace que l'IS pour ce problème. La décomposition en niveaux est naturellement
+adaptée à la structure de l'événement rare (seuil sur $q_{a,1}$).
+\end{resultatpositif}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Application aux données réelles}
+\label{sec:bitcoin}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Bitcoin Black Thursday (12 mars 2020)}
+
+Le 12 mars 2020, le Bitcoin a perdu \textbf{41\,\%} de sa valeur en une seule
+journée. Le mécanisme microstructural est directement celui de notre modèle~:
+les liquidations automatiques en cascade sur BitMEX et Binance ont épuisé
+répétitivement le côté bid~; chaque épuisement déclenchait de nouvelles
+liquidations (cascade $\{\tau_b < \tau_a\}^k$). Les market makers ont retiré
+leur liquidité dès que la volatilité implicite a explosé, aggravant la spirale.
+
+\paragraph{Données.}
+Bougies BTC/USDT 1h de l'API publique Binance (sans clé)~:
+1~746 bougies de 2020-01-01 à 2020-03-14. Une baisse horaire $=$ décrement
+bid~; une hausse $=$ décrement ask. Fenêtre pré-crise (1\,696 obs.) pour la
+calibration.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Paramètre & Valeur & Unité \\
+\midrule
+$\hat\mu_\mathrm{ask}$ & $0{,}5117$ & events/heure \\
+$\hat\mu_\mathrm{bid}$ & $0{,}4836$ & events/heure \\
+$\hat\alpha$           & $0{,}0000$ & --- \\
+$\hat\beta$            & $4{,}0233$ & events/heure \\
+\bottomrule
+\end{tabular}
+\caption{Paramètres calibrés par MLE sur la période pré-crise BTC/USDT 1h.}
+\label{tab:btc_mle}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/bitcoin_calibration.png}
+\caption{Gauche~: cours BTC/USDT 1h (la fenêtre de crise est marquée en rouge). Centre~: taux de décrémentation ask et bid sur la période pré-crise. Droite~: $P(k\text{ baisses consécutives})$ par AMS (bleu) vs modèle Bernoulli indépendant (orange).
+\textit{Horizontaux~: date~; prix USD~; profondeur $k$. Verticaux~: prix~; taux~; probabilité (log).}}
+\label{fig:btc}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}ccc@{}}
+\toprule
+Profondeur $k$ & $P_\mathrm{AMS}$ & $P_\mathrm{indép.}$ ($0{,}486^k$) \\
+\midrule
+1 & $4{,}98\times10^{-1}$ & $4{,}86\times10^{-1}$ \\
+2 & $4{,}93\times10^{-2}$ & $2{,}36\times10^{-1}$ \\
+3 & $3{,}62\times10^{-3}$ & $1{,}15\times10^{-1}$ \\
+4 & $5{,}42\times10^{-4}$ & $5{,}57\times10^{-2}$ \\
+5 & $1{,}51\times10^{-5}$ & $2{,}71\times10^{-2}$ \\
+8 & $1{,}45\times10^{-10}$ & $3{,}10\times10^{-3}$ \\
+\bottomrule
+\end{tabular}
+\caption{Flash crash BTC~: probabilités AMS vs Bernoulli indépendant. Pour $k=5$, l'AMS révèle une rareté $\mathbf{1\,788\times}$ plus grande que le modèle indépendant.}
+\label{tab:btc_fc}
+\end{table}
+
+\begin{resultatpositif}
+$\hat\alpha = 0$ en régime calme est le résultat attendu (quasi-Poisson
+pré-crise). L'AMS révèle que $k=5$ baisses consécutives avait
+$P\approx1{,}51\times10^{-5}$ ($\approx1/66\,000$), soit $1\,788\times$ plus
+rare que le modèle Bernoulli ne le suggérait. Sous ce régime calibré, aucun
+acteur de marché n'avait de raison actuarielle de se couvrir~: c'est cette
+rareté qui explique l'absence de couverture et l'ampleur de la chute.
+\end{resultatpositif}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Résultat négatif : tentative de modélisation du cas GameStop}
+\label{sec:gamestop}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\begin{resultatnegatif}[title={Résultat négatif --- Cas GameStop (GME, janvier 2021)}]
+Nous avons tenté d'appliquer la même procédure de calibration et d'estimation
+AMS au squeeze de GameStop de janvier 2021 (cours multiplié par $\approx30$
+en moins d'une semaine). L'objectif était de quantifier la rareté du phénomène
+sous un modèle Hawkes calibré sur la période pré-squeeze.
+\end{resultatnegatif}
+
+\subsection{Limitations des données disponibles}
+
+Les API libres (\texttt{yfinance}, Yahoo Finance, Alpha Vantage) ne fournissent
+que des données \emph{journalières} pour GME, soit 70 observations sur la période
+pré-squeeze. Cela donne 24 fois moins de données que le cas Bitcoin (1~696 obs.
+horaires).
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+Aspect & GME (journalier) & BTC Black Thursday (1h Binance) \\
+\midrule
+Résolution         & 1 pt/jour  & 24 pts/jour \\
+Taille calibration & $\sim$70 obs. & $\sim$1\,696 obs. \\
+Unité de $\beta$   & Sans unité physique & events/heure \\
+Mécanisme          & Coordination Reddit (exogène) & Liquidations en cascade (endogène) \\
+\bottomrule
+\end{tabular}
+\caption{Comparaison des sources de données pour les deux études de cas.}
+\label{tab:data_comparison}
+\end{table}
+
+\subsection{Problèmes rencontrés et enseignements}
+
+\paragraph{Calibration instable.}
+Avec 70 observations journalières, la log-vraisemblance est trop plate pour
+identifier $\alpha$ et $\beta$ séparément~: le MLE converge vers des solutions
+dégénérées ($\hat\alpha \to 0$ ou $\hat\alpha/\hat\beta \to 1^-$).
+
+\paragraph{$\beta$ sans signification physique.}
+Les cascades de short-covering opèrent à l'échelle des minutes ou heures, non
+des jours. Avec des données journalières, $\beta$ n'a pas d'unité physique et
+ne capture pas le phénomène pertinent.
+
+\paragraph{Mécanisme fondamentalement différent.}
+Le squeeze GME est une \emph{coordination externe} (Reddit/WallStreetBets)~;
+notre modèle Hawkes capture l'auto-excitation \emph{interne} au carnet. Ces
+deux mécanismes ne sont pas interchangeables.
+
+\paragraph{Conclusion.}
+L'application aux données GME a été abandonnée, non pour des raisons
+d'implémentation, mais parce que les données journalières libres n'ont pas la
+résolution nécessaire et que le mécanisme économique sous-jacent est exogène
+aux hypothèses du modèle. Cela nous a conduit à privilégier le Bitcoin Black
+Thursday, où les données 1h sont gratuitement accessibles et le mécanisme de
+liquidations en cascade est bien endogène et capturé par le modèle.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Conclusion}
+\label{sec:conclusion}
+% ─────────────────────────────────────────────────────────────────────────────
+
+\subsection{Bilan des résultats positifs}
+
+\begin{itemize}[leftmargin=1.6em,itemsep=2pt]
+  \item \textbf{Loi IG~:} adéquation à $+0{,}3\,\%$ sur la moyenne~; test
+        KS non-rejeté ($p=0{,}28$).
+  \item \textbf{Surfaces 3D~:} erreur absolue max.\ $0{,}050$, dans le bruit
+        Monte-Carlo.
+  \item \textbf{Passage Poisson→Hawkes couplé~:} temps moyen d'épuisement
+        divisé par $\approx2$ (de $12{,}4$ à $5{,}9$).
+  \item \textbf{Flash crash~:} non-indépendance des cycles quantifiée~;
+        $P(\mathrm{FC}_k)$ est $>5\times$ la prédiction i.i.d.\ dès $k=3$.
+  \item \textbf{AMS~:} convergence $1/\sqrt N$ validée~; $11{,}6\times$ plus
+        efficace que le MC naïf en régime très asymétrique.
+  \item \textbf{Bitcoin Black Thursday~:} $k=5$ baisses consécutives~:
+        $P\approx1{,}51\times10^{-5}$, soit $1\,788\times$ la rareté du modèle
+        indépendant.
+\end{itemize}
+
+\subsection{Bilan des résultats négatifs}
+
+\begin{itemize}[leftmargin=1.6em,itemsep=2pt]
+  \item \textbf{Biais clipping Hawkes~:} $+6\,\%$ sur $\bar\lambda^-_\infty$~;
+        biais identifié, source connue.
+  \item \textbf{Mauvaise spécification MLE~:} $\hat\alpha=0$ sur données
+        inhibitoires~; un Hawkes avec inhibition explicite est nécessaire.
+  \item \textbf{IS sous-performant~:} $33\times$ moins efficace que l'AMS~;
+        le basculement exponentiel n'est pas adapté aux événements de niveau.
+  \item \textbf{GameStop~:} données journalières insuffisantes, mécanisme
+        exogène incompatible.
+\end{itemize}
+
+\subsection{Pistes ouvertes}
+
+Calibration sur données tick-by-tick avec un Hawkes inhibitoire~;
+étude systématique du cas asymétrique~; test de Mann-Whitney sur les
+distributions de $q_2$~; extension à un carnet multi-niveaux~; application
+aux données Bitcoin tick-by-tick (TARDIS ou Kaiko).
+
+\end{document}
