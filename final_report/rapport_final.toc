@@ -13,8 +13,8 @@
 \contentsline {paragraph}{Interprétation.}{7}{paragraph*.9}%
 \contentsline {subsection}{\numberline {1.4}Loi inverse-gaussienne du temps d'atteinte de 0}{7}{subsection.1.4}%
 \contentsline {paragraph}{Objectif.}{7}{paragraph*.10}%
-\contentsline {paragraph}{Protocole.}{8}{paragraph*.11}%
-\contentsline {paragraph}{Comparaison des moments.}{8}{paragraph*.12}%
+\contentsline {paragraph}{Protocole.}{7}{paragraph*.11}%
+\contentsline {paragraph}{Comparaison des moments.}{7}{paragraph*.12}%
 \contentsline {paragraph}{Test d'adéquation globale.}{8}{paragraph*.13}%
 \contentsline {paragraph}{Visualisation.}{8}{paragraph*.14}%
 \contentsline {subsection}{\numberline {1.5}Probabilité de ruine asymétrique $\mathbb {P}(\tau _a < \tau _b)$}{9}{subsection.1.5}%
@@ -36,14 +36,14 @@
 \contentsline {subsection}{\numberline {3.2}Comparaison des quatre régimes}{16}{subsection.3.2}%
 \contentsline {subsection}{\numberline {3.3}Processus auxiliaire $q_2$ au niveau adjacent}{16}{subsection.3.3}%
 \contentsline {subsection}{\numberline {3.4}Intensité $\lambda ^+_2$ excitée par les décréments d'ask}{17}{subsection.3.4}%
-\contentsline {section}{\numberline {4}Passage au prix : modèle à quatre limites}{18}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Architecture et mécanique du saut de prix}{18}{subsection.4.1}%
+\contentsline {section}{\numberline {4}Passage au prix : modèle à quatre limites}{17}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Architecture et mécanique du saut de prix}{17}{subsection.4.1}%
 \contentsline {paragraph}{Objectif.}{18}{paragraph*.35}%
 \contentsline {paragraph}{Paramètres des deux régimes.}{18}{paragraph*.36}%
 \contentsline {paragraph}{Résultats numériques.}{18}{paragraph*.37}%
 \contentsline {paragraph}{Trajectoires.}{18}{paragraph*.38}%
 \contentsline {part}{II\hspace {1em}Estimation des probabilités d'événements rares~: Monte-Carlo, splitting AMS et importance sampling}{20}{part.2}%
-\contentsline {section}{\numberline {5}Limites du Monte-Carlo naïf en régime rare}{20}{section.5}%
+\contentsline {section}{\numberline {5}Limites du Monte-Carlo naïf en régime rare}{21}{section.5}%
 \contentsline {section}{\numberline {6}Splitting multiniveau (AMS)}{21}{section.6}%
 \contentsline {subsection}{\numberline {6.1}Algorithme AMS et estimateur}{21}{subsection.6.1}%
 \contentsline {paragraph}{Itération AMS.}{21}{paragraph*.42}%
@@ -65,18 +65,18 @@
 \contentsline {paragraph}{Protocole.}{26}{paragraph*.58}%
 \contentsline {paragraph}{Lecture de la figure.}{27}{paragraph*.59}%
 \contentsline {paragraph}{Résultats quantitatifs.}{27}{paragraph*.61}%
-\contentsline {paragraph}{Pourquoi l'IS est moins efficace que l'AMS.}{27}{paragraph*.62}%
+\contentsline {paragraph}{Pourquoi l'IS est moins efficace que l'AMS.}{28}{paragraph*.62}%
 \contentsline {part}{III\hspace {1em}Calibration par maximum de vraisemblance et confrontation aux données de marché}{28}{part.3}%
 \contentsline {section}{\numberline {8}Calibration par maximum de vraisemblance}{28}{section.8}%
 \contentsline {subsection}{\numberline {8.1}Log-vraisemblance du Hawkes bivarié à couplage croisé}{28}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2}Résultats numériques : modèle correctement spécifié}{29}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.2}Résultats numériques : validation synthétique}{29}{subsection.8.2}%
 \contentsline {section}{\numberline {9}Application aux données réelles : Bitcoin Black Thursday}{30}{section.9}%
 \contentsline {subsection}{\numberline {9.1}Contexte et mécanisme microstructural}{30}{subsection.9.1}%
 \contentsline {subsection}{\numberline {9.2}Données~: API Binance 1h}{30}{subsection.9.2}%
 \contentsline {subsection}{\numberline {9.3}Calibration et estimation AMS}{30}{subsection.9.3}%
 \contentsline {section}{\numberline {10}Tentative de modélisation du squeeze GameStop}{31}{section.10}%
-\contentsline {paragraph}{Causes de l'échec.}{32}{paragraph*.69}%
-\contentsline {section}{Conclusion}{32}{paragraph*.69}%
-\contentsline {paragraph}{Construction du modèle.}{32}{paragraph*.70}%
-\contentsline {paragraph}{Estimation des événements rares.}{32}{paragraph*.71}%
-\contentsline {paragraph}{Calibration et validation.}{32}{paragraph*.72}%
+\contentsline {paragraph}{Causes de l'échec.}{31}{paragraph*.67}%
+\contentsline {section}{Conclusion}{31}{paragraph*.67}%
+\contentsline {paragraph}{Construction du modèle.}{31}{paragraph*.68}%
+\contentsline {paragraph}{Estimation des événements rares.}{32}{paragraph*.69}%
+\contentsline {paragraph}{Calibration et validation.}{32}{paragraph*.70}%
