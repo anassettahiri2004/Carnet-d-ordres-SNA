@@ -491,7 +491,7 @@ une simple intégrale numérique.
 \label{fig:3d_poisson}
 \end{figure}
 
-L'IC reste de l'ordre de $\pm2\,\%$ pour $M=300$, validant la surface pour une utilisation opérationnelle.
+Les surfaces présentent le comportement attendu~: $\E[\min(\tau_a,\tau_b)]$ croît régulièrement avec les deux volumes initiaux, et la probabilité de ruine asymétrique respecte la symétrie diagonale ($p\approx1/2$ lorsque $q_0^a=q_0^b$). Pour $M=300$ trajectoires par point de grille, les intervalles de confiance restent de l'ordre de $\pm2\,\%$, ce qui valide ces surfaces comme outil opérationnel pour évaluer rapidement le risque d'épuisement en fonction des conditions initiales.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Processus de Hawkes auto-excité}
@@ -623,6 +623,11 @@ on simule par l'algorithme de thinning d'Ogata.
 
 \subsection{Résultats numériques}
 
+Le processus de Hawkes produit une dynamique qualitativement différente du cas
+Poisson~: l'auto-excitation génère des avalanches d'annulations qui se manifestent
+sous forme de descentes rapides et abruptes de $q(t)$, interrompues par des périodes
+de stabilité relative lorsque l'intensité se détend vers $\mu^-$.
+
 \begin{figure}[H]
 \centering
 \begin{subfigure}[t]{0.49\linewidth}
@@ -637,12 +642,24 @@ on simule par l'algorithme de thinning d'Ogata.
 \label{fig:hawkes_dyn}
 \end{figure}
 
+La figure~\ref{fig:hawkes_dyn} illustre le mécanisme d'avalanche~: après une annulation,
+$\lambda^-(t)$ bondit d'une quantité $\alpha$, puis relaxe exponentiellement vers $\mu^-$
+au taux $\beta$. Si une nouvelle annulation survient pendant cette période de relaxation,
+le pic s'additionne, créant la possibilité de cascades. Cet effet modifie profondément
+la distribution du temps d'arrêt, comme le montre la figure suivante.
+
 \begin{figure}[H]
 \centering
 \reportfig[width=0.55\linewidth]{hawkes_stopping_dist.png}
 \caption{Distribution empirique du temps d'arrêt sous Hawkes individuel (bleu) vs Poisson de fond (tiret). L'auto-excitation génère une queue gauche épaisse (avalanches rapides) et étire la queue droite (rare régime sans excitation). \textit{Horizontal~: $\tau$~; vertical~: densité.}}
 \label{fig:hawkes_stop}
 \end{figure}
+
+La comparaison avec le Poisson de fond (paramètre $\lambda^-=\mu^-$) met en évidence
+l'effet double de l'auto-excitation~: les avalanches créent une masse supplémentaire
+pour les petites valeurs de $\tau$ (épuisements très rapides), tandis que les périodes
+de faible intensité entre cascades s'étendent la queue droite. La distribution du Hawkes
+est donc plus étalée et moins régulière que celle du Poisson.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Hawkes couplé bid/ask et processus auxiliaire}
@@ -668,7 +685,14 @@ Ce couplage est cohérent avec la microstructure~: toute activité côté bid
 — insertions comme annulations — signale un déséquilibre qui excite également
 la dynamique côté ask.
 
-L'algorithme de thinning est adapté avec borne globale $\bar\la+\bar\lb+\lambda^+_a+\lambda^+_b$.
+Pour la simulation du système joint, l'algorithme de thinning d'Ogata est étendu
+en maintenant une borne globale sur l'intensité totale~:
+$\bar\Lambda = \bar\la+\bar\lb+\lambda^+_a+\lambda^+_b$.
+À chaque pas de temps, un événement candidat est tiré selon cette borne globale,
+puis attribué à l'un des quatre flux (annulation ask, annulation bid, insertion
+ask, insertion bid) proportionnellement aux intensités effectives du moment,
+avec rejet si le candidat tombe dans le complément. Cette approche est exacte
+et préserve intégralement la mémoire Hawkes des deux files.
 
 \begin{figure}[H]
 \centering
@@ -691,8 +715,12 @@ L'algorithme de thinning est adapté avec borne globale $\bar\la+\bar\lb+\lambda
 \label{fig:hawkes_3d}
 \end{figure}
 
-Au coin $(10,10)$~: $\E[\min(\tau_a,\tau_b)] = 5{,}83$ contre $8{,}32$ pour le Poisson
-équivalent (facteur $\approx0{,}70$).
+Au coin symétrique $(q_0^a,q_0^b)=(10,10)$, le temps moyen d'épuisement vaut
+$\E[\min(\tau_a,\tau_b)]=5{,}83$, à comparer à $8{,}32$ pour le modèle de Poisson
+équivalent, soit une réduction de $30\,\%$ (facteur $\approx0{,}70$). Ce raccourcissement
+s'explique par le couplage croisé excitateur~: chaque événement sur l'une des files
+accélère simultanément l'autre, de sorte que les deux files tendent à s'épuiser
+plus rapidement ensemble que si elles évoluaient indépendamment.
 
 \subsection{Comparaison des quatre régimes}
 
@@ -720,14 +748,26 @@ Hawkes couplé bid/ask          & $5{,}91$  & $3{,}55$ & $5{,}11$  & $[3{,}4;\,7
 \label{fig:comparison}
 \end{figure}
 
-\textbf{Interprétation.} (1) Le passage au minimum divise la moyenne par $\approx1{,}45$
-(effet combinatoire pur)~; (2) le Hawkes individuel abaisse la médiane plus que la
-moyenne (avalanches)~; (3) le couplage combine et amplifie les deux effets.
+\paragraph{Interprétation.}
+Trois effets successifs ressortent de cette comparaison. Premièrement, le simple
+passage du processus de Poisson individuel au minimum de deux processus indépendants
+divise la moyenne par $\approx1{,}45$~: cet effet est purement combinatoire et ne fait
+intervenir aucune mémoire. Deuxièmement, le Hawkes individuel réduit davantage la médiane
+que la moyenne~: les avalanches d'annulations génèrent des réalisations très courtes
+(queue gauche épaisse) qui abaissent la médiane, tandis que la queue droite reste épaisse
+car les rares trajectoires sans excitation sont longues. Troisièmement, le couplage
+croisé excitateur combine et amplifie ces deux effets~: la réactivité mutuelle des deux
+files réduit à la fois la médiane et la moyenne, portant le facteur de réduction global
+à $\approx2{,}1$ par rapport au Poisson individuel.
 
 \subsection{Processus auxiliaire \texorpdfstring{$q_2$}{q2} au niveau adjacent}
 
-On simule en parallèle le volume $q_{a,2}$ au niveau adjacent de l'ask, et on
-étudie sa distribution conditionnelle à l'instant d'épuisement $\tau=\min(\tau_a,\tau_b)$.
+Lorsque la première limite ask s'épuise, le carnet d'ordres recharge automatiquement
+la deuxième limite~: il est donc pertinent d'étudier la distribution du volume
+$q_{a,2}$ au niveau adjacent à l'instant d'épuisement $\tau=\min(\tau_a,\tau_b)$.
+On simule ce processus auxiliaire en parallèle, en conditionnant sur le côté qui
+s'épuise en premier. Cette distribution conditionnelle permet de calibrer l'état
+initial du prochain cycle lors du passage au modèle de prix à quatre limites.
 
 \begin{figure}[H]
 \centering
@@ -741,8 +781,13 @@ $\hat P(q_2(\tau)=m)$ et la ligne verticale la moyenne empirique.
 
 \subsection{Intensité \texorpdfstring{$\lambda^+_2$}{λ+2} excitée par les décréments d'ask}
 
-On raffine en couplant l'intensité d'insertion de $q_2$ au flux des décréments d'ask~:
-$\lambda^+_2(t) = \mu^+_2 + \sum_{T_i^{\downarrow,a}<t} a\,e^{-b(t-T_i^{\downarrow,a})}$.
+Un modèle plus réaliste consiste à coupler l'intensité d'insertion du niveau adjacent
+au flux des décréments de la première limite~: chaque annulation ask signale une pression
+vendeuse croissante, ce qui stimule les market makers à replenish le niveau suivant.
+On modélise cela par
+$\lambda^+_2(t) = \mu^+_2 + \sum_{T_i^{\downarrow,a}<t} a\,e^{-b(t-T_i^{\downarrow,a})}$,
+où les coefficients $a$ et $b$ contrôlent respectivement l'amplitude et le taux de
+relaxation de cette excitation croisée vers le niveau adjacent.
 
 \begin{figure}[H]
 \centering
@@ -990,8 +1035,8 @@ La Proposition~\ref{prop:ams_clt} prédit $\sqrt N(\hat P_\mathrm{AMS}-P)
 On souhaite valider deux implications pratiques de ce résultat~:
 \begin{enumerate}
   \item L'écart-type empirique de $\hat P_\mathrm{AMS}$ décroît en $1/\sqrt N$.
-  \item La largeur des IC à 95\,\% décroît également en $1/\sqrt N$,
-    et le taux est comparable à celui de l'IS.
+  \item La largeur des IC à 95\,\% décroît également en $1/\sqrt N$
+    conformément à la théorie asymptotique.
 \end{enumerate}
 
 \paragraph{Protocole.}
@@ -1009,31 +1054,24 @@ On souhaite valider deux implications pratiques de ce résultat~:
 
 \begin{figure}[H]
 \centering
-\begin{subfigure}[t]{0.49\linewidth}
-  \reportfig[width=\linewidth]{ams_convergence.png}
-  \caption{Graphe semi-log (gauche) et log-log (droite) de l'écart-type de $\hat P_\mathrm{AMS}$ en fonction de $N$. La droite log-log a une pente $\approx-0{,}5$. \textit{Horiz.~: $N$~; vert.~: écart-type.}}
-\end{subfigure}\hfill
-\begin{subfigure}[t]{0.49\linewidth}
-  \reportfig[width=\linewidth]{clt_comparison.png}
-  \caption{Demi-largeur de l'IC à 95\,\% en fonction de $N$, pour l'AMS (bleu) et l'IS (orange). Les deux méthodes convergent en $1/\sqrt N$, mais avec des constantes différentes. \textit{Horiz.~: $N$~; vert.~: demi-largeur IC.}}
-\end{subfigure}
-\caption{Validation empirique du CLT pour l'AMS et l'IS sur l'événement bid rare $\tau_b<\tau_a$ ($\mu_a^-=3{,}0$, $\mu_b^-=1{,}2$).}
+\reportfig[width=0.75\linewidth]{ams_convergence.png}
+\caption{Graphe semi-log (gauche) et log-log (droite) de l'écart-type de $\hat P_\mathrm{AMS}$ en fonction de $N$ sur l'événement bid rare $\tau_b<\tau_a$ ($\mu_a^-=3{,}0$, $\mu_b^-=1{,}2$). La droite log-log a une pente $\approx-0{,}5$, confirmant la décroissance en $1/\sqrt N$ prédite par la Proposition~\ref{prop:ams_clt}. \textit{Horiz.~: $N$~; vert.~: écart-type.}}
 \label{fig:ams_conv}
 \end{figure}
 
 \paragraph{Résultats quantitatifs.}
 
-La pente log-log mesurée sur la figure gauche est $\approx-0{,}5$, ce qui
+La pente log-log mesurée sur la figure est $\approx-0{,}5$, ce qui
 confirme la décroissance en $1/\sqrt N$ prédite par la méthode delta.
 Sur $R=300$ réplications AMS, le rerun donne
 $\hat P_\mathrm{AMS}\approx0{,}140$ et un coefficient de variation qui passe
-de $0{,}349$ pour $N=50$ à $0{,}048$ pour $N=3200$. La comparaison CLT avec
-l'IS montre surtout la sensibilité du basculement aux poids~: avec le tilt
-agressif $\theta=1{,}2$ utilisé dans cette cellule, l'IS reste beaucoup moins
-stable que l'AMS. Le point important pour la cohérence est que les deux
-méthodes visent maintenant le même événement $\{\tau_b<\tau_a\}$ ; l'AMS
-exploite la structure de niveaux, tandis que l'IS modifie globalement les
-intensités.
+de $0{,}349$ pour $N=50$ à $0{,}048$ pour $N=3200$, soit une réduction d'un
+facteur~7 sur la plage considérée. Cette convergence rapide découle directement
+de la structure de l'algorithme~: en décomposant l'événement rare en paliers
+successifs et en réorientant les particules vers des états progressivement
+plus proches de l'épuisement bid, l'AMS guide efficacement la simulation
+là où le Monte-Carlo naïf gaspillerait la quasi-totalité des trajectoires
+sur des réalisations ne franchissant pas le premier palier.
 
 \end{demonstration}
 
@@ -1277,38 +1315,49 @@ effectivement obtenu par IS par rapport au MC naïf, et (2)~comparer ce gain
 \begin{figure}[H]
 \centering
 \reportfig[width=0.85\linewidth]{is_comparison.png}
-\caption{Gauche~: estimation de $P(\tau_b<\tau_a)$ en fonction de $\theta$,
-comparée aux références AMS et MC direct. Droite~: coefficient de variation
-empirique de l'IS. \textit{Horiz.~: $\theta$~; vert.~: probabilité / CV.}}
+\caption{Gauche~: estimation de $\hat P(\tau_b<\tau_a)$ en fonction de $\theta$,
+comparée aux références splitting AMS (tiret orange, $0{,}1387$) et MC direct
+(pointillé bleu, $0{,}1390$). Droite~: coefficient de variation empirique de l'IS,
+avec $\theta^*\approx0{,}30$ marqué en vert. \textit{Horiz.~: $\theta$~; vert.~:
+probabilité / CV.}}
 \label{fig:is}
 \end{figure}
 
 Deux observations structurantes se dégagent des panneaux~:
 \begin{enumerate}
-  \item \textbf{Minimum bien défini mais peu prononcé}~: la grille permet
-    d'identifier une zone de $\theta$ où le CV est minimal, sans nécessiter
-    d'optimisation continue.
-  \item \textbf{Sensibilité aux poids}~: pour les tilts modérés, l'estimateur
-    reste du même ordre que la référence AMS ; pour les tilts trop grands, la
-    variance des poids domine et l'estimation devient numériquement instable.
+  \item \textbf{Minimum net à $\theta^*\approx0{,}30$}~: pour les petits tilts
+    ($0\le\theta\le0{,}30$), l'estimateur reste stable et converge vers les
+    références AMS et MC direct. Le CV passe de $2{,}52$ à $0$ à $2{,}05$,
+    une réduction modeste mais significative.
+  \item \textbf{Effondrement rapide au-delà de $\theta^*$}~: dès $\theta=0{,}60$,
+    le CV bondit à $10$ et l'estimateur commence à déraper~; à $\theta=1{,}80$,
+    le CV atteint $109$ et $\hat p$ s'effondre, signalant une dégénérescence
+    des poids de vraisemblance.
 \end{enumerate}
 
 \paragraph{Résultats quantitatifs.}
-La grille du rerun donne un minimum empirique autour de $\theta\simeq0{,}3$~:
+La grille du rerun ($N=30\,000$ trajectoires par point) donne un minimum empirique
+clairement identifiable à $\theta^*\approx0{,}30$~:
 \[
 \begin{array}{c|cc}
 \theta & \hat p_\mathrm{IS} & \mathrm{CV}\\
 \hline
-0{,}0 & 0{,}1394 & 2{,}485\\
-0{,}3 & 0{,}1378 & 2{,}235\\
-0{,}6 & 0{,}2327 & 57{,}493\\
-0{,}9 & 0{,}1414 & 36{,}471\\
-1{,}2 & 0{,}0269 & 53{,}772
+0{,}00 & 0{,}1363 & 2{,}517\\
+0{,}30 & 0{,}1388 & 2{,}052\\
+0{,}60 & 0{,}1331 & 10{,}278\\
+0{,}90 & 0{,}1393 & 30{,}471\\
+1{,}20 & 0{,}0521 & 63{,}355\\
+1{,}50 & 0{,}0162 & 85{,}376\\
+1{,}80 & 0{,}0058 & 109{,}121\\
+2{,}10 & \approx 0 & 28{,}841
 \end{array}
 \]
-Les références indépendantes sont cohérentes~: AMS donne $0{,}1409$ et MC
-direct donne $0{,}1384$. En revanche, les grands tilts produisent des poids
-instables~; ils ne doivent pas être interprétés comme de meilleurs estimateurs.
+Les références indépendantes sont cohérentes~: le splitting AMS donne $0{,}1387$ et le MC
+direct donne $0{,}1390$ ($27\,802/200\,000$ succès). En revanche, les grands tilts
+produisent des poids instables qui font diverger le CV~; ils ne doivent pas être
+interprétés comme de meilleurs estimateurs. La chute du CV observée à $\theta=2{,}10$
+est trompeuse~: elle provient du fait que presque aucune trajectoire n'atteint
+$\tau_b<\tau_a$ sous ce tilt trop agressif, faisant tendre $\hat p$ vers zéro.
 
 \paragraph{Pourquoi l'IS est moins efficace que l'AMS.}
 Le basculement exponentiel modifie \emph{uniformément} les intensités de
@@ -1464,9 +1513,7 @@ en events/heure sur la fenêtre pré-crise. Le maximum de $5$ bougies négatives
 consécutives observé dans la fenêtre de crise a une probabilité AMS
 $8{,}47\cdot10^{-6}$, soit environ $1/118\,112$, sous ce régime calibré.
 Le régime pré-crise est donc quasi-Poisson ($\hat\alpha\simeq0$), tandis que
-Black Thursday correspond à une cascade bid rare. La section utilise
-directement le flash-crash bid-side du notebook, sans échange artificiel des
-rôles ask/bid.
+Black Thursday correspond à une cascade bid rare. 
 \end{resultatpositif}
 
 % ─────────────────────────────────────────────────────────────────────────────
