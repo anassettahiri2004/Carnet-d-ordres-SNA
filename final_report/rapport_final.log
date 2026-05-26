@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.4.20)  25 MAY 2026 22:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.4.20)  26 MAY 2026 03:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -913,15 +913,25 @@ File: tikzlibraryfill.image.code.tex 2023/08/08 v1.0.1 Image filling library
 \l__tikzfill_img_box=\box79
 )) (/usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcbskinsjigsaw.code.tex
 Library (tcolorbox): 'tcbskinsjigsaw.code.tex' version '6.2.0'
-)) (/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+)) (/usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcbbreakable.code.tex
+Library (tcolorbox): 'tcbbreakable.code.tex' version '6.2.0'
+(/usr/share/texlive/texmf-dist/tex/latex/pdfcol/pdfcol.sty
+Package: pdfcol 2022-09-21 v1.7 Handle new color stacks for pdfTeX (HO)
+)
+Package pdfcol Info: New color stack `tcb@breakable' = 1 on input line 23.
+\tcb@testbox=\box80
+\tcb@totalupperbox=\box81
+\tcb@totallowerbox=\box82
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
 Package: array 2023/10/16 v2.5g Tabular extension package (FMi)
 \col@sep=\dimen319
-\ar@mcellbox=\box80
+\ar@mcellbox=\box83
 \extrarowheight=\dimen320
 \NC@list=\toks54
 \extratabsurround=\skip93
 \backup@length=\skip94
-\ar@cellbox=\box81
+\ar@cellbox=\box84
 )
 (/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
@@ -930,60 +940,61 @@ Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
 \multirow@dima=\skip96
 \bigstrutjot=\dimen321
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 43.
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 78
-.
+Package hyperref Info: Option `colorlinks' set `true' on input line 36.
+\c@proposition=\count347
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 10
+1.
 
 (/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count347
-\l__pdf_internal_box=\box82
+\l__color_backend_stack_int=\count348
+\l__pdf_internal_box=\box85
 )
 (./rapport_final.aux)
 \openout1 = `rapport_final.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Info: Redefining \degres on input line 78.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 101.
+LaTeX Font Info:    ... okay on input line 101.
+LaTeX Info: Redefining \degres on input line 101.
 Package french.ldf Info: Setting StandardItemizeEnv=true for
 (french.ldf)             compatibility with enumitem package,
-(french.ldf)             reported on input line 78.
+(french.ldf)             reported on input line 101.
 Package french.ldf Info: Setting StandardEnumerateEnv=true for
 (french.ldf)             compatibility with enumitem package,
-(french.ldf)             reported on input line 78.
-LaTeX Info: Redefining \up on input line 78.
-LaTeX Info: Redefining \microtypecontext on input line 78.
-Package microtype Info: Applying patch `item' on input line 78.
-Package microtype Info: Applying patch `toc' on input line 78.
-Package microtype Info: Applying patch `eqnum' on input line 78.
-Package microtype Info: Applying patch `footnote' on input line 78.
-Package microtype Info: Applying patch `verbatim' on input line 78.
+(french.ldf)             reported on input line 101.
+LaTeX Info: Redefining \up on input line 101.
+LaTeX Info: Redefining \microtypecontext on input line 101.
+Package microtype Info: Applying patch `item' on input line 101.
+Package microtype Info: Applying patch `toc' on input line 101.
+Package microtype Info: Applying patch `eqnum' on input line 101.
+Package microtype Info: Applying patch `footnote' on input line 101.
+Package microtype Info: Applying patch `verbatim' on input line 101.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 78.
+LaTeX Info: Redefining \showhyphens on input line 101.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -994,16 +1005,16 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 )
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count348
+\scratchcounter=\count349
 \scratchdimen=\dimen322
-\scratchbox=\box83
-\nofMPsegments=\count349
-\nofMParguments=\count350
+\scratchbox=\box86
+\nofMPsegments=\count350
+\nofMParguments=\count351
 \everyMPshowfont=\toks55
-\MPscratchCnt=\count351
+\MPscratchCnt=\count352
 \MPscratchDim=\dimen323
-\MPnumerator=\count352
-\makeMPintoPDFobject=\count353
+\MPnumerator=\count353
+\makeMPintoPDFobject=\count354
 \everyMPtoPDFconversion=\toks56
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -1052,59 +1063,59 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring ON on input line 78.
+Package hyperref Info: Link coloring ON on input line 101.
 (./rapport_final.out) (./rapport_final.out)
 \@outlinefile=\write4
 \openout4 = `rapport_final.out'.
 
-<polytechnique-logohori.pdf, id=179, 625.50987pt x 227.64648pt>
+<polytechnique-logohori.pdf, id=163, 625.50987pt x 227.64648pt>
 File: polytechnique-logohori.pdf Graphic file (type pdf)
 <use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 80.
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 103.
 (pdftex.def)             Requested size: 85.35565pt x 31.06093pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 80--80
+Underfull \hbox (badness 10000) in paragraph at lines 103--103
 
  []
 
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/lmr/m/sc/24.88'.
 (microtype)             Ignoring protrusion settings for this character.
-LaTeX Info: Redefining \\ on input line 80.
+LaTeX Info: Redefining \\ on input line 103.
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/lmr/m/sc/14.4'.
 (microtype)             Ignoring protrusion settings for this character.
 (./rapport_final.toc
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 3
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 6
 .
  (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 3
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 6
 .
 
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-3.
+6.
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-3.
+6.
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 3.
+(Font)              <10.95> on input line 6.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 3.
+(Font)              <8> on input line 6.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 3.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 3.
+(Font)              <6> on input line 6.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 6.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -1112,7 +1123,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 3.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 6.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1129,47 +1140,54 @@ Package microtype Info: Character `029' is missing
 (microtype)             Ignoring protrusion settings for this character.
 File: polytechnique-logohori.pdf Graphic file (type pdf)
 <use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 54.
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 43.
 (pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
- [2])
+ [2{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}])
 \tf@toc=\write5
 \openout5 = `rapport_final.toc'.
 
 File: polytechnique-logohori.pdf Graphic file (type pdf)
 <use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 100.
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 121.
 (pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
  [3]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 165.
+(Font)              <10> on input line 148.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 165.
+(Font)              <7> on input line 148.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 165.
+(Font)              <5> on input line 148.
 
 
 LaTeX Font Warning: Font shape `T1/lmr/bx/sc' undefined
-(Font)              using `T1/lmr/bx/n' instead on input line 180.
+(Font)              using `T1/lmr/bx/n' instead on input line 164.
 
-File: polytechnique-logohori.pdf Graphic file (type pdf)
-<use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 183.
-(pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
-[4{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}]
-<figures/trajectories_subplots.png, id=278, 859.2903pt x 426.393pt>
+<figures/trajectories_subplots.png, id=240, 859.2903pt x 426.393pt>
 File: figures/trajectories_subplots.png Graphic file (type png)
 <use figures/trajectories_subplots.png>
 Package pdftex.def Info: figures/trajectories_subplots.png  used on input line 
-205.
-(pdftex.def)             Requested size: 425.6556pt x 211.21808pt.
+195.
+(pdftex.def)             Requested size: 266.03474pt x 132.01129pt.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <9> on input line 196.
+<figures/trajectory_plane.png, id=242, 608.5134pt x 506.6127pt>
+File: figures/trajectory_plane.png Graphic file (type png)
+<use figures/trajectory_plane.png>
+Package pdftex.def Info: figures/trajectory_plane.png  used on input line 199.
+(pdftex.def)             Requested size: 203.1518pt x 169.13072pt.
 File: polytechnique-logohori.pdf Graphic file (type pdf)
 <use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 211.
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 204.
 (pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
- [5]
-LaTeX Font Info:    Trying to load font information for T1+lmss on input line 2
-25.
+[4]
+Overfull \hbox (7.62608pt too wide) in paragraph at lines 234--238
+[]\T1/lmr/m/n/10.95 (-20) Par le TCL fonc-tion-nel pour les pro-ces-sus de Pois
+-son (Dons-ker), $[]\OML/lmm/m/it/10.95 N[] \OMS/lmsy/m/n/10.95 ^^@ \OML/lmm/m/
+it/10.95 ^^U[]t[]=[] \OMS/lmsy/m/n/10.95 )
+ []
 
+LaTeX Font Info:    Trying to load font information for T1+lmss on input line 2
+40.
 (/usr/share/texmf/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -1177,386 +1195,329 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmss' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 229.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 229.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 229.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\leavevmode@ifvmode' on input line 229.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                \kern 1.82538pt
-(hyperref)                removed on input line 229.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 229.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 229.
-
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
-32.
-(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `lmtt' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
-<figures/trajectory_plane.png, id=289, 608.5134pt x 506.6127pt>
-File: figures/trajectory_plane.png Graphic file (type png)
-<use figures/trajectory_plane.png>
-Package pdftex.def Info: figures/trajectory_plane.png  used on input line 237.
-(pdftex.def)             Requested size: 280.54506pt x 233.56259pt.
-File: polytechnique-logohori.pdf Graphic file (type pdf)
-<use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 243.
-(pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
- [6{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc} <./figures/trajectories_
-subplots.png>]
-<figures/gaussian_approx.png, id=302, 623.6901pt x 396.0396pt>
+<figures/gaussian_approx.png, id=253, 623.6901pt x 396.0396pt>
 File: figures/gaussian_approx.png Graphic file (type png)
 <use figures/gaussian_approx.png>
-Package pdftex.def Info: figures/gaussian_approx.png  used on input line 261.
-(pdftex.def)             Requested size: 280.54506pt x 178.14365pt.
+Package pdftex.def Info: figures/gaussian_approx.png  used on input line 247.
+(pdftex.def)             Requested size: 248.82079pt x 157.99605pt.
 File: polytechnique-logohori.pdf Graphic file (type pdf)
 <use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 269.
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 251.
 (pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
- [7 <./figures/trajectory_plane.png> <./figures/gaussian_approx.png>]
-<figures/ig_distribution.png, id=312, 617.9085pt x 396.0396pt>
+ [5{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc} <./figures/trajectories_
+subplots.png> <./figures/trajectory_plane.png>]
+<figures/stopping_time_hist.png, id=271, 617.9085pt x 396.0396pt>
+File: figures/stopping_time_hist.png Graphic file (type png)
+<use figures/stopping_time_hist.png>
+Package pdftex.def Info: figures/stopping_time_hist.png  used on input line 297
+.
+(pdftex.def)             Requested size: 221.67795pt x 142.0786pt.
+<figures/ig_distribution.png, id=272, 622.9674pt x 396.0396pt>
 File: figures/ig_distribution.png Graphic file (type png)
 <use figures/ig_distribution.png>
-Package pdftex.def Info: figures/ig_distribution.png  used on input line 296.
-(pdftex.def)             Requested size: 280.54506pt x 179.81154pt.
-<figures/ruin_validation.png, id=313, 1083.3273pt x 370.7451pt>
-File: figures/ruin_validation.png Graphic file (type png)
-<use figures/ruin_validation.png>
-Package pdftex.def Info: figures/ruin_validation.png  used on input line 326.
-(pdftex.def)             Requested size: 483.69687pt x 165.53261pt.
+Package pdftex.def Info: figures/ig_distribution.png  used on input line 301.
+(pdftex.def)             Requested size: 221.67795pt x 140.92438pt.
 File: polytechnique-logohori.pdf Graphic file (type pdf)
 <use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 331.
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 313.
 (pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
- [8 <./figures/ig_distribution.png>]
-<figures/time_proba_3d_poisson.png, id=322, 1124.5212pt x 485.6544pt>
+ [6 <./figures/gaussian_approx.png>]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 315.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 315.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `subscript' on input line 315.
+
+<figures/proba_2d_surface.png, id=281, 577.4373pt x 498.663pt>
+File: figures/proba_2d_surface.png Graphic file (type png)
+<use figures/proba_2d_surface.png>
+Package pdftex.def Info: figures/proba_2d_surface.png  used on input line 341.
+(pdftex.def)             Requested size: 190.00671pt x 164.08754pt.
+<figures/ruin_validation.png, id=282, 1082.6046pt x 370.7451pt>
+File: figures/ruin_validation.png Graphic file (type png)
+<use figures/ruin_validation.png>
+Package pdftex.def Info: figures/ruin_validation.png  used on input line 345.
+(pdftex.def)             Requested size: 253.34229pt x 86.75739pt.
+File: polytechnique-logohori.pdf Graphic file (type pdf)
+<use polytechnique-logohori.pdf>
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 351.
+(pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
+[7 <./figures/stopping_time_hist.png> <./figures/ig_distribution.png>]
+<figures/time_proba_3d_poisson.png, id=294, 1124.5212pt x 485.6544pt>
 File: figures/time_proba_3d_poisson.png Graphic file (type png)
 <use figures/time_proba_3d_poisson.png>
 Package pdftex.def Info: figures/time_proba_3d_poisson.png  used on input line 
-338.
+357.
 (pdftex.def)             Requested size: 483.69687pt x 208.89401pt.
 File: polytechnique-logohori.pdf Graphic file (type pdf)
 <use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 359.
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 376.
 (pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
- [9 <./figures/ruin_validation.png> <./figures/time_proba_3d_poisson.png>]
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 366.
-<figures/hawkes_trajectory.png, id=331, 734.9859pt x 397.485pt>
-File: figures/hawkes_trajectory.png Graphic file (type png)
-<use figures/hawkes_trajectory.png>
-Package pdftex.def Info: figures/hawkes_trajectory.png  used on input line 391.
-
-(pdftex.def)             Requested size: 237.01411pt x 128.18034pt.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 392.
-<figures/hawkes_stopping_dist.png, id=332, 617.9085pt x 396.0396pt>
-File: figures/hawkes_stopping_dist.png Graphic file (type png)
-<use figures/hawkes_stopping_dist.png>
-Package pdftex.def Info: figures/hawkes_stopping_dist.png  used on input line 3
-95.
-(pdftex.def)             Requested size: 237.01411pt x 151.91068pt.
-File: polytechnique-logohori.pdf Graphic file (type pdf)
-<use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 401.
-(pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
-
-[10]
-<figures/hawkes_lambda.png, id=342, 714.0276pt x 397.485pt>
-File: figures/hawkes_lambda.png Graphic file (type png)
-<use figures/hawkes_lambda.png>
-Package pdftex.def Info: figures/hawkes_lambda.png  used on input line 405.
-(pdftex.def)             Requested size: 237.01411pt x 131.94072pt.
-<figures/hawkes_lambda_T.png, id=343, 617.9085pt x 396.0396pt>
+ [8 <./figures/proba_2d_surface.png> <./figures/ruin_validation.png> <./figures
+/time_proba_3d_poisson.png>]
+<figures/hawkes_lambda_T.png, id=305, 611.4042pt x 396.0396pt>
 File: figures/hawkes_lambda_T.png Graphic file (type png)
 <use figures/hawkes_lambda_T.png>
-Package pdftex.def Info: figures/hawkes_lambda_T.png  used on input line 409.
-(pdftex.def)             Requested size: 237.01411pt x 151.91068pt.
+Package pdftex.def Info: figures/hawkes_lambda_T.png  used on input line 408.
+(pdftex.def)             Requested size: 248.82079pt x 161.17471pt.
 File: polytechnique-logohori.pdf Graphic file (type pdf)
 <use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 440.
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 423.
 (pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
- [11 <./figures/hawkes_trajectory.png> <./figures/hawkes_stopping_dist.png> <./
-figures/hawkes_lambda.png> <./figures/hawkes_lambda_T.png>]
-<figures/coupled_hawkes_traj.png, id=359, 859.2903pt x 426.393pt>
+ [9 <./figures/hawkes_lambda_T.png>]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 431.
+<figures/hawkes_trajectory.png, id=313, 734.9859pt x 397.485pt>
+File: figures/hawkes_trajectory.png Graphic file (type png)
+<use figures/hawkes_trajectory.png>
+Package pdftex.def Info: figures/hawkes_trajectory.png  used on input line 462.
+
+(pdftex.def)             Requested size: 237.01411pt x 128.18034pt.
+<figures/hawkes_lambda.png, id=314, 714.0276pt x 397.485pt>
+File: figures/hawkes_lambda.png Graphic file (type png)
+<use figures/hawkes_lambda.png>
+Package pdftex.def Info: figures/hawkes_lambda.png  used on input line 466.
+(pdftex.def)             Requested size: 237.01411pt x 131.94072pt.
+File: polytechnique-logohori.pdf Graphic file (type pdf)
+<use polytechnique-logohori.pdf>
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 472.
+(pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
+ [10]
+<figures/hawkes_stopping_dist.png, id=321, 617.9085pt x 396.0396pt>
+File: figures/hawkes_stopping_dist.png Graphic file (type png)
+<use figures/hawkes_stopping_dist.png>
+Package pdftex.def Info: figures/hawkes_stopping_dist.png  used on input line 4
+75.
+(pdftex.def)             Requested size: 266.03474pt x 170.51125pt.
+File: polytechnique-logohori.pdf Graphic file (type pdf)
+<use polytechnique-logohori.pdf>
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 497.
+(pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
+ [11 <./figures/hawkes_trajectory.png> <./figures/hawkes_lambda.png> <./figures
+/hawkes_stopping_dist.png>]
+<figures/coupled_hawkes_traj.png, id=331, 859.2903pt x 426.393pt>
 File: figures/coupled_hawkes_traj.png Graphic file (type png)
 <use figures/coupled_hawkes_traj.png>
-Package pdftex.def Info: figures/coupled_hawkes_traj.png  used on input line 44
-4.
+Package pdftex.def Info: figures/coupled_hawkes_traj.png  used on input line 50
+2.
 (pdftex.def)             Requested size: 237.01411pt x 117.6065pt.
-<figures/coupled_hawkes_stopping.png, id=360, 617.9085pt x 396.0396pt>
+<figures/coupled_hawkes_stopping.png, id=332, 617.9085pt x 396.0396pt>
 File: figures/coupled_hawkes_stopping.png Graphic file (type png)
 <use figures/coupled_hawkes_stopping.png>
 Package pdftex.def Info: figures/coupled_hawkes_stopping.png  used on input lin
-e 448.
+e 506.
 (pdftex.def)             Requested size: 237.01411pt x 151.91068pt.
-<figures/hawkes_coupled_3d.png, id=361, 1124.5212pt x 485.6544pt>
+<figures/hawkes_coupled_3d.png, id=333, 1124.5212pt x 485.6544pt>
 File: figures/hawkes_coupled_3d.png Graphic file (type png)
 <use figures/hawkes_coupled_3d.png>
-Package pdftex.def Info: figures/hawkes_coupled_3d.png  used on input line 457.
+Package pdftex.def Info: figures/hawkes_coupled_3d.png  used on input line 515.
 
 (pdftex.def)             Requested size: 483.69687pt x 208.89401pt.
 File: polytechnique-logohori.pdf Graphic file (type pdf)
 <use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 485.
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 540.
 (pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
  [12 <./figures/coupled_hawkes_traj.png> <./figures/coupled_hawkes_stopping.png
 > <./figures/hawkes_coupled_3d.png>]
-<figures/comparison.png, id=371, 729.927pt x 507.3354pt>
+<figures/comparison.png, id=343, 729.927pt x 507.3354pt>
 File: figures/comparison.png Graphic file (type png)
 <use figures/comparison.png>
-Package pdftex.def Info: figures/comparison.png  used on input line 488.
+Package pdftex.def Info: figures/comparison.png  used on input line 543.
 (pdftex.def)             Requested size: 411.14528pt x 285.77026pt.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 499.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 499.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 499.
-
-<figures/q2_asymmetric.png, id=372, 859.2903pt x 426.393pt>
+<figures/q2_asymmetric.png, id=344, 859.2903pt x 426.393pt>
 File: figures/q2_asymmetric.png Graphic file (type png)
 <use figures/q2_asymmetric.png>
-Package pdftex.def Info: figures/q2_asymmetric.png  used on input line 504.
+Package pdftex.def Info: figures/q2_asymmetric.png  used on input line 560.
 (pdftex.def)             Requested size: 483.69687pt x 240.01463pt.
 File: polytechnique-logohori.pdf Graphic file (type pdf)
 <use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 512.
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 565.
 (pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
-[13 <./figures/comparison.png>]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 513.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\lambda' on input line 513.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 513.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 513.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 513.
-
-<figures/q2_symmetric_poisson.png, id=381, 858.5676pt x 426.393pt>
+ [13 <./figures/comparison.png>]
+<figures/q2_symmetric_poisson.png, id=354, 859.2903pt x 426.393pt>
 File: figures/q2_symmetric_poisson.png Graphic file (type png)
 <use figures/q2_symmetric_poisson.png>
 Package pdftex.def Info: figures/q2_symmetric_poisson.png  used on input line 5
-23.
-(pdftex.def)             Requested size: 237.01411pt x 117.7041pt.
-<figures/q2_symmetric_excited.png, id=382, 859.2903pt x 426.393pt>
+74.
+(pdftex.def)             Requested size: 237.01411pt x 117.6065pt.
+<figures/q2_symmetric_excited.png, id=355, 859.2903pt x 426.393pt>
 File: figures/q2_symmetric_excited.png Graphic file (type png)
 <use figures/q2_symmetric_excited.png>
 Package pdftex.def Info: figures/q2_symmetric_excited.png  used on input line 5
-27.
+78.
 (pdftex.def)             Requested size: 237.01411pt x 117.6065pt.
 File: polytechnique-logohori.pdf Graphic file (type pdf)
 <use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 548.
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 596.
 (pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
+
 [14 <./figures/q2_asymmetric.png> <./figures/q2_symmetric_poisson.png> <./figur
 es/q2_symmetric_excited.png>]
-<figures/price_sym.png, id=392, 859.2903pt x 281.853pt>
+<figures/price_sym.png, id=365, 859.2903pt x 281.853pt>
 File: figures/price_sym.png Graphic file (type png)
 <use figures/price_sym.png>
-Package pdftex.def Info: figures/price_sym.png  used on input line 561.
-(pdftex.def)             Requested size: 237.01411pt x 77.7399pt.
-<figures/price_asym.png, id=393, 859.2903pt x 281.853pt>
+Package pdftex.def Info: figures/price_sym.png  used on input line 626.
+(pdftex.def)             Requested size: 221.67795pt x 72.71236pt.
+<figures/price_asym.png, id=366, 859.2903pt x 281.853pt>
 File: figures/price_asym.png Graphic file (type png)
 <use figures/price_asym.png>
-Package pdftex.def Info: figures/price_asym.png  used on input line 565.
-(pdftex.def)             Requested size: 237.01411pt x 77.7399pt.
-<figures/orderbook_sym.png, id=394, 1091.9997pt x 658.3797pt>
+Package pdftex.def Info: figures/price_asym.png  used on input line 630.
+(pdftex.def)             Requested size: 221.67795pt x 72.71236pt.
+<figures/orderbook_sym.png, id=367, 1091.9997pt x 658.3797pt>
 File: figures/orderbook_sym.png Graphic file (type png)
 <use figures/orderbook_sym.png>
-Package pdftex.def Info: figures/orderbook_sym.png  used on input line 575.
+Package pdftex.def Info: figures/orderbook_sym.png  used on input line 648.
 (pdftex.def)             Requested size: 237.01411pt x 142.89503pt.
-<figures/orderbook_asym.png, id=395, 1091.9997pt x 658.3797pt>
+<figures/orderbook_asym.png, id=368, 1091.9997pt x 658.3797pt>
 File: figures/orderbook_asym.png Graphic file (type png)
 <use figures/orderbook_asym.png>
-Package pdftex.def Info: figures/orderbook_asym.png  used on input line 579.
+Package pdftex.def Info: figures/orderbook_asym.png  used on input line 652.
 (pdftex.def)             Requested size: 237.01411pt x 142.89503pt.
 File: polytechnique-logohori.pdf Graphic file (type pdf)
 <use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 593.
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 658.
 (pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
- [15 <./figures/price_sym.png> <./figures/price_asym.png> <./figures/orderbook_
-sym.png> <./figures/orderbook_asym.png>]
-Overfull \hbox (7.8975pt too wide) in paragraph at lines 614--617
-[]\T1/lmr/m/n/10.95 (-20) Ré-échantillonner $\OML/lmm/m/it/10.95 N$ \T1/lmr/m/n
-/10.95 (-20) co-pies parmi les $\OML/lmm/m/it/10.95 n[]$ \T1/lmr/m/n/10.95 (-20
-) sur-vi-vants, en hé-ri-tant de l'état Hawkes com-plet $\OT1/lmr/m/n/10.95 (-2
-0) (\OML/lmm/m/it/10.95 ^^U[]; ^^U[]; t[]\OT1/lmr/m/n/10.95 (-20) )$\T1/lmr/m/n
-/10.95 (-20) . 
- []
-
-<figures/splitting_sym_ask.png, id=407, 947.4597pt x 369.2997pt>
-File: figures/splitting_sym_ask.png Graphic file (type png)
-<use figures/splitting_sym_ask.png>
-Package pdftex.def Info: figures/splitting_sym_ask.png  used on input line 630.
-
-(pdftex.def)             Requested size: 237.01411pt x 92.38104pt.
-<figures/splitting_asym_ask.png, id=408, 947.4597pt x 369.2997pt>
-File: figures/splitting_asym_ask.png Graphic file (type png)
-<use figures/splitting_asym_ask.png>
-Package pdftex.def Info: figures/splitting_asym_ask.png  used on input line 634
-.
-(pdftex.def)             Requested size: 237.01411pt x 92.38104pt.
+ [15 <./figures/price_sym.png> <./figures/price_asym.png>]
+<figures/price_increment_sym.png, id=378, 426.393pt x 281.853pt>
+File: figures/price_increment_sym.png Graphic file (type png)
+<use figures/price_increment_sym.png>
+Package pdftex.def Info: figures/price_increment_sym.png  used on input line 66
+2.
+(pdftex.def)             Requested size: 237.01411pt x 156.6668pt.
+<figures/price_increment_asym.png, id=379, 426.393pt x 281.853pt>
+File: figures/price_increment_asym.png Graphic file (type png)
+<use figures/price_increment_asym.png>
+Package pdftex.def Info: figures/price_increment_asym.png  used on input line 6
+66.
+(pdftex.def)             Requested size: 237.01411pt x 156.6668pt.
 File: polytechnique-logohori.pdf Graphic file (type pdf)
 <use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 652.
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 695.
 (pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
-[16 <./figures/splitting_sym_ask.png> <./figures/splitting_asym_ask.png>]
-<figures/splitting_levels_offline.png, id=421, 947.4597pt x 369.2997pt>
+ [16 <./figures/orderbook_sym.png> <./figures/orderbook_asym.png> <./figures/pr
+ice_increment_sym.png> <./figures/price_increment_asym.png>]
+File: polytechnique-logohori.pdf Graphic file (type pdf)
+<use polytechnique-logohori.pdf>
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 751.
+(pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
+ [17]
+<figures/ams_convergence.png, id=400, 947.4597pt x 369.2997pt>
+File: figures/ams_convergence.png Graphic file (type png)
+<use figures/ams_convergence.png>
+Package pdftex.def Info: figures/ams_convergence.png  used on input line 759.
+(pdftex.def)             Requested size: 221.67795pt x 86.40225pt.
+
+Underfull \hbox (badness 1303) in paragraph at lines 760--760
+[]\T1/lmr/bx/n/9 (+20) (a) |\T1/lmr/m/n/9 (+20) Conver-gence AMS en $\OT1/lmr/m
+/n/9 (+20) 1\OML/lmm/m/it/9 =[]$\T1/lmr/m/n/9 (+20) . Graphe log-log
+ []
+
+<figures/clt_comparison.png, id=401, 947.4597pt x 369.2997pt>
+File: figures/clt_comparison.png Graphic file (type png)
+<use figures/clt_comparison.png>
+Package pdftex.def Info: figures/clt_comparison.png  used on input line 763.
+(pdftex.def)             Requested size: 221.67795pt x 86.40225pt.
+<figures/splitting_levels_offline.png, id=402, 1091.9997pt x 333.1647pt>
 File: figures/splitting_levels_offline.png Graphic file (type png)
 <use figures/splitting_levels_offline.png>
 Package pdftex.def Info: figures/splitting_levels_offline.png  used on input li
-ne 656.
-(pdftex.def)             Requested size: 348.26233pt x 135.74277pt.
+ne 793.
+(pdftex.def)             Requested size: 237.01411pt x 72.31023pt.
+<figures/splitting_levels_online.png, id=403, 947.4597pt x 369.2997pt>
+File: figures/splitting_levels_online.png Graphic file (type png)
+<use figures/splitting_levels_online.png>
+Package pdftex.def Info: figures/splitting_levels_online.png  used on input lin
+e 797.
+(pdftex.def)             Requested size: 237.01411pt x 92.38104pt.
+<figures/splitting_sym_ask.png, id=404, 947.4597pt x 369.2997pt>
+File: figures/splitting_sym_ask.png Graphic file (type png)
+<use figures/splitting_sym_ask.png>
+Package pdftex.def Info: figures/splitting_sym_ask.png  used on input line 807.
 
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 668.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 668.
-
-<figures/flash_crash_sym.png, id=422, 586.1097pt x 369.2997pt>
+(pdftex.def)             Requested size: 237.01411pt x 92.38104pt.
+<figures/splitting_asym_ask.png, id=405, 947.4597pt x 369.2997pt>
+File: figures/splitting_asym_ask.png Graphic file (type png)
+<use figures/splitting_asym_ask.png>
+Package pdftex.def Info: figures/splitting_asym_ask.png  used on input line 811
+.
+(pdftex.def)             Requested size: 237.01411pt x 92.38104pt.
+File: polytechnique-logohori.pdf Graphic file (type pdf)
+<use polytechnique-logohori.pdf>
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 817.
+(pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
+[18 <./figures/ams_convergence.png> <./figures/clt_comparison.png> <./figures/s
+plitting_levels_offline.png> <./figures/splitting_levels_online.png>]
+<figures/flash_crash_sym.png, id=416, 586.1097pt x 369.2997pt>
 File: figures/flash_crash_sym.png Graphic file (type png)
 <use figures/flash_crash_sym.png>
-Package pdftex.def Info: figures/flash_crash_sym.png  used on input line 681.
-(pdftex.def)             Requested size: 237.01411pt x 149.34015pt.
-<figures/flash_crash_asym.png, id=423, 586.1097pt x 369.2997pt>
+Package pdftex.def Info: figures/flash_crash_sym.png  used on input line 850.
+(pdftex.def)             Requested size: 221.67795pt x 139.67603pt.
+<figures/flash_crash_asym.png, id=417, 586.1097pt x 369.2997pt>
 File: figures/flash_crash_asym.png Graphic file (type png)
 <use figures/flash_crash_asym.png>
-Package pdftex.def Info: figures/flash_crash_asym.png  used on input line 685.
-(pdftex.def)             Requested size: 237.01411pt x 149.34015pt.
+Package pdftex.def Info: figures/flash_crash_asym.png  used on input line 854.
+(pdftex.def)             Requested size: 221.67795pt x 139.67603pt.
 File: polytechnique-logohori.pdf Graphic file (type pdf)
 <use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 691.
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 866.
 (pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
-[17 <./figures/splitting_levels_offline.png>]
-<figures/is_comparison.png, id=430, 947.4597pt x 369.2997pt>
+ [19 <./figures/splitting_sym_ask.png> <./figures/splitting_asym_ask.png>]
+File: polytechnique-logohori.pdf Graphic file (type pdf)
+<use polytechnique-logohori.pdf>
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 901.
+(pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
+ [20 <./figures/flash_crash_sym.png> <./figures/flash_crash_asym.png>]
+<figures/is_comparison.png, id=435, 947.4597pt x 369.2997pt>
 File: figures/is_comparison.png Graphic file (type png)
 <use figures/is_comparison.png>
-Package pdftex.def Info: figures/is_comparison.png  used on input line 715.
-(pdftex.def)             Requested size: 425.6556pt x 165.91284pt.
+Package pdftex.def Info: figures/is_comparison.png  used on input line 913.
+(pdftex.def)             Requested size: 384.54184pt x 149.88675pt.
 File: polytechnique-logohori.pdf Graphic file (type pdf)
 <use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 731.
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 958.
 (pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
- [18 <./figures/flash_crash_sym.png> <./figures/flash_crash_asym.png> <./figure
-s/is_comparison.png>]
-<figures/clt_comparison.png, id=440, 947.4597pt x 369.2997pt>
-File: figures/clt_comparison.png Graphic file (type png)
-<use figures/clt_comparison.png>
-Package pdftex.def Info: figures/clt_comparison.png  used on input line 737.
-(pdftex.def)             Requested size: 237.01411pt x 92.38104pt.
-<figures/ams_convergence.png, id=441, 947.4597pt x 369.2997pt>
-File: figures/ams_convergence.png Graphic file (type png)
-<use figures/ams_convergence.png>
-Package pdftex.def Info: figures/ams_convergence.png  used on input line 742.
-(pdftex.def)             Requested size: 237.01411pt x 92.38104pt.
-<figures/risk_metrics.png, id=443, 1236.5397pt x 369.2997pt>
-File: figures/risk_metrics.png Graphic file (type png)
-<use figures/risk_metrics.png>
-Package pdftex.def Info: figures/risk_metrics.png  used on input line 777.
-(pdftex.def)             Requested size: 483.69687pt x 144.45456pt.
-File: polytechnique-logohori.pdf Graphic file (type pdf)
-<use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 785.
-(pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
- [19 <./figures/clt_comparison.png> <./figures/ams_convergence.png>]
-<figures/mle_calibration.png, id=456, 947.4597pt x 369.2997pt>
+ [21 <./figures/is_comparison.png>]
+<figures/mle_calibration.png, id=443, 947.4597pt x 369.2997pt>
 File: figures/mle_calibration.png Graphic file (type png)
 <use figures/mle_calibration.png>
-Package pdftex.def Info: figures/mle_calibration.png  used on input line 819.
+Package pdftex.def Info: figures/mle_calibration.png  used on input line 990.
 (pdftex.def)             Requested size: 425.6556pt x 165.91284pt.
 File: polytechnique-logohori.pdf Graphic file (type pdf)
 <use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 825.
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 994.
 (pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
- [20 <./figures/risk_metrics.png>]
-<figures/methods_comparison.png, id=464, 1019.7297pt x 369.2997pt>
-File: figures/methods_comparison.png Graphic file (type png)
-<use figures/methods_comparison.png>
-Package pdftex.def Info: figures/methods_comparison.png  used on input line 862
-.
-(pdftex.def)             Requested size: 425.6556pt x 154.15248pt.
+ [22]
 File: polytechnique-logohori.pdf Graphic file (type pdf)
 <use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 869.
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 1035.
 (pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
- [21 <./figures/mle_calibration.png>]
-<figures/bitcoin_calibration.png, id=472, 1308.8097pt x 405.4347pt>
+ [23 <./figures/mle_calibration.png>]
+<figures/bitcoin_calibration.png, id=460, 1308.8097pt x 405.4347pt>
 File: figures/bitcoin_calibration.png Graphic file (type png)
 <use figures/bitcoin_calibration.png>
-Package pdftex.def Info: figures/bitcoin_calibration.png  used on input line 91
-5.
+Package pdftex.def Info: figures/bitcoin_calibration.png  used on input line 10
+39.
 (pdftex.def)             Requested size: 483.69687pt x 149.83527pt.
 File: polytechnique-logohori.pdf Graphic file (type pdf)
 <use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 920.
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 1083.
 (pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
- [22 <./figures/methods_comparison.png>]
-
-LaTeX Warning: Command \' invalid in math mode on input line 926.
-
+ [24 <./figures/bitcoin_calibration.png>]
 File: polytechnique-logohori.pdf Graphic file (type pdf)
 <use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 967.
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 1153.
 (pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
-[23 <./figures/bitcoin_calibration.png>]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
-022.
-
-(/usr/share/texmf/tex/latex/lm/ts1lmr.fd
-File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
+ [25]
 File: polytechnique-logohori.pdf Graphic file (type pdf)
 <use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 1028.
+Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 1154.
 (pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
- [24{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}]
-File: polytechnique-logohori.pdf Graphic file (type pdf)
-<use polytechnique-logohori.pdf>
-Package pdftex.def Info: polytechnique-logohori.pdf  used on input line 1053.
-(pdftex.def)             Requested size: 156.35799pt x 56.90453pt.
- [25] (./rapport_final.aux)
+ [26] (./rapport_final.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -1566,16 +1527,16 @@ L3 programming layer <2024-01-22>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package rerunfilecheck Info: File `rapport_final.out' has not changed.
-(rerunfilecheck)             Checksum: 401C8B60A6E828B4E8175F12EDAF6770;10281.
+(rerunfilecheck)             Checksum: AD79EE43E22F649FD7596881E15A4DFD;10047.
  ) 
 Here is how much of TeX's memory you used:
- 32719 strings out of 476080
- 624259 string characters out of 5792744
- 1938975 words of memory out of 5000000
- 53715 multiletter control sequences out of 15000+600000
- 711937 words of font info for 309 fonts, out of 8000000 for 9000
+ 33144 strings out of 476080
+ 635658 string characters out of 5792744
+ 1941975 words of memory out of 5000000
+ 54110 multiletter control sequences out of 15000+600000
+ 715995 words of font info for 327 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 83i,13n,87p,1010b,739s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 83i,13n,87p,1010b,974s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/ty
 pe1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx9.pfb></us
 r/share/texmf/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/fonts/type1/p
@@ -1592,12 +1553,11 @@ ri9.pfb></usr/share/texmf/fonts/type1/public/lm/lmssbx10.pfb></usr/share/texmf/
 fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy6.
 pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf/fonts/t
 ype1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy9.pfb></us
-r/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on rapport_final.pdf (25 pages, 3061973 bytes).
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on rapport_final.pdf (26 pages, 3320366 bytes).
 PDF statistics:
- 662 PDF objects out of 1000 (max. 8388607)
- 498 compressed objects within 5 object streams
- 121 named destinations out of 1000 (max. 500000)
- 85007 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 638 PDF objects out of 1000 (max. 8388607)
+ 469 compressed objects within 5 object streams
+ 115 named destinations out of 1000 (max. 500000)
+ 84478 words of extra memory for PDF output out of 89155 (max. 10000000)
 
