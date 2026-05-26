@@ -67,17 +67,19 @@
 \contentsline {paragraph}{Lecture de la figure.}{28}{paragraph*.60}%
 \contentsline {paragraph}{Résultats quantitatifs.}{28}{paragraph*.62}%
 \contentsline {paragraph}{Pourquoi l'IS est moins efficace que l'AMS.}{29}{paragraph*.63}%
-\contentsline {part}{III\hspace {1em}Calibration par maximum de vraisemblance et confrontation aux données de marché}{29}{part.3}%
-\contentsline {section}{\numberline {8}Calibration par maximum de vraisemblance}{29}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Log-vraisemblance du Hawkes bivarié à couplage croisé}{29}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2}Résultats numériques : validation synthétique}{30}{subsection.8.2}%
-\contentsline {section}{\numberline {9}Application aux données réelles : Bitcoin Black Thursday}{31}{section.9}%
-\contentsline {subsection}{\numberline {9.1}Contexte et mécanisme microstructural}{31}{subsection.9.1}%
-\contentsline {subsection}{\numberline {9.2}Données~: API Binance 1h}{31}{subsection.9.2}%
-\contentsline {subsection}{\numberline {9.3}Calibration et estimation AMS}{31}{subsection.9.3}%
-\contentsline {section}{\numberline {10}Tentative de modélisation du squeeze GameStop}{32}{section.10}%
-\contentsline {paragraph}{Causes de l'échec.}{32}{paragraph*.68}%
-\contentsline {section}{Conclusion}{32}{paragraph*.68}%
-\contentsline {paragraph}{Construction du modèle.}{32}{paragraph*.69}%
-\contentsline {paragraph}{Estimation des événements rares.}{33}{paragraph*.70}%
-\contentsline {paragraph}{Calibration et validation.}{33}{paragraph*.71}%
+\contentsline {subsection}{\numberline {7.3}Comparaison directe CLT~: AMS vs IS}{29}{subsection.7.3}%
+\contentsline {paragraph}{Résultats quantitatifs.}{29}{paragraph*.65}%
+\contentsline {part}{III\hspace {1em}Calibration par maximum de vraisemblance et confrontation aux données de marché}{30}{part.3}%
+\contentsline {section}{\numberline {8}Calibration par maximum de vraisemblance}{30}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Log-vraisemblance du Hawkes bivarié à couplage croisé}{30}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Résultats numériques : validation synthétique}{31}{subsection.8.2}%
+\contentsline {section}{\numberline {9}Application aux données réelles : Bitcoin Black Thursday}{32}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Contexte et mécanisme microstructural}{32}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Données~: API Binance 1h}{32}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Calibration et estimation AMS}{32}{subsection.9.3}%
+\contentsline {section}{\numberline {10}Tentative de modélisation du squeeze GameStop}{33}{section.10}%
+\contentsline {paragraph}{Causes de l'échec.}{33}{paragraph*.70}%
+\contentsline {section}{Conclusion}{33}{paragraph*.70}%
+\contentsline {paragraph}{Construction du modèle.}{33}{paragraph*.71}%
+\contentsline {paragraph}{Estimation des événements rares.}{34}{paragraph*.72}%
+\contentsline {paragraph}{Calibration et validation.}{34}{paragraph*.73}%

@@ -145,30 +145,35 @@
 \newlabel{fig:is}{{22}{28}{Gauche~: estimation de $\hat P(\tau _b<\tau _a)$ en fonction de $\theta $, comparée aux références splitting AMS (tiret orange, $0{,}1387$) et MC direct (pointillé bleu, $0{,}1390$). Droite~: coefficient de variation empirique de l'IS, avec $\theta ^*\approx 0{,}30$ marqué en vert. \textit {Horiz.~: $\theta $~; vert.~: probabilité / CV.}}{figure.caption.61}{}}
 \@writefile{toc}{\contentsline {paragraph}{Résultats quantitatifs.}{28}{paragraph*.62}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Pourquoi l'IS est moins efficace que l'AMS.}{29}{paragraph*.63}\protected@file@percent }
-\@writefile{toc}{\contentsline {part}{III\hspace  {1em}Calibration par maximum de vraisemblance et confrontation aux données de marché}{29}{part.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {8}Calibration par maximum de vraisemblance}{29}{section.8}\protected@file@percent }
-\newlabel{sec:mle}{{8}{29}{Calibration par maximum de vraisemblance}{section.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Log-vraisemblance du Hawkes bivarié à couplage croisé}{29}{subsection.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Comparaison directe CLT~: AMS vs IS}{29}{subsection.7.3}\protected@file@percent }
+\newlabel{sec:clt_comparison}{{7.3}{29}{Comparaison directe CLT~: AMS vs IS}{subsection.7.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces Comparaison CLT~: AMS (orange) vs IS $\theta =0{,}30$ (violet). \textbf  {Gauche}~: histogrammes de $\hat  P$ sur $R=50$ réplications à $N=500$~; le pic plus étroit de l'IS traduit une variance plus faible. \textbf  {Droite}~: largeur d'IC 95\,\% en fonction de $N$~; les deux courbes décroissent en $1/\sqrt  {N}$ (ligne pointillée de référence). \textit  {Horiz.~: $\hat  {P}$~; $N$~; vert.~: nombre de réplications~; largeur IC.}}}{29}{figure.caption.64}\protected@file@percent }
+\newlabel{fig:clt_comparison}{{23}{29}{Comparaison CLT~: AMS (orange) vs IS $\theta =0{,}30$ (violet). \textbf {Gauche}~: histogrammes de $\hat P$ sur $R=50$ réplications à $N=500$~; le pic plus étroit de l'IS traduit une variance plus faible. \textbf {Droite}~: largeur d'IC 95\,\% en fonction de $N$~; les deux courbes décroissent en $1/\sqrt {N}$ (ligne pointillée de référence). \textit {Horiz.~: $\hat {P}$~; $N$~; vert.~: nombre de réplications~; largeur IC.}}{figure.caption.64}{}}
+\@writefile{toc}{\contentsline {paragraph}{Résultats quantitatifs.}{29}{paragraph*.65}\protected@file@percent }
+\@writefile{toc}{\contentsline {part}{III\hspace  {1em}Calibration par maximum de vraisemblance et confrontation aux données de marché}{30}{part.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}Calibration par maximum de vraisemblance}{30}{section.8}\protected@file@percent }
+\newlabel{sec:mle}{{8}{30}{Calibration par maximum de vraisemblance}{section.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Log-vraisemblance du Hawkes bivarié à couplage croisé}{30}{subsection.8.1}\protected@file@percent }
 \newlabel{prop:mle}{{8.1}{30}{Log-vraisemblance en $O(n)$, couplage croisé excitateur}{proposition.8.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Résultats numériques : validation synthétique}{30}{subsection.8.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Calibration MLE sur 150 cycles synthétiques ($T=228{,}2$, $|\mathcal  {D}_a|=1601$, $|\mathcal  {D}_b|=1255$). La contrainte de stabilité du modèle réduit est $2\alpha <\beta $, d'où le choix $\alpha =0{,}35$, $\beta =1{,}0$.}}{30}{table.caption.64}\protected@file@percent }
-\newlabel{tab:mle}{{3}{30}{Calibration MLE sur 150 cycles synthétiques ($T=228{,}2$, $|\mathcal {D}_a|=1601$, $|\mathcal {D}_b|=1255$). La contrainte de stabilité du modèle réduit est $2\alpha <\beta $, d'où le choix $\alpha =0{,}35$, $\beta =1{,}0$}{table.caption.64}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces Calibration MLE du Hawkes bivarié à couplage croisé excitateur. Gauche~: taux de décrémentation ask/bid empiriques (bleu/orange) et valeurs calibrées (tirets). Droite~: profil de log-vraisemblance en $\mu _a^-$. \textit  {Horiz.~: temps~; $\mu _a^-$~; vert.~: taux~; log-lik.}}}{30}{figure.caption.65}\protected@file@percent }
-\newlabel{fig:mle}{{23}{30}{Calibration MLE du Hawkes bivarié à couplage croisé excitateur. Gauche~: taux de décrémentation ask/bid empiriques (bleu/orange) et valeurs calibrées (tirets). Droite~: profil de log-vraisemblance en $\mu _a^-$. \textit {Horiz.~: temps~; $\mu _a^-$~; vert.~: taux~; log-lik.}}{figure.caption.65}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {9}Application aux données réelles : Bitcoin Black Thursday}{31}{section.9}\protected@file@percent }
-\newlabel{sec:bitcoin}{{9}{31}{Application aux données réelles : Bitcoin Black Thursday}{section.9}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Contexte et mécanisme microstructural}{31}{subsection.9.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Données~: API Binance 1h}{31}{subsection.9.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Calibration et estimation AMS}{31}{subsection.9.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {24}{\ignorespaces Gauche~: cours BTC/USDT 1h (fenêtre de crise en rouge). Centre~: taux de décrémentation ask/bid pré-crise et valeurs calibrées. Droite~: $P(k\text  { bougies négatives consécutives})$ par AMS (bleu) vs modèle indépendant (orange). \textit  {Horiz.~: date~; prix USD~; profondeur $k$~; vert.~: prix~; taux~; probabilité (log).}}}{31}{figure.caption.66}\protected@file@percent }
-\newlabel{fig:bitcoin}{{24}{31}{Gauche~: cours BTC/USDT 1h (fenêtre de crise en rouge). Centre~: taux de décrémentation ask/bid pré-crise et valeurs calibrées. Droite~: $P(k\text { bougies négatives consécutives})$ par AMS (bleu) vs modèle indépendant (orange). \textit {Horiz.~: date~; prix USD~; profondeur $k$~; vert.~: prix~; taux~; probabilité (log).}}{figure.caption.66}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {10}Tentative de modélisation du squeeze GameStop}{32}{section.10}\protected@file@percent }
-\newlabel{sec:gamestop}{{10}{32}{Tentative de modélisation du squeeze GameStop}{section.10}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Comparaison des deux études de cas. Les données journalières GME sont insuffisantes pour calibrer un Hawkes bivarié.}}{32}{table.caption.67}\protected@file@percent }
-\newlabel{tab:gme}{{4}{32}{Comparaison des deux études de cas. Les données journalières GME sont insuffisantes pour calibrer un Hawkes bivarié}{table.caption.67}{}}
-\@writefile{toc}{\contentsline {paragraph}{Causes de l'échec.}{32}{paragraph*.68}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{Conclusion}{32}{paragraph*.68}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Construction du modèle.}{32}{paragraph*.69}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Estimation des événements rares.}{33}{paragraph*.70}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Calibration et validation.}{33}{paragraph*.71}\protected@file@percent }
-\gdef \@abspage@last{33}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Résultats numériques : validation synthétique}{31}{subsection.8.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Calibration MLE sur 150 cycles synthétiques ($T=228{,}2$, $|\mathcal  {D}_a|=1601$, $|\mathcal  {D}_b|=1255$). La contrainte de stabilité du modèle réduit est $2\alpha <\beta $, d'où le choix $\alpha =0{,}35$, $\beta =1{,}0$.}}{31}{table.caption.66}\protected@file@percent }
+\newlabel{tab:mle}{{3}{31}{Calibration MLE sur 150 cycles synthétiques ($T=228{,}2$, $|\mathcal {D}_a|=1601$, $|\mathcal {D}_b|=1255$). La contrainte de stabilité du modèle réduit est $2\alpha <\beta $, d'où le choix $\alpha =0{,}35$, $\beta =1{,}0$}{table.caption.66}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {24}{\ignorespaces Calibration MLE du Hawkes bivarié à couplage croisé excitateur. Gauche~: taux de décrémentation ask/bid empiriques (bleu/orange) et valeurs calibrées (tirets). Droite~: profil de log-vraisemblance en $\mu _a^-$. \textit  {Horiz.~: temps~; $\mu _a^-$~; vert.~: taux~; log-lik.}}}{31}{figure.caption.67}\protected@file@percent }
+\newlabel{fig:mle}{{24}{31}{Calibration MLE du Hawkes bivarié à couplage croisé excitateur. Gauche~: taux de décrémentation ask/bid empiriques (bleu/orange) et valeurs calibrées (tirets). Droite~: profil de log-vraisemblance en $\mu _a^-$. \textit {Horiz.~: temps~; $\mu _a^-$~; vert.~: taux~; log-lik.}}{figure.caption.67}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Application aux données réelles : Bitcoin Black Thursday}{32}{section.9}\protected@file@percent }
+\newlabel{sec:bitcoin}{{9}{32}{Application aux données réelles : Bitcoin Black Thursday}{section.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Contexte et mécanisme microstructural}{32}{subsection.9.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Données~: API Binance 1h}{32}{subsection.9.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Calibration et estimation AMS}{32}{subsection.9.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {25}{\ignorespaces Gauche~: cours BTC/USDT 1h (fenêtre de crise en rouge). Centre~: taux de décrémentation ask/bid pré-crise et valeurs calibrées. Droite~: $P(k\text  { bougies négatives consécutives})$ par AMS (bleu) vs modèle indépendant (orange). \textit  {Horiz.~: date~; prix USD~; profondeur $k$~; vert.~: prix~; taux~; probabilité (log).}}}{32}{figure.caption.68}\protected@file@percent }
+\newlabel{fig:bitcoin}{{25}{32}{Gauche~: cours BTC/USDT 1h (fenêtre de crise en rouge). Centre~: taux de décrémentation ask/bid pré-crise et valeurs calibrées. Droite~: $P(k\text { bougies négatives consécutives})$ par AMS (bleu) vs modèle indépendant (orange). \textit {Horiz.~: date~; prix USD~; profondeur $k$~; vert.~: prix~; taux~; probabilité (log).}}{figure.caption.68}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {10}Tentative de modélisation du squeeze GameStop}{33}{section.10}\protected@file@percent }
+\newlabel{sec:gamestop}{{10}{33}{Tentative de modélisation du squeeze GameStop}{section.10}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Comparaison des deux études de cas. Les données journalières GME sont insuffisantes pour calibrer un Hawkes bivarié.}}{33}{table.caption.69}\protected@file@percent }
+\newlabel{tab:gme}{{4}{33}{Comparaison des deux études de cas. Les données journalières GME sont insuffisantes pour calibrer un Hawkes bivarié}{table.caption.69}{}}
+\@writefile{toc}{\contentsline {paragraph}{Causes de l'échec.}{33}{paragraph*.70}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{Conclusion}{33}{paragraph*.70}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Construction du modèle.}{33}{paragraph*.71}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Estimation des événements rares.}{34}{paragraph*.72}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Calibration et validation.}{34}{paragraph*.73}\protected@file@percent }
+\gdef \@abspage@last{34}

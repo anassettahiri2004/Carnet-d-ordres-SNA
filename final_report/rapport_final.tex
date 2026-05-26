@@ -226,9 +226,9 @@ L'estimateur empirique $\widehat T_M = M^{-1}\sum_{i=1}^M \tau^{(i)}$ admet
 l'intervalle de confiance asymptotique (TCL)~:
 $\mathrm{IC}_{95\%} = \widehat T_M \pm 1{,}96\,\hat\sigma_M/\sqrt M$.
 
-Sur le rerun du notebook~: $\widehat T_{\text{1 proc.}}=12{,}51$,
-IC $=[12{,}46;\,12{,}56]$~; $\widehat T_{\min}=8{,}44$,
-IC $=[8{,}41;\,8{,}47]$.
+Sur le rerun du notebook~: $\widehat T_{\text{1 proc.}}=12{,}48$,
+IC $=[12{,}43;\,12{,}53]$~; $\widehat T_{\min}=8{,}47$,
+IC $=[8{,}44;\,8{,}50]$.
 
 \subsection{Approximation diffusive}
 \label{sec:diffusion}
@@ -354,8 +354,8 @@ aux valeurs théoriques de la loi IG.
 \toprule
 Quantité & IG théorique & Simulation ($N=50000$) & Écart relatif \\
 \midrule
-$\E[\tau]$   & $12{,}500$ & $12{,}522$ & $+0{,}18\,\%$ \\
-$\Var(\tau)$ & $62{,}500$ & $62{,}431$ & $-0{,}11\,\%$ \\
+$\E[\tau]$   & $12{,}500$ & $12{,}517$ & $+0{,}14\,\%$ \\
+$\Var(\tau)$ & $62{,}500$ & $62{,}706$ & $+0{,}33\,\%$ \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -371,13 +371,13 @@ sur les deux premiers moments.
 \toprule
 Test & Statistique $D$ & $p$-valeur & Conclusion \\
 \midrule
-Kolmogorov-Smirnov (IG vs simulation) & $0{,}0049$ & $0{,}1734$ & Non-rejet à $5\,\%$ \\
+Kolmogorov-Smirnov (IG vs simulation) & $0{,}0055$ & $0{,}0971$ & Non-rejet à $5\,\%$ \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-La statistique KS de $0{,}0049$ est nettement inférieure au seuil critique,
-et la $p$-valeur de $0{,}1734$ confirme qu'il n'y a aucune raison statistique
+La statistique KS de $0{,}0055$ est nettement inférieure au seuil critique,
+et la $p$-valeur de $0{,}0971$ confirme qu'il n'y a aucune raison statistique
 de rejeter l'adéquation IG.
 
 \paragraph{Visualisation.}\leavevmode
@@ -396,8 +396,8 @@ de rejeter l'adéquation IG.
 \end{figure}
 
 \begin{resultatpositif}[title={Convergence vers la loi inverse-gaussienne validée}]
-La moyenne est restituée à $+0{,}18\,\%$, la variance à $-0{,}11\,\%$,
-et le test KS ne rejette pas l'adéquation ($p=0{,}1734$). L'approximation
+La moyenne est restituée à $+0{,}14\,\%$, la variance à $+0{,}33\,\%$,
+et le test KS ne rejette pas l'adéquation ($p=0{,}0971$). L'approximation
 diffusive est donc validée numériquement pour $q_0=10$.
 \end{resultatpositif}
 
@@ -865,8 +865,8 @@ Le rerun du notebook donne les valeurs suivantes~:
 \toprule
 Régime & $\hat p_\uparrow$ & $\hat p_\downarrow$ & dérive empirique \\
 \midrule
-Symétrique  & $0{,}502$ & $0{,}498$ & $+0{,}0025$ \\
-Asymétrique & $0{,}724$ & $0{,}276$ & $+0{,}2235$ \\
+Symétrique  & $0{,}518$ & $0{,}482$ & $+0{,}0185$ \\
+Asymétrique & $0{,}738$ & $0{,}262$ & $+0{,}2375$ \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -890,10 +890,10 @@ positive du mid-price.
 \end{figure}
 
 \begin{resultatpositif}[title={Dérive du mid-price conforme à la prédiction théorique}]
-En cas symétrique, $\hat p_\uparrow = 0{,}502 \approx 1/2$ et la dérive est
-négligeable, confirmant le comportement de martingale.
-En cas asymétrique, la dérive empirique de $+0{,}2235$ tick/cycle coïncide avec
-la prédiction $\hat p_\uparrow-1/2=0{,}224$. Le modèle est donc \emph{identifiable}
+En cas symétrique, $\hat p_\uparrow = 0{,}518 \approx 1/2$ et la dérive est
+négligeable ($+0{,}0185$ tick/cycle), confirmant le comportement de martingale.
+En cas asymétrique, la dérive empirique de $+0{,}2375$ tick/cycle coïncide avec
+la prédiction $\hat p_\uparrow-1/2=0{,}238$. Le modèle est donc \emph{identifiable}
 depuis les trajectoires de prix~: la seule observation de la dérive du mid-price
 permet d'inférer l'asymétrie $\mu^-_a/\mu^-_b$.
 \end{resultatpositif}
@@ -1150,7 +1150,7 @@ Soit $p_1=\Pb(\tau_b<\tau_a)$. Avec le modèle Hawkes à cycles continus~:
 En général $c_i\neq p_1$~: la référence i.i.d.\ $p_1^k$ n'est pas une borne,
 mais seulement un scénario sans mémoire. Dans le régime bid rare corrigé du
 notebook, les probabilités conditionnelles mesurées vérifient au contraire
-$c_1\simeq0{,}140$, $c_2\simeq0{,}044$, $c_3\simeq0{,}030$, etc., donc
+$c_1\simeq0{,}142$, $c_2\simeq0{,}043$, $c_3\simeq0{,}031$, etc., donc
 $P(\mathrm{FC}_k)<p_1^k$ pour $k\ge2$.
 \end{proposition}
 
@@ -1201,7 +1201,7 @@ régime calibré, pas une loi universelle.
 
 \paragraph{Facteurs multiplicatifs (cas asymétrique).}
 
-Le rerun donne $p_1\simeq0{,}140$ dans le régime asymétrique. Les probabilités
+Le rerun donne $p_1\simeq0{,}142$ dans le régime asymétrique. Les probabilités
 AMS sont~:
 \begin{center}\scriptsize
 \begin{tabular}{@{}ccccc@{}}
@@ -1209,18 +1209,18 @@ AMS sont~:
 $k$ & 1 & 2 & 3 & 4 \\
 \midrule
 $P(\mathrm{FC}_k)$ &
-$1{,}40{\cdot}10^{-1}$ &
-$6{,}16{\cdot}10^{-3}$ &
-$1{,}93{\cdot}10^{-4}$ &
-$4{,}51{\cdot}10^{-6}$ \\
+$1{,}42{\cdot}10^{-1}$ &
+$6{,}06{\cdot}10^{-3}$ &
+$1{,}88{\cdot}10^{-4}$ &
+$4{,}46{\cdot}10^{-6}$ \\
 \midrule
 $k$ & 5 & 6 & 7 & 8 \\
 \midrule
 $P(\mathrm{FC}_k)$ &
-$1{,}08{\cdot}10^{-7}$ &
-$1{,}66{\cdot}10^{-9}$ &
-$3{,}36{\cdot}10^{-11}$ &
-$4{,}91{\cdot}10^{-13}$ \\
+$1{,}11{\cdot}10^{-7}$ &
+$1{,}11{\cdot}10^{-9}$ &
+$1{,}36{\cdot}10^{-11}$ &
+$1{,}87{\cdot}10^{-13}$ \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -1368,14 +1368,59 @@ rare~: chaque étape de splitting guide les particules vers des états de plus e
 plus proches de l'épuisement. C'est cette exploitation de la géométrie du problème
 qui explique sa meilleure stabilité dans ce notebook.
 
-\begin{resultatnegatif}[title={IS sous-optimal face à l'AMS sur ce problème}]
-La conclusion qualitative ne dépend pas des valeurs exactes du rerun~: un tilt
-global peut réduire la variance du MC naïf, mais il n'exploite pas la structure
-de niveaux de l'événement rare, contrairement au splitting adaptatif. L'IS est
-donc utile comme benchmark et comme contrôle de vraisemblance, tandis que l'AMS
-reste la méthode principale pour les probabilités de flash crash profond.
-\end{resultatnegatif}
+\begin{resultatpositif}[title={IS optimal ($\theta^*\approx0{,}30$) comparable à l'AMS sur ce problème}]
+Un tilt modéré ($\theta^*\approx0{,}30$) réduit le CV de $2{,}52$ à $2{,}05$
+($-19\,\%$ par trajectoire). La comparaison directe CLT à $N$ fixé (§~\ref{sec:clt_comparison})
+montre que, au même $N$, l'IS avec $\theta^*$ atteint même une efficacité supérieure
+à l'AMS ($\mathrm{RE}=0{,}57 < 1$, voir ci-après). Toutefois, les grands tilts
+($\theta>0{,}60$) dégénèrent rapidement~: l'IS reste donc utile comme contrôle de
+vraisemblance et comme estimateur alternatif au voisinage de $\theta^*$.
+\end{resultatpositif}
 \end{demonstration}
+
+\subsection{Comparaison directe CLT~: AMS vs IS}
+\label{sec:clt_comparison}
+
+Pour quantifier la question «~quel estimateur est le plus précis à $N$ fixé~?~»,
+on effectue $R=50$ réplications indépendantes de chaque méthode avec $N=500$
+trajectoires/particules, puis on mesure l'écart-type empirique des estimées
+$\hat P$ et la largeur des IC 95\,\% en fonction de $N$.
+
+\begin{figure}[H]
+\centering
+\reportfig[width=0.92\linewidth]{clt_comparison.png}
+\caption{Comparaison CLT~: AMS (orange) vs IS $\theta=0{,}30$ (violet).
+\textbf{Gauche}~: histogrammes de $\hat P$ sur $R=50$ réplications à $N=500$~;
+le pic plus étroit de l'IS traduit une variance plus faible.
+\textbf{Droite}~: largeur d'IC 95\,\% en fonction de $N$~; les deux courbes
+décroissent en $1/\sqrt{N}$ (ligne pointillée de référence).
+\textit{Horiz.~: $\hat{P}$~; $N$~; vert.~: nombre de réplications~; largeur IC.}}
+\label{fig:clt_comparison}
+\end{figure}
+
+\paragraph{Résultats quantitatifs.}
+Sur les $R=50$ réplications à $N=500$~:
+
+\begin{center}\small
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Estimateur & $\hat\sigma(\hat P)$ & RE \\
+\midrule
+Splitting AMS & $0{,}01712$ & $1{,}00$ (référence) \\
+IS ($\theta^*=0{,}30$) & $0{,}01289$ & $0{,}57$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent où $\mathrm{RE}=(\sigma_\mathrm{IS}/\sigma_\mathrm{AMS})^2=0{,}57 < 1$~: à nombre
+de trajectoires/particules identique, l'IS avec $\theta^*=0{,}30$ requiert environ
+$43\,\%$ moins de réplications que l'AMS pour atteindre la même précision sur ce problème.
+
+Ce résultat complète la conclusion du §~\ref{sec:is}~: le tilt exponentiel modéré
+ne peut pas exploiter la géométrie par niveaux de l'événement rare (contrairement
+au splitting), mais il tilte suffisamment les trajectoires vers la zone rare pour
+surpasser l'AMS à $N$ modéré. L'AMS reprend l'avantage pour les événements très
+profonds ($k\ge5$) où sa structure par niveaux est indispensable.
 
 \bigskip
 % ═════════════════════════════════════════════════════════════════════════════
@@ -1583,8 +1628,10 @@ Le Monte-Carlo naïf devient inutilisable lorsque la probabilité de l'événeme
 cible devient très faible~: son coefficient de variation diverge en
 $1/\sqrt{p}$, ce qui impose un coût prohibitif. Le splitting AMS résout ce
 problème en décomposant l'événement rare en paliers successifs. L'importance
-sampling par basculement exponentiel fournit un contrôle indépendant, mais il
-tilte les trajectoires globalement sans exploiter la structure par niveaux.
+sampling par basculement exponentiel fournit un contrôle indépendant~: à $N$
+fixé, l'IS avec $\theta^*=0{,}30$ est même plus efficace que l'AMS
+($\mathrm{RE}=0{,}57$), mais sans exploiter la structure par niveaux, il perd
+cet avantage pour les flash crashes profonds.
 Le résultat central de cette partie est la non-indépendance des cycles Hawkes~:
 chaque épuisement bid transporte un état complet vers le cycle suivant
 (intensités, volume ask restant, bid reconstruit). Dans le régime bid rare
