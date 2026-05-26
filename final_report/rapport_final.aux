@@ -14,126 +14,164 @@
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Paramètres globaux. Le choix $\lambda ^->\ \lambda ^+$ garantit un drift négatif, condition nécessaire pour que l'atteinte de zéro soit presque sûre.}}{4}{table.caption.2}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{tab:params}{{1}{4}{Paramètres globaux. Le choix $\lambda ^->\ \lambda ^+$ garantit un drift négatif, condition nécessaire pour que l'atteinte de zéro soit presque sûre}{table.caption.2}{}}
-\@writefile{toc}{\contentsline {part}{I\hspace  {1em}Complexification graduelle du modèle}{4}{part.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {1}Modèle de Poisson indépendant}{4}{section.1}\protected@file@percent }
-\newlabel{sec:poisson}{{1}{4}{Modèle de Poisson indépendant}{section.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Simulation exacte}{4}{subsection.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {part}{I\hspace  {1em}Du Poisson au Hawkes couplé~: construction progressive du modèle de carnet d'ordres}{4}{part.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1}Modèle de Poisson indépendant}{5}{section.1}\protected@file@percent }
+\newlabel{sec:poisson}{{1}{5}{Modèle de Poisson indépendant}{section.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Simulation exacte}{5}{subsection.1.1}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Modèle de Poisson indépendant.}}{5}{figure.caption.3}\protected@file@percent }
 \newlabel{fig:poisson_traj}{{1}{5}{Modèle de Poisson indépendant}{figure.caption.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Estimation Monte-Carlo du temps moyen d'atteinte}{5}{subsection.1.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Approximation diffusive}{5}{subsection.1.3}\protected@file@percent }
-\newlabel{sec:diffusion}{{1.3}{5}{Approximation diffusive}{subsection.1.3}{}}
-\newlabel{prop:bm}{{1.1}{5}{Convergence vers le mouvement brownien}{proposition.1.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Distribution empirique de $q(T)$ (bleu) vs $\mathcal  {N}(-70,\,320)$ (rouge). \textit  {Horizontal~: $q(T)$~; vertical~: densité.}}}{6}{figure.caption.4}\protected@file@percent }
-\newlabel{fig:gauss}{{2}{6}{Distribution empirique de $q(T)$ (bleu) vs $\mathcal {N}(-70,\,320)$ (rouge). \textit {Horizontal~: $q(T)$~; vertical~: densité.}}{figure.caption.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.4}Loi inverse-gaussienne du temps d'atteinte}{6}{subsection.1.4}\protected@file@percent }
-\newlabel{thm:ig}{{1.2}{6}{Hitting time du mouvement brownien avec drift négatif}{proposition.1.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Validation de la loi inverse-gaussienne. L'écart de $+6{,}8\,\%$ sur la variance est attendu~: la discrétisation de la marche entière et la taille finie $q_0=10$ s'écartent légèrement du régime asymptotique continu.}}{7}{figure.caption.5}\protected@file@percent }
-\newlabel{fig:ig}{{3}{7}{Validation de la loi inverse-gaussienne. L'écart de $+6{,}8\,\%$ sur la variance est attendu~: la discrétisation de la marche entière et la taille finie $q_0=10$ s'écartent légèrement du régime asymptotique continu}{figure.caption.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.5}Probabilité de ruine asymétrique $\mathbb  {P}(\tau _a < \tau _b)$}{7}{subsection.1.5}\protected@file@percent }
-\newlabel{prop:ruin}{{1.3}{7}{Formule intégrale de la probabilité de ruine}{proposition.1.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Validation de la formule de ruine asymétrique. Sur la diagonale ($q_0^a=q_0^b$), $\hat  p=0{,}497\approx 1/2$ (symétrie parfaite). Erreur max.~: $0{,}050 \le 2\sqrt  {p(1-p)/M}\approx 0{,}044$.}}{8}{figure.caption.6}\protected@file@percent }
-\newlabel{fig:ruin}{{4}{8}{Validation de la formule de ruine asymétrique. Sur la diagonale ($q_0^a=q_0^b$), $\hat p=0{,}497\approx 1/2$ (symétrie parfaite). Erreur max.~: $0{,}050 \le 2\sqrt {p(1-p)/M}\approx 0{,}044$}{figure.caption.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.6}Surface 3D du temps moyen $\mathbb  {E}[\min (\tau _a,\tau _b)]$}{8}{subsection.1.6}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Modèle Poisson. Gauche~: $\mathbb  {E}[\min (\tau _a,\tau _b)]$ avec IC 95\,\% (wireframes rouge et noir, $M=300$). Droite~: $\mathbb  {P}(\tau _a<\tau _b)$. \textit  {Axes $x$,$y$~: $q_0^a$, $q_0^b$~; surface~: valeur de la quantité.}}}{8}{figure.caption.7}\protected@file@percent }
-\newlabel{fig:3d_poisson}{{5}{8}{Modèle Poisson. Gauche~: $\E [\min (\tau _a,\tau _b)]$ avec IC 95\,\% (wireframes rouge et noir, $M=300$). Droite~: $\Pb (\tau _a<\tau _b)$. \textit {Axes $x$,$y$~: $q_0^a$, $q_0^b$~; surface~: valeur de la quantité.}}{figure.caption.7}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {2}Processus de Hawkes auto-excité}{9}{section.2}\protected@file@percent }
-\newlabel{sec:hawkes_indiv}{{2}{9}{Processus de Hawkes auto-excité}{section.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Modèle et propriétés stationnaires}{9}{subsection.2.1}\protected@file@percent }
-\newlabel{prop:hawkes_stat}{{2.1}{9}{Intensité stationnaire du processus de Hawkes}{proposition.2.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Distribution empirique de $\lambda ^-(T)$ pour $T=1000$ (100 trajectoires). Ligne rouge~: $\bar  \lambda ^-_\infty =2{,}8$. \textit  {Horizontal~: valeur de $\lambda ^-$~; vertical~: fréquence.}}}{9}{figure.caption.8}\protected@file@percent }
-\newlabel{fig:lambda_T}{{6}{9}{Distribution empirique de $\lambda ^-(T)$ pour $T=1000$ (100 trajectoires). Ligne rouge~: $\bar \lambda ^-_\infty =2{,}8$. \textit {Horizontal~: valeur de $\lambda ^-$~; vertical~: fréquence.}}{figure.caption.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Algorithme de simulation par thinning d'Ogata}{10}{subsection.2.2}\protected@file@percent }
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Thinning d'Ogata pour le Hawkes individuel}}{10}{algorithm.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Résultats numériques}{11}{subsection.2.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Dynamique du processus de Hawkes individuel. L'auto-excitation crée des avalanches d'annulations.}}{11}{figure.caption.9}\protected@file@percent }
-\newlabel{fig:hawkes_dyn}{{7}{11}{Dynamique du processus de Hawkes individuel. L'auto-excitation crée des avalanches d'annulations}{figure.caption.9}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Distribution empirique du temps d'arrêt sous Hawkes individuel (bleu) vs Poisson de fond (tiret). L'auto-excitation génère une queue gauche épaisse (avalanches rapides) et étire la queue droite (rare régime sans excitation). \textit  {Horizontal~: $\tau $~; vertical~: densité.}}}{11}{figure.caption.10}\protected@file@percent }
-\newlabel{fig:hawkes_stop}{{8}{11}{Distribution empirique du temps d'arrêt sous Hawkes individuel (bleu) vs Poisson de fond (tiret). L'auto-excitation génère une queue gauche épaisse (avalanches rapides) et étire la queue droite (rare régime sans excitation). \textit {Horizontal~: $\tau $~; vertical~: densité.}}{figure.caption.10}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Hawkes couplé bid/ask et processus auxiliaire}{11}{section.3}\protected@file@percent }
-\newlabel{sec:hawkes_couple}{{3}{11}{Hawkes couplé bid/ask et processus auxiliaire}{section.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Couplage inhibitoire des deux côtés}{11}{subsection.3.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Hawkes couplé ($\mu ^-_a=\mu ^-_b=2$). Le couplage concentre la distribution et réduit le temps moyen.}}{12}{figure.caption.11}\protected@file@percent }
-\newlabel{fig:coupled}{{9}{12}{Hawkes couplé ($\mu ^-_a=\mu ^-_b=2$). Le couplage concentre la distribution et réduit le temps moyen}{figure.caption.11}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Surfaces 3D pour le Hawkes couplé. Gauche~: $\mathbb  {E}[\min (\tau _a,\tau _b)]$ avec IC 95\,\%. Droite~: $\mathbb  {P}(\tau _a<\tau _b)$. \textit  {Axes $x$,$y$~: $q_0^a$, $q_0^b$.}}}{12}{figure.caption.12}\protected@file@percent }
-\newlabel{fig:hawkes_3d}{{10}{12}{Surfaces 3D pour le Hawkes couplé. Gauche~: $\E [\min (\tau _a,\tau _b)]$ avec IC 95\,\%. Droite~: $\Pb (\tau _a<\tau _b)$. \textit {Axes $x$,$y$~: $q_0^a$, $q_0^b$.}}{figure.caption.12}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Comparaison des quatre régimes}{13}{subsection.3.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Comparaison des distributions de temps d'arrêt ($q_0=10$, $M=1000$).}}{13}{table.caption.13}\protected@file@percent }
-\newlabel{tab:cmp}{{2}{13}{Comparaison des distributions de temps d'arrêt ($q_0=10$, $M=1000$)}{table.caption.13}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Densités empiriques du temps d'arrêt pour les quatre régimes. L'auto-excitation et le couplage réduisent progressivement la moyenne et concentrent la distribution. \textit  {Horizontal~: $\tau $~; vertical~: densité.}}}{13}{figure.caption.14}\protected@file@percent }
-\newlabel{fig:comparison}{{11}{13}{Densités empiriques du temps d'arrêt pour les quatre régimes. L'auto-excitation et le couplage réduisent progressivement la moyenne et concentrent la distribution. \textit {Horizontal~: $\tau $~; vertical~: densité.}}{figure.caption.14}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Processus auxiliaire $q_2$ au niveau adjacent}{13}{subsection.3.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Distribution conditionnelle de $q_2(\tau )$ selon le côté s'épuisant, cas asymétrique $\mu ^-_a=2$, $\mu ^-_b=1{,}2$. Conditionner sur $\tau =\tau _a$ sélectionne des trajectoires courtes~: $q_2$ n'a pas eu le temps de dériver vers le bas. \textit  {Horizontal~: $q_2$ à l'arrêt~; vertical~: fréquence.}}}{14}{figure.caption.15}\protected@file@percent }
-\newlabel{fig:q2_asym}{{12}{14}{Distribution conditionnelle de $q_2(\tau )$ selon le côté s'épuisant, cas asymétrique $\mu ^-_a=2$, $\mu ^-_b=1{,}2$. Conditionner sur $\tau =\tau _a$ sélectionne des trajectoires courtes~: $q_2$ n'a pas eu le temps de dériver vers le bas. \textit {Horizontal~: $q_2$ à l'arrêt~; vertical~: fréquence.}}{figure.caption.15}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Intensité $\lambda ^+_2$ excitée par les décréments d'ask}{14}{subsection.3.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Distribution conditionnelle de $q_2(\tau )$, cas symétrique. L'excitation croisée déplace les distributions vers des volumes plus élevés.}}{14}{figure.caption.16}\protected@file@percent }
-\newlabel{fig:q2_sym}{{13}{14}{Distribution conditionnelle de $q_2(\tau )$, cas symétrique. L'excitation croisée déplace les distributions vers des volumes plus élevés}{figure.caption.16}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Passage au prix : modèle à quatre limites}{15}{section.4}\protected@file@percent }
-\newlabel{sec:prix}{{4}{15}{Passage au prix : modèle à quatre limites}{section.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Architecture et mécanique du saut de prix}{15}{subsection.4.1}\protected@file@percent }
-\newlabel{prop:drift}{{4.1}{15}{Dérive du mid-price et probabilité de hausse}{proposition.4.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Trajectoires du mid-price sur 100 cycles. La dérive est entièrement contrôlée par l'asymétrie $\mu ^-_a/\mu ^-_b$.}}{15}{figure.caption.17}\protected@file@percent }
-\newlabel{fig:price}{{14}{15}{Trajectoires du mid-price sur 100 cycles. La dérive est entièrement contrôlée par l'asymétrie $\mu ^-_a/\mu ^-_b$}{figure.caption.17}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces État du carnet d'ordres (volumes des quatre limites + mid-price). Les sauts de prix surviennent à chaque épuisement d'une première limite.}}{16}{figure.caption.18}\protected@file@percent }
-\newlabel{fig:orderbook}{{15}{16}{État du carnet d'ordres (volumes des quatre limites + mid-price). Les sauts de prix surviennent à chaque épuisement d'une première limite}{figure.caption.18}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces Distribution des incréments de mid-price par cycle.}}{16}{figure.caption.19}\protected@file@percent }
-\newlabel{fig:price_incr}{{16}{16}{Distribution des incréments de mid-price par cycle}{figure.caption.19}{}}
-\@writefile{toc}{\contentsline {part}{II\hspace  {1em}Simulation et estimation des probabilités d'événements rares}{16}{part.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5}Limites du Monte-Carlo naïf en régime rare}{17}{section.5}\protected@file@percent }
-\newlabel{sec:mc_limits}{{5}{17}{Limites du Monte-Carlo naïf en régime rare}{section.5}{}}
-\newlabel{prop:cv_mc}{{5.1}{17}{Divergence du CV de l'estimateur naïf}{proposition.5.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Splitting multiniveau (AMS)}{17}{section.6}\protected@file@percent }
-\newlabel{sec:ams}{{6}{17}{Splitting multiniveau (AMS)}{section.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Algorithme AMS et estimateur}{17}{subsection.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Itération AMS.}{17}{paragraph*.20}\protected@file@percent }
-\newlabel{prop:ams_clt}{{6.1}{17}{CLT de l'estimateur AMS par méthode delta}{proposition.6.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces Validation empirique du CLT pour l'AMS et l'IS ($\mu _a^-=1{,}5$, $\mu _b^-=3{,}0$).}}{18}{figure.caption.21}\protected@file@percent }
-\newlabel{fig:ams_conv}{{17}{18}{Validation empirique du CLT pour l'AMS et l'IS ($\mu _a^-=1{,}5$, $\mu _b^-=3{,}0$)}{figure.caption.21}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Distribution des états aux niveaux de splitting}{18}{subsection.6.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces Splitting par niveaux (cas asymétrique, $\mu _a^-=3$, $\mu _b^-=1{,}5$). Phase hors-ligne~: $0{,}10$~s ($N=500$)~; phase en ligne~: $0{,}02$~s ($N=400$).}}{18}{figure.caption.22}\protected@file@percent }
-\newlabel{fig:splitting_levels}{{18}{18}{Splitting par niveaux (cas asymétrique, $\mu _a^-=3$, $\mu _b^-=1{,}5$). Phase hors-ligne~: $0{,}10$~s ($N=500$)~; phase en ligne~: $0{,}02$~s ($N=400$)}{figure.caption.22}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces Distribution de $Q_{a,2}(\tau _a)$ estimée par AMS (bleu) et MC direct (orange).}}{19}{figure.caption.23}\protected@file@percent }
-\newlabel{fig:splitting_q2}{{19}{19}{Distribution de $Q_{a,2}(\tau _a)$ estimée par AMS (bleu) et MC direct (orange)}{figure.caption.23}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Flash crash de profondeur $k$}{19}{subsection.6.3}\protected@file@percent }
-\newlabel{sec:flashcrash}{{6.3}{19}{Flash crash de profondeur \texorpdfstring {$k$}{k}}{subsection.6.3}{}}
-\newlabel{prop:fc}{{6.2}{19}{Non-indépendance des cycles Hawkes}{proposition.6.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {20}{\ignorespaces Probabilité du flash crash de profondeur $k$. Le modèle à cycles indépendants sous-estime structurellement $P(\mathrm  {FC}_k)$ d'un facteur $>5$ dès $k=3$.}}{20}{figure.caption.24}\protected@file@percent }
-\newlabel{fig:flashcrash}{{20}{20}{Probabilité du flash crash de profondeur $k$. Le modèle à cycles indépendants sous-estime structurellement $P(\mathrm {FC}_k)$ d'un facteur $>5$ dès $k=3$}{figure.caption.24}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Importance Sampling par basculement exponentiel}{20}{section.7}\protected@file@percent }
-\newlabel{sec:is}{{7}{20}{Importance Sampling par basculement exponentiel}{section.7}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Principe du changement de mesure}{20}{subsection.7.1}\protected@file@percent }
-\newlabel{prop:is_lr}{{7.1}{20}{Log-rapport de vraisemblance pour le basculement exponentiel}{proposition.7.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Optimisation de $\theta ^*$ et comparaison avec l'AMS}{21}{subsection.7.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {21}{\ignorespaces Gauche~: $\mathrm  {CV}^2(\theta )$ en fonction de $\theta $ (bleu, $N=800$)~; minimum $\approx 2{,}1$ vers $\theta \approx 0{,}3$. Droite~: $\hat  p(\theta )$ comparé à la référence AMS (tiret rouge). \textit  {Horiz.~: $\theta $~; vert. gauche~: $\mathrm  {CV}^2$~; vert. droite~: $\hat  p$.}}}{21}{figure.caption.25}\protected@file@percent }
-\newlabel{fig:is}{{21}{21}{Gauche~: $\mathrm {CV}^2(\theta )$ en fonction de $\theta $ (bleu, $N=800$)~; minimum $\approx 2{,}1$ vers $\theta \approx 0{,}3$. Droite~: $\hat p(\theta )$ comparé à la référence AMS (tiret rouge). \textit {Horiz.~: $\theta $~; vert. gauche~: $\mathrm {CV}^2$~; vert. droite~: $\hat p$.}}{figure.caption.25}{}}
-\@writefile{toc}{\contentsline {part}{III\hspace  {1em}Fitting des paramètres et validation réelle}{21}{part.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {8}Calibration par maximum de vraisemblance}{22}{section.8}\protected@file@percent }
-\newlabel{sec:mle}{{8}{22}{Calibration par maximum de vraisemblance}{section.8}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Log-vraisemblance du Hawkes bivarié inhibitoire}{22}{subsection.8.1}\protected@file@percent }
-\newlabel{prop:mle}{{8.1}{22}{Log-vraisemblance en $O(n)$ et compensateur simplifié}{proposition.8.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Résultats numériques : modèle correctement spécifié}{22}{subsection.8.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Calibration MLE sur 150 cycles synthétiques ($|\mathcal  {D}_a|=1991$, $|\mathcal  {D}_b|=500$). Modèle \emph  {correctement spécifié}~: le modèle calibré est identique au modèle de simulation.}}{22}{table.caption.26}\protected@file@percent }
-\newlabel{tab:mle}{{3}{22}{Calibration MLE sur 150 cycles synthétiques ($|\mathcal {D}_a|=1991$, $|\mathcal {D}_b|=500$). Modèle \emph {correctement spécifié}~: le modèle calibré est identique au modèle de simulation}{table.caption.26}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {22}{\ignorespaces Calibration MLE du Hawkes bivarié inhibitoire. Gauche~: taux de décrémentation ask/bid empiriques (bleu/orange) et valeurs calibrées (tirets). Droite~: profil de log-vraisemblance en $\mu _a^-$. \textit  {Horiz.~: temps~; $\mu _a^-$~; vert.~: taux~; log-lik.}}}{23}{figure.caption.27}\protected@file@percent }
-\newlabel{fig:mle}{{22}{23}{Calibration MLE du Hawkes bivarié inhibitoire. Gauche~: taux de décrémentation ask/bid empiriques (bleu/orange) et valeurs calibrées (tirets). Droite~: profil de log-vraisemblance en $\mu _a^-$. \textit {Horiz.~: temps~; $\mu _a^-$~; vert.~: taux~; log-lik.}}{figure.caption.27}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {9}Application aux données réelles : Bitcoin Black Thursday}{23}{section.9}\protected@file@percent }
-\newlabel{sec:bitcoin}{{9}{23}{Application aux données réelles : Bitcoin Black Thursday}{section.9}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Contexte et mécanisme microstructural}{23}{subsection.9.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Données~: API Binance 1h}{23}{subsection.9.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Calibration et estimation AMS}{24}{subsection.9.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces Gauche~: cours BTC/USDT 1h (fenêtre de crise en rouge). Centre~: taux de décrémentation ask/bid pré-crise et valeurs calibrées. Droite~: $P(k\text  { bougies négatives consécutives})$ par AMS (bleu) vs modèle indépendant (orange). \textit  {Horiz.~: date~; prix USD~; profondeur $k$~; vert.~: prix~; taux~; probabilité (log).}}}{24}{figure.caption.28}\protected@file@percent }
-\newlabel{fig:bitcoin}{{23}{24}{Gauche~: cours BTC/USDT 1h (fenêtre de crise en rouge). Centre~: taux de décrémentation ask/bid pré-crise et valeurs calibrées. Droite~: $P(k\text { bougies négatives consécutives})$ par AMS (bleu) vs modèle indépendant (orange). \textit {Horiz.~: date~; prix USD~; profondeur $k$~; vert.~: prix~; taux~; probabilité (log).}}{figure.caption.28}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Paramètres MLE calibrés sur la période pré-crise BTC/USDT 1h. $\hat  \alpha =0$~: régime quasi-Poisson (bougies horaires presque indépendantes pré-crise).}}{24}{table.caption.29}\protected@file@percent }
-\newlabel{tab:btc}{{4}{24}{Paramètres MLE calibrés sur la période pré-crise BTC/USDT 1h. $\hat \alpha =0$~: régime quasi-Poisson (bougies horaires presque indépendantes pré-crise)}{table.caption.29}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Flash crash BTC~: probabilités AMS vs Bernoulli indépendant. Pour $k=5$ (run observé le 12 mars), $P_\mathrm  {AMS}\approx 1/30\,934$, soit $\mathbf  {838\times }$ plus rare que le modèle indépendant.}}{24}{table.caption.30}\protected@file@percent }
-\newlabel{tab:btc_fc}{{5}{24}{Flash crash BTC~: probabilités AMS vs Bernoulli indépendant. Pour $k=5$ (run observé le 12 mars), $P_\mathrm {AMS}\approx 1/30\,934$, soit $\mathbf {838\times }$ plus rare que le modèle indépendant}{table.caption.30}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {10}Résultat négatif : tentative de modélisation de GameStop}{25}{section.10}\protected@file@percent }
-\newlabel{sec:gamestop}{{10}{25}{Résultat négatif : tentative de modélisation de GameStop}{section.10}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Comparaison des deux études de cas. Les données journalières GME sont insuffisantes pour calibrer un Hawkes bivarié.}}{25}{table.caption.31}\protected@file@percent }
-\newlabel{tab:gme}{{6}{25}{Comparaison des deux études de cas. Les données journalières GME sont insuffisantes pour calibrer un Hawkes bivarié}{table.caption.31}{}}
-\@writefile{toc}{\contentsline {paragraph}{Causes de l'échec.}{25}{paragraph*.32}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{Conclusion}{25}{paragraph*.32}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Partie I --- Modélisation.}{25}{paragraph*.33}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Partie II --- Événements rares.}{25}{paragraph*.34}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Partie III --- Calibration.}{25}{paragraph*.35}\protected@file@percent }
-\gdef \@abspage@last{26}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Estimation Monte-Carlo du temps moyen d'atteinte de 0}{5}{subsection.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Approximation diffusive}{6}{subsection.1.3}\protected@file@percent }
+\newlabel{sec:diffusion}{{1.3}{6}{Approximation diffusive}{subsection.1.3}{}}
+\newlabel{prop:bm}{{1.1}{6}{Convergence vers le mouvement brownien}{proposition.1.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Objectif.}{6}{paragraph*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Protocole.}{6}{paragraph*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Résultats numériques.}{6}{paragraph*.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Lecture de la figure.}{6}{paragraph*.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Distribution empirique de $q(T)$ (bleu) vs $\mathcal  {N}(-70,\,320)$ (rouge). \textit  {Horizontal~: $q(T)$~; vertical~: densité.}}}{7}{figure.caption.8}\protected@file@percent }
+\newlabel{fig:gauss}{{2}{7}{Distribution empirique de $q(T)$ (bleu) vs $\mathcal {N}(-70,\,320)$ (rouge). \textit {Horizontal~: $q(T)$~; vertical~: densité.}}{figure.caption.8}{}}
+\@writefile{toc}{\contentsline {paragraph}{Interprétation.}{7}{paragraph*.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4}Loi inverse-gaussienne du temps d'atteinte de 0}{7}{subsection.1.4}\protected@file@percent }
+\newlabel{thm:ig}{{1.2}{7}{Hitting time du mouvement brownien avec drift négatif}{proposition.1.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Objectif.}{7}{paragraph*.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Protocole.}{8}{paragraph*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Comparaison des moments.}{8}{paragraph*.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Test d'adéquation globale.}{8}{paragraph*.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Visualisation.}{8}{paragraph*.14}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Validation de la loi inverse-gaussienne pour $q_0=10$.}}{8}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:ig}{{3}{8}{Validation de la loi inverse-gaussienne pour $q_0=10$}{figure.caption.15}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.5}Probabilité de ruine asymétrique $\mathbb  {P}(\tau _a < \tau _b)$}{9}{subsection.1.5}\protected@file@percent }
+\newlabel{prop:ruin}{{1.3}{9}{Formule intégrale de la probabilité de ruine}{proposition.1.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{Objectif.}{9}{paragraph*.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Protocole.}{9}{paragraph*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Lecture de la figure.}{9}{paragraph*.18}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Validation de la formule de ruine asymétrique~: MC (gauche), quadrature IG (centre), écart absolu (droite). Sur la diagonale ($q_0^a=q_0^b$), $\hat  p\approx 1/2$ (symétrie parfaite). Erreur max.~: $0{,}050$. \textit  {Axes~: $q_0^a$, $q_0^b$~; couleur~: probabilité / erreur.}}}{9}{figure.caption.19}\protected@file@percent }
+\newlabel{fig:ruin}{{4}{9}{Validation de la formule de ruine asymétrique~: MC (gauche), quadrature IG (centre), écart absolu (droite). Sur la diagonale ($q_0^a=q_0^b$), $\hat p\approx 1/2$ (symétrie parfaite). Erreur max.~: $0{,}050$. \textit {Axes~: $q_0^a$, $q_0^b$~; couleur~: probabilité / erreur.}}{figure.caption.19}{}}
+\@writefile{toc}{\contentsline {paragraph}{Résultats quantitatifs.}{10}{paragraph*.20}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.6}Surface 3D du temps moyen $\mathbb  {E}[\min (\tau _a,\tau _b)]$}{10}{subsection.1.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Modèle Poisson. Gauche~: $\mathbb  {E}[\min (\tau _a,\tau _b)]$ avec IC 95\,\% (wireframes rouge et noir, $M=300$). Droite~: $\mathbb  {P}(\tau _a<\tau _b)$. \textit  {Axes $x$,$y$~: $q_0^a$, $q_0^b$~; surface~: valeur de la quantité.}}}{10}{figure.caption.21}\protected@file@percent }
+\newlabel{fig:3d_poisson}{{5}{10}{Modèle Poisson. Gauche~: $\E [\min (\tau _a,\tau _b)]$ avec IC 95\,\% (wireframes rouge et noir, $M=300$). Droite~: $\Pb (\tau _a<\tau _b)$. \textit {Axes $x$,$y$~: $q_0^a$, $q_0^b$~; surface~: valeur de la quantité.}}{figure.caption.21}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Processus de Hawkes auto-excité}{11}{section.2}\protected@file@percent }
+\newlabel{sec:hawkes_indiv}{{2}{11}{Processus de Hawkes auto-excité}{section.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Modèle et propriétés stationnaires}{11}{subsection.2.1}\protected@file@percent }
+\newlabel{prop:hawkes_stat}{{2.1}{11}{Intensité stationnaire du processus de Hawkes}{proposition.2.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Objectif.}{11}{paragraph*.22}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Protocole.}{11}{paragraph*.23}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Résultat numérique.}{11}{paragraph*.24}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Distribution empirique de $\lambda ^-(T)$ pour $T=1000$ (100 trajectoires). La ligne rouge marque $\bar  \lambda ^-_\infty =2{,}8$~; la distribution est décalée de $+6\,\%$ à droite. \textit  {Horizontal~: valeur de $\lambda ^-$~; vertical~: fréquence.}}}{12}{figure.caption.25}\protected@file@percent }
+\newlabel{fig:lambda_T}{{6}{12}{Distribution empirique de $\lambda ^-(T)$ pour $T=1000$ (100 trajectoires). La ligne rouge marque $\bar \lambda ^-_\infty =2{,}8$~; la distribution est décalée de $+6\,\%$ à droite. \textit {Horizontal~: valeur de $\lambda ^-$~; vertical~: fréquence.}}{figure.caption.25}{}}
+\@writefile{toc}{\contentsline {paragraph}{Interprétation de l'écart.}{12}{paragraph*.26}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Algorithme de simulation par thinning d'Ogata}{12}{subsection.2.2}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Thinning d'Ogata pour le Hawkes individuel}}{13}{algorithm.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Résultats numériques}{13}{subsection.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Dynamique du processus de Hawkes individuel. L'auto-excitation crée des avalanches d'annulations.}}{13}{figure.caption.27}\protected@file@percent }
+\newlabel{fig:hawkes_dyn}{{7}{13}{Dynamique du processus de Hawkes individuel. L'auto-excitation crée des avalanches d'annulations}{figure.caption.27}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Distribution empirique du temps d'arrêt sous Hawkes individuel (bleu) vs Poisson de fond (tiret). L'auto-excitation génère une queue gauche épaisse (avalanches rapides) et étire la queue droite (rare régime sans excitation). \textit  {Horizontal~: $\tau $~; vertical~: densité.}}}{14}{figure.caption.28}\protected@file@percent }
+\newlabel{fig:hawkes_stop}{{8}{14}{Distribution empirique du temps d'arrêt sous Hawkes individuel (bleu) vs Poisson de fond (tiret). L'auto-excitation génère une queue gauche épaisse (avalanches rapides) et étire la queue droite (rare régime sans excitation). \textit {Horizontal~: $\tau $~; vertical~: densité.}}{figure.caption.28}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Hawkes couplé bid/ask et processus auxiliaire}{14}{section.3}\protected@file@percent }
+\newlabel{sec:hawkes_couple}{{3}{14}{Hawkes couplé bid/ask et processus auxiliaire}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Couplage croisé excitateur}{14}{subsection.3.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Hawkes couplé ($\mu ^-_a=\mu ^-_b=2$). Le couplage concentre la distribution et réduit le temps moyen.}}{15}{figure.caption.29}\protected@file@percent }
+\newlabel{fig:coupled}{{9}{15}{Hawkes couplé ($\mu ^-_a=\mu ^-_b=2$). Le couplage concentre la distribution et réduit le temps moyen}{figure.caption.29}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Surfaces 3D pour le Hawkes couplé. Gauche~: $\mathbb  {E}[\min (\tau _a,\tau _b)]$ avec IC 95\,\%. Droite~: $\mathbb  {P}(\tau _a<\tau _b)$. \textit  {Axes $x$,$y$~: $q_0^a$, $q_0^b$.}}}{15}{figure.caption.30}\protected@file@percent }
+\newlabel{fig:hawkes_3d}{{10}{15}{Surfaces 3D pour le Hawkes couplé. Gauche~: $\E [\min (\tau _a,\tau _b)]$ avec IC 95\,\%. Droite~: $\Pb (\tau _a<\tau _b)$. \textit {Axes $x$,$y$~: $q_0^a$, $q_0^b$.}}{figure.caption.30}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Comparaison des quatre régimes}{16}{subsection.3.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Comparaison des distributions de temps d'arrêt ($q_0=10$, $M=1000$).}}{16}{table.caption.31}\protected@file@percent }
+\newlabel{tab:cmp}{{2}{16}{Comparaison des distributions de temps d'arrêt ($q_0=10$, $M=1000$)}{table.caption.31}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Densités empiriques du temps d'arrêt pour les quatre régimes. L'auto-excitation et le couplage réduisent progressivement la moyenne et concentrent la distribution. \textit  {Horizontal~: $\tau $~; vertical~: densité.}}}{16}{figure.caption.32}\protected@file@percent }
+\newlabel{fig:comparison}{{11}{16}{Densités empiriques du temps d'arrêt pour les quatre régimes. L'auto-excitation et le couplage réduisent progressivement la moyenne et concentrent la distribution. \textit {Horizontal~: $\tau $~; vertical~: densité.}}{figure.caption.32}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Processus auxiliaire $q_2$ au niveau adjacent}{16}{subsection.3.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Distribution conditionnelle de $q_2(\tau )$ selon le côté s'épuisant, cas asymétrique $\mu ^-_a=2$, $\mu ^-_b=1{,}2$. Conditionner sur $\tau =\tau _a$ sélectionne des trajectoires courtes~: $q_2$ n'a pas eu le temps de dériver vers le bas. \textit  {Horizontal~: $q_2$ à l'arrêt~; vertical~: fréquence.}}}{17}{figure.caption.33}\protected@file@percent }
+\newlabel{fig:q2_asym}{{12}{17}{Distribution conditionnelle de $q_2(\tau )$ selon le côté s'épuisant, cas asymétrique $\mu ^-_a=2$, $\mu ^-_b=1{,}2$. Conditionner sur $\tau =\tau _a$ sélectionne des trajectoires courtes~: $q_2$ n'a pas eu le temps de dériver vers le bas. \textit {Horizontal~: $q_2$ à l'arrêt~; vertical~: fréquence.}}{figure.caption.33}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Intensité $\lambda ^+_2$ excitée par les décréments d'ask}{17}{subsection.3.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Distribution conditionnelle de $q_2(\tau )$, cas symétrique. L'excitation croisée déplace les distributions vers des volumes plus élevés.}}{17}{figure.caption.34}\protected@file@percent }
+\newlabel{fig:q2_sym}{{13}{17}{Distribution conditionnelle de $q_2(\tau )$, cas symétrique. L'excitation croisée déplace les distributions vers des volumes plus élevés}{figure.caption.34}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Passage au prix : modèle à quatre limites}{18}{section.4}\protected@file@percent }
+\newlabel{sec:prix}{{4}{18}{Passage au prix : modèle à quatre limites}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Architecture et mécanique du saut de prix}{18}{subsection.4.1}\protected@file@percent }
+\newlabel{prop:drift}{{4.1}{18}{Dérive du mid-price et probabilité de hausse}{proposition.4.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Objectif.}{18}{paragraph*.35}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Paramètres des deux régimes.}{18}{paragraph*.36}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Résultats numériques.}{18}{paragraph*.37}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Trajectoires.}{18}{paragraph*.38}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Trajectoires du mid-price sur 100 cycles. Le contraste entre les deux régimes est immédiatement visible~: l'asymétrie $\mu ^-_a/\mu ^-_b$ se traduit directement en dérive.}}{19}{figure.caption.39}\protected@file@percent }
+\newlabel{fig:price}{{14}{19}{Trajectoires du mid-price sur 100 cycles. Le contraste entre les deux régimes est immédiatement visible~: l'asymétrie $\mu ^-_a/\mu ^-_b$ se traduit directement en dérive}{figure.caption.39}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces État du carnet d'ordres (volumes des quatre limites + mid-price). Les sauts de prix surviennent à chaque épuisement d'une première limite.}}{19}{figure.caption.40}\protected@file@percent }
+\newlabel{fig:orderbook}{{15}{19}{État du carnet d'ordres (volumes des quatre limites + mid-price). Les sauts de prix surviennent à chaque épuisement d'une première limite}{figure.caption.40}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces Distribution des incréments de mid-price par cycle.}}{20}{figure.caption.41}\protected@file@percent }
+\newlabel{fig:price_incr}{{16}{20}{Distribution des incréments de mid-price par cycle}{figure.caption.41}{}}
+\@writefile{toc}{\contentsline {part}{II\hspace  {1em}Estimation des probabilités d'événements rares~: Monte-Carlo, splitting AMS et importance sampling}{20}{part.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Limites du Monte-Carlo naïf en régime rare}{20}{section.5}\protected@file@percent }
+\newlabel{sec:mc_limits}{{5}{20}{Limites du Monte-Carlo naïf en régime rare}{section.5}{}}
+\newlabel{prop:cv_mc}{{5.1}{20}{Divergence du CV de l'estimateur naïf}{proposition.5.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Splitting multiniveau (AMS)}{21}{section.6}\protected@file@percent }
+\newlabel{sec:ams}{{6}{21}{Splitting multiniveau (AMS)}{section.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Algorithme AMS et estimateur}{21}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Itération AMS.}{21}{paragraph*.42}\protected@file@percent }
+\newlabel{prop:ams_clt}{{6.1}{21}{CLT de l'estimateur AMS par méthode delta}{proposition.6.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{Objectif.}{22}{paragraph*.43}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Protocole.}{22}{paragraph*.44}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Figures et lecture.}{22}{paragraph*.45}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces Validation empirique du CLT pour l'AMS et l'IS ($\mu _a^-=1{,}5$, $\mu _b^-=3{,}0$).}}{22}{figure.caption.46}\protected@file@percent }
+\newlabel{fig:ams_conv}{{17}{22}{Validation empirique du CLT pour l'AMS et l'IS ($\mu _a^-=1{,}5$, $\mu _b^-=3{,}0$)}{figure.caption.46}{}}
+\@writefile{toc}{\contentsline {paragraph}{Résultats quantitatifs.}{22}{paragraph*.47}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Distribution des états aux niveaux de splitting}{23}{subsection.6.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces Splitting par niveaux, côté ask (cas asymétrique, $\mu _a^-=3$, $\mu _b^-=1{,}5$). Phase hors-ligne~: $0{,}10$~s ($N=500$)~; phase en ligne~: $0{,}02$~s ($N=400$).}}{23}{figure.caption.48}\protected@file@percent }
+\newlabel{fig:splitting_levels}{{18}{23}{Splitting par niveaux, côté ask (cas asymétrique, $\mu _a^-=3$, $\mu _b^-=1{,}5$). Phase hors-ligne~: $0{,}10$~s ($N=500$)~; phase en ligne~: $0{,}02$~s ($N=400$)}{figure.caption.48}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces Splitting par niveaux, côté bid (mêmes paramètres). Symétrie ask/bid~: le côté bid survit via le couplage croisé excitateur ($\lambda _b^-$ augmentée).}}{23}{figure.caption.49}\protected@file@percent }
+\newlabel{fig:splitting_levels_bid}{{19}{23}{Splitting par niveaux, côté bid (mêmes paramètres). Symétrie ask/bid~: le côté bid survit via le couplage croisé excitateur ($\lb $ augmentée)}{figure.caption.49}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {20}{\ignorespaces Distribution de $Q_{a,2}(\tau _a)$ estimée par AMS (bleu) et MC direct (orange).}}{24}{figure.caption.50}\protected@file@percent }
+\newlabel{fig:splitting_q2}{{20}{24}{Distribution de $Q_{a,2}(\tau _a)$ estimée par AMS (bleu) et MC direct (orange)}{figure.caption.50}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Flash crash de profondeur $k$}{24}{subsection.6.3}\protected@file@percent }
+\newlabel{sec:flashcrash}{{6.3}{24}{Flash crash de profondeur \texorpdfstring {$k$}{k}}{subsection.6.3}{}}
+\newlabel{prop:fc}{{6.2}{24}{Non-indépendance des cycles Hawkes}{proposition.6.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Objectif.}{24}{paragraph*.51}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Protocole.}{24}{paragraph*.52}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Figures.}{25}{paragraph*.53}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {21}{\ignorespaces Probabilité du flash crash de profondeur $k$ sous Hawkes (AMS, bleu) vs modèle Bernoulli indépendant (orange). L'écart croît avec $k$.}}{25}{figure.caption.54}\protected@file@percent }
+\newlabel{fig:flashcrash}{{21}{25}{Probabilité du flash crash de profondeur $k$ sous Hawkes (AMS, bleu) vs modèle Bernoulli indépendant (orange). L'écart croît avec $k$}{figure.caption.54}{}}
+\@writefile{toc}{\contentsline {paragraph}{Facteurs multiplicatifs (cas asymétrique).}{25}{paragraph*.55}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Mécanisme.}{25}{paragraph*.56}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}Importance Sampling par basculement exponentiel}{26}{section.7}\protected@file@percent }
+\newlabel{sec:is}{{7}{26}{Importance Sampling par basculement exponentiel}{section.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Principe du changement de mesure}{26}{subsection.7.1}\protected@file@percent }
+\newlabel{prop:is_lr}{{7.1}{26}{Log-rapport de vraisemblance pour le basculement exponentiel}{proposition.7.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Optimisation de $\theta ^*$ et comparaison avec l'AMS}{26}{subsection.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Objectif.}{26}{paragraph*.57}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Protocole.}{26}{paragraph*.58}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Lecture de la figure.}{27}{paragraph*.59}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {22}{\ignorespaces Gauche~: $\mathrm  {CV}^2(\theta )$ en fonction de $\theta $ (bleu, $N=800$)~; minimum $\approx 2{,}1$ vers $\theta \approx 0{,}3$. Droite~: $\hat  p(\theta )$ comparé à la référence AMS (tiret rouge). \textit  {Horiz.~: $\theta $~; vert. gauche~: $\mathrm  {CV}^2$~; vert. droite~: $\hat  p$.}}}{27}{figure.caption.60}\protected@file@percent }
+\newlabel{fig:is}{{22}{27}{Gauche~: $\mathrm {CV}^2(\theta )$ en fonction de $\theta $ (bleu, $N=800$)~; minimum $\approx 2{,}1$ vers $\theta \approx 0{,}3$. Droite~: $\hat p(\theta )$ comparé à la référence AMS (tiret rouge). \textit {Horiz.~: $\theta $~; vert. gauche~: $\mathrm {CV}^2$~; vert. droite~: $\hat p$.}}{figure.caption.60}{}}
+\@writefile{toc}{\contentsline {paragraph}{Résultats quantitatifs.}{27}{paragraph*.61}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Pourquoi l'IS est moins efficace que l'AMS.}{27}{paragraph*.62}\protected@file@percent }
+\@writefile{toc}{\contentsline {part}{III\hspace  {1em}Calibration par maximum de vraisemblance et confrontation aux données de marché}{28}{part.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}Calibration par maximum de vraisemblance}{28}{section.8}\protected@file@percent }
+\newlabel{sec:mle}{{8}{28}{Calibration par maximum de vraisemblance}{section.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Log-vraisemblance du Hawkes bivarié à couplage croisé}{28}{subsection.8.1}\protected@file@percent }
+\newlabel{prop:mle}{{8.1}{28}{Log-vraisemblance en $O(n)$, couplage croisé excitateur}{proposition.8.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Résultats numériques : modèle correctement spécifié}{29}{subsection.8.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Calibration MLE sur 150 cycles synthétiques ($|\mathcal  {D}_a|=1991$, $|\mathcal  {D}_b|=500$). Modèle \emph  {correctement spécifié}~: le modèle calibré est identique au modèle de simulation.}}{29}{table.caption.63}\protected@file@percent }
+\newlabel{tab:mle}{{3}{29}{Calibration MLE sur 150 cycles synthétiques ($|\mathcal {D}_a|=1991$, $|\mathcal {D}_b|=500$). Modèle \emph {correctement spécifié}~: le modèle calibré est identique au modèle de simulation}{table.caption.63}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces Calibration MLE du Hawkes bivarié à couplage croisé excitateur. Gauche~: taux de décrémentation ask/bid empiriques (bleu/orange) et valeurs calibrées (tirets). Droite~: profil de log-vraisemblance en $\mu _a^-$. \textit  {Horiz.~: temps~; $\mu _a^-$~; vert.~: taux~; log-lik.}}}{29}{figure.caption.64}\protected@file@percent }
+\newlabel{fig:mle}{{23}{29}{Calibration MLE du Hawkes bivarié à couplage croisé excitateur. Gauche~: taux de décrémentation ask/bid empiriques (bleu/orange) et valeurs calibrées (tirets). Droite~: profil de log-vraisemblance en $\mu _a^-$. \textit {Horiz.~: temps~; $\mu _a^-$~; vert.~: taux~; log-lik.}}{figure.caption.64}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Application aux données réelles : Bitcoin Black Thursday}{30}{section.9}\protected@file@percent }
+\newlabel{sec:bitcoin}{{9}{30}{Application aux données réelles : Bitcoin Black Thursday}{section.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Contexte et mécanisme microstructural}{30}{subsection.9.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Données~: API Binance 1h}{30}{subsection.9.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Calibration et estimation AMS}{30}{subsection.9.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {24}{\ignorespaces Gauche~: cours BTC/USDT 1h (fenêtre de crise en rouge). Centre~: taux de décrémentation ask/bid pré-crise et valeurs calibrées. Droite~: $P(k\text  { bougies négatives consécutives})$ par AMS (bleu) vs modèle indépendant (orange). \textit  {Horiz.~: date~; prix USD~; profondeur $k$~; vert.~: prix~; taux~; probabilité (log).}}}{30}{figure.caption.65}\protected@file@percent }
+\newlabel{fig:bitcoin}{{24}{30}{Gauche~: cours BTC/USDT 1h (fenêtre de crise en rouge). Centre~: taux de décrémentation ask/bid pré-crise et valeurs calibrées. Droite~: $P(k\text { bougies négatives consécutives})$ par AMS (bleu) vs modèle indépendant (orange). \textit {Horiz.~: date~; prix USD~; profondeur $k$~; vert.~: prix~; taux~; probabilité (log).}}{figure.caption.65}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Paramètres MLE calibrés sur la période pré-crise BTC/USDT 1h. $\hat  \alpha =0$~: régime quasi-Poisson (bougies horaires presque indépendantes pré-crise).}}{31}{table.caption.66}\protected@file@percent }
+\newlabel{tab:btc}{{4}{31}{Paramètres MLE calibrés sur la période pré-crise BTC/USDT 1h. $\hat \alpha =0$~: régime quasi-Poisson (bougies horaires presque indépendantes pré-crise)}{table.caption.66}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Flash crash BTC~: probabilités AMS vs Bernoulli indépendant. Pour $k=5$ (run observé le 12 mars), $P_\mathrm  {AMS}\approx 1/30\,934$, soit $\mathbf  {838\times }$ plus rare que le modèle indépendant.}}{31}{table.caption.67}\protected@file@percent }
+\newlabel{tab:btc_fc}{{5}{31}{Flash crash BTC~: probabilités AMS vs Bernoulli indépendant. Pour $k=5$ (run observé le 12 mars), $P_\mathrm {AMS}\approx 1/30\,934$, soit $\mathbf {838\times }$ plus rare que le modèle indépendant}{table.caption.67}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {10}Tentative de modélisation du squeeze GameStop}{31}{section.10}\protected@file@percent }
+\newlabel{sec:gamestop}{{10}{31}{Tentative de modélisation du squeeze GameStop}{section.10}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Comparaison des deux études de cas. Les données journalières GME sont insuffisantes pour calibrer un Hawkes bivarié.}}{31}{table.caption.68}\protected@file@percent }
+\newlabel{tab:gme}{{6}{31}{Comparaison des deux études de cas. Les données journalières GME sont insuffisantes pour calibrer un Hawkes bivarié}{table.caption.68}{}}
+\@writefile{toc}{\contentsline {paragraph}{Causes de l'échec.}{32}{paragraph*.69}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{Conclusion}{32}{paragraph*.69}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Construction du modèle.}{32}{paragraph*.70}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Estimation des événements rares.}{32}{paragraph*.71}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Calibration et validation.}{32}{paragraph*.72}\protected@file@percent }
+\gdef \@abspage@last{33}

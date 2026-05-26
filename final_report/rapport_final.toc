@@ -1,46 +1,82 @@
 \babel@toc {french}{}\relax 
 \contentsline {section}{Introduction}{4}{Doc-Start}%
 \contentsline {paragraph}{Cadre paramétrique.}{4}{paragraph*.1}%
-\contentsline {part}{I\hspace {1em}Complexification graduelle du modèle}{4}{part.1}%
-\contentsline {section}{\numberline {1}Modèle de Poisson indépendant}{4}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Simulation exacte}{4}{subsection.1.1}%
-\contentsline {subsection}{\numberline {1.2}Estimation Monte-Carlo du temps moyen d'atteinte}{5}{subsection.1.2}%
-\contentsline {subsection}{\numberline {1.3}Approximation diffusive}{5}{subsection.1.3}%
-\contentsline {subsection}{\numberline {1.4}Loi inverse-gaussienne du temps d'atteinte}{6}{subsection.1.4}%
-\contentsline {subsection}{\numberline {1.5}Probabilité de ruine asymétrique $\mathbb {P}(\tau _a < \tau _b)$}{7}{subsection.1.5}%
-\contentsline {subsection}{\numberline {1.6}Surface 3D du temps moyen $\mathbb {E}[\min (\tau _a,\tau _b)]$}{8}{subsection.1.6}%
-\contentsline {section}{\numberline {2}Processus de Hawkes auto-excité}{9}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Modèle et propriétés stationnaires}{9}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Algorithme de simulation par thinning d'Ogata}{10}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}Résultats numériques}{11}{subsection.2.3}%
-\contentsline {section}{\numberline {3}Hawkes couplé bid/ask et processus auxiliaire}{11}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Couplage inhibitoire des deux côtés}{11}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Comparaison des quatre régimes}{13}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Processus auxiliaire $q_2$ au niveau adjacent}{13}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Intensité $\lambda ^+_2$ excitée par les décréments d'ask}{14}{subsection.3.4}%
-\contentsline {section}{\numberline {4}Passage au prix : modèle à quatre limites}{15}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Architecture et mécanique du saut de prix}{15}{subsection.4.1}%
-\contentsline {part}{II\hspace {1em}Simulation et estimation des probabilités d'événements rares}{16}{part.2}%
-\contentsline {section}{\numberline {5}Limites du Monte-Carlo naïf en régime rare}{17}{section.5}%
-\contentsline {section}{\numberline {6}Splitting multiniveau (AMS)}{17}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Algorithme AMS et estimateur}{17}{subsection.6.1}%
-\contentsline {paragraph}{Itération AMS.}{17}{paragraph*.20}%
-\contentsline {subsection}{\numberline {6.2}Distribution des états aux niveaux de splitting}{18}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3}Flash crash de profondeur $k$}{19}{subsection.6.3}%
-\contentsline {section}{\numberline {7}Importance Sampling par basculement exponentiel}{20}{section.7}%
-\contentsline {subsection}{\numberline {7.1}Principe du changement de mesure}{20}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2}Optimisation de $\theta ^*$ et comparaison avec l'AMS}{21}{subsection.7.2}%
-\contentsline {part}{III\hspace {1em}Fitting des paramètres et validation réelle}{21}{part.3}%
-\contentsline {section}{\numberline {8}Calibration par maximum de vraisemblance}{22}{section.8}%
-\contentsline {subsection}{\numberline {8.1}Log-vraisemblance du Hawkes bivarié inhibitoire}{22}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2}Résultats numériques : modèle correctement spécifié}{22}{subsection.8.2}%
-\contentsline {section}{\numberline {9}Application aux données réelles : Bitcoin Black Thursday}{23}{section.9}%
-\contentsline {subsection}{\numberline {9.1}Contexte et mécanisme microstructural}{23}{subsection.9.1}%
-\contentsline {subsection}{\numberline {9.2}Données~: API Binance 1h}{23}{subsection.9.2}%
-\contentsline {subsection}{\numberline {9.3}Calibration et estimation AMS}{24}{subsection.9.3}%
-\contentsline {section}{\numberline {10}Résultat négatif : tentative de modélisation de GameStop}{25}{section.10}%
-\contentsline {paragraph}{Causes de l'échec.}{25}{paragraph*.32}%
-\contentsline {section}{Conclusion}{25}{paragraph*.32}%
-\contentsline {paragraph}{Partie I --- Modélisation.}{25}{paragraph*.33}%
-\contentsline {paragraph}{Partie II --- Événements rares.}{25}{paragraph*.34}%
-\contentsline {paragraph}{Partie III --- Calibration.}{25}{paragraph*.35}%
+\contentsline {part}{I\hspace {1em}Du Poisson au Hawkes couplé~: construction progressive du modèle de carnet d'ordres}{4}{part.1}%
+\contentsline {section}{\numberline {1}Modèle de Poisson indépendant}{5}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Simulation exacte}{5}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Estimation Monte-Carlo du temps moyen d'atteinte de 0}{5}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Approximation diffusive}{6}{subsection.1.3}%
+\contentsline {paragraph}{Objectif.}{6}{paragraph*.4}%
+\contentsline {paragraph}{Protocole.}{6}{paragraph*.5}%
+\contentsline {paragraph}{Résultats numériques.}{6}{paragraph*.6}%
+\contentsline {paragraph}{Lecture de la figure.}{6}{paragraph*.7}%
+\contentsline {paragraph}{Interprétation.}{7}{paragraph*.9}%
+\contentsline {subsection}{\numberline {1.4}Loi inverse-gaussienne du temps d'atteinte de 0}{7}{subsection.1.4}%
+\contentsline {paragraph}{Objectif.}{7}{paragraph*.10}%
+\contentsline {paragraph}{Protocole.}{8}{paragraph*.11}%
+\contentsline {paragraph}{Comparaison des moments.}{8}{paragraph*.12}%
+\contentsline {paragraph}{Test d'adéquation globale.}{8}{paragraph*.13}%
+\contentsline {paragraph}{Visualisation.}{8}{paragraph*.14}%
+\contentsline {subsection}{\numberline {1.5}Probabilité de ruine asymétrique $\mathbb {P}(\tau _a < \tau _b)$}{9}{subsection.1.5}%
+\contentsline {paragraph}{Objectif.}{9}{paragraph*.16}%
+\contentsline {paragraph}{Protocole.}{9}{paragraph*.17}%
+\contentsline {paragraph}{Lecture de la figure.}{9}{paragraph*.18}%
+\contentsline {paragraph}{Résultats quantitatifs.}{10}{paragraph*.20}%
+\contentsline {subsection}{\numberline {1.6}Surface 3D du temps moyen $\mathbb {E}[\min (\tau _a,\tau _b)]$}{10}{subsection.1.6}%
+\contentsline {section}{\numberline {2}Processus de Hawkes auto-excité}{11}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Modèle et propriétés stationnaires}{11}{subsection.2.1}%
+\contentsline {paragraph}{Objectif.}{11}{paragraph*.22}%
+\contentsline {paragraph}{Protocole.}{11}{paragraph*.23}%
+\contentsline {paragraph}{Résultat numérique.}{11}{paragraph*.24}%
+\contentsline {paragraph}{Interprétation de l'écart.}{12}{paragraph*.26}%
+\contentsline {subsection}{\numberline {2.2}Algorithme de simulation par thinning d'Ogata}{12}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Résultats numériques}{13}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Hawkes couplé bid/ask et processus auxiliaire}{14}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Couplage croisé excitateur}{14}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Comparaison des quatre régimes}{16}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Processus auxiliaire $q_2$ au niveau adjacent}{16}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Intensité $\lambda ^+_2$ excitée par les décréments d'ask}{17}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Passage au prix : modèle à quatre limites}{18}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Architecture et mécanique du saut de prix}{18}{subsection.4.1}%
+\contentsline {paragraph}{Objectif.}{18}{paragraph*.35}%
+\contentsline {paragraph}{Paramètres des deux régimes.}{18}{paragraph*.36}%
+\contentsline {paragraph}{Résultats numériques.}{18}{paragraph*.37}%
+\contentsline {paragraph}{Trajectoires.}{18}{paragraph*.38}%
+\contentsline {part}{II\hspace {1em}Estimation des probabilités d'événements rares~: Monte-Carlo, splitting AMS et importance sampling}{20}{part.2}%
+\contentsline {section}{\numberline {5}Limites du Monte-Carlo naïf en régime rare}{20}{section.5}%
+\contentsline {section}{\numberline {6}Splitting multiniveau (AMS)}{21}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Algorithme AMS et estimateur}{21}{subsection.6.1}%
+\contentsline {paragraph}{Itération AMS.}{21}{paragraph*.42}%
+\contentsline {paragraph}{Objectif.}{22}{paragraph*.43}%
+\contentsline {paragraph}{Protocole.}{22}{paragraph*.44}%
+\contentsline {paragraph}{Figures et lecture.}{22}{paragraph*.45}%
+\contentsline {paragraph}{Résultats quantitatifs.}{22}{paragraph*.47}%
+\contentsline {subsection}{\numberline {6.2}Distribution des états aux niveaux de splitting}{23}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Flash crash de profondeur $k$}{24}{subsection.6.3}%
+\contentsline {paragraph}{Objectif.}{24}{paragraph*.51}%
+\contentsline {paragraph}{Protocole.}{24}{paragraph*.52}%
+\contentsline {paragraph}{Figures.}{25}{paragraph*.53}%
+\contentsline {paragraph}{Facteurs multiplicatifs (cas asymétrique).}{25}{paragraph*.55}%
+\contentsline {paragraph}{Mécanisme.}{25}{paragraph*.56}%
+\contentsline {section}{\numberline {7}Importance Sampling par basculement exponentiel}{26}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Principe du changement de mesure}{26}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Optimisation de $\theta ^*$ et comparaison avec l'AMS}{26}{subsection.7.2}%
+\contentsline {paragraph}{Objectif.}{26}{paragraph*.57}%
+\contentsline {paragraph}{Protocole.}{26}{paragraph*.58}%
+\contentsline {paragraph}{Lecture de la figure.}{27}{paragraph*.59}%
+\contentsline {paragraph}{Résultats quantitatifs.}{27}{paragraph*.61}%
+\contentsline {paragraph}{Pourquoi l'IS est moins efficace que l'AMS.}{27}{paragraph*.62}%
+\contentsline {part}{III\hspace {1em}Calibration par maximum de vraisemblance et confrontation aux données de marché}{28}{part.3}%
+\contentsline {section}{\numberline {8}Calibration par maximum de vraisemblance}{28}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Log-vraisemblance du Hawkes bivarié à couplage croisé}{28}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Résultats numériques : modèle correctement spécifié}{29}{subsection.8.2}%
+\contentsline {section}{\numberline {9}Application aux données réelles : Bitcoin Black Thursday}{30}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Contexte et mécanisme microstructural}{30}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Données~: API Binance 1h}{30}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Calibration et estimation AMS}{30}{subsection.9.3}%
+\contentsline {section}{\numberline {10}Tentative de modélisation du squeeze GameStop}{31}{section.10}%
+\contentsline {paragraph}{Causes de l'échec.}{32}{paragraph*.69}%
+\contentsline {section}{Conclusion}{32}{paragraph*.69}%
+\contentsline {paragraph}{Construction du modèle.}{32}{paragraph*.70}%
+\contentsline {paragraph}{Estimation des événements rares.}{32}{paragraph*.71}%
+\contentsline {paragraph}{Calibration et validation.}{32}{paragraph*.72}%
