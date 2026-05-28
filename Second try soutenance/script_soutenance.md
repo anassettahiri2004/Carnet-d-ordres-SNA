@@ -51,29 +51,33 @@ Cette slide résume la première série d'expériences. Le Poisson individuel do
 
 La moyenne ne raconte donc pas toute l'histoire. La mémoire modifie aussi la forme de la loi, notamment la masse des épuisements rapides. C'est ce point qui rend nécessaire la deuxième partie sur les événements rares.
 
-## Slide 9 - Deuxième limite [8:35 -> 9:45]
+## Slide 9 - Deuxième limite : reconstruire le carnet [8:35 -> 10:05]
 
-Quand la meilleure limite se vide, la deuxième limite devient la nouvelle meilleure limite. Son volume au temps d'épuisement, noté ici Q2, devient donc l'état initial du cycle suivant.
+Le rapport formalise ensuite le passage d'un modèle à deux files vers un modèle à quatre files. Les deux premières files, ask 1 et bid 1, restent les meilleures limites et suivent la dynamique Hawkes couplée. En parallèle, on simule aussi ask 2 et bid 2, c'est-à-dire les niveaux adjacents du carnet.
 
-Nous estimons sa loi conditionnelle selon le côté qui s'épuise. Dans le cas de base, les moyennes sont proches de 7,7 côté ask et 7,5 côté bid. Dans la variante où Q2 est aussi excitée par les événements de la première limite, la distribution se déplace vers des volumes plus élevés. Cela montre que le passage d'un cycle au suivant ne peut pas être résumé par une seule constante.
+L'idée importante est que la deuxième limite n'est pas créée au moment du saut de prix : elle a déjà évolué pendant tout le cycle. On distingue donc deux distributions. Dans la première, sans couplage, l'intensité d'insertion du niveau 2 reste constante : lambda 2 plus vaut simplement mu 2 plus. Dans la deuxième, avec couplage, cette intensité est excitée par les décréments du premier niveau. Autrement dit, quand le meilleur niveau subit beaucoup d'annulations ou de consommations, le niveau adjacent peut se recharger plus vite.
 
-## Slide 10 - Passage au prix [9:45 -> 10:55]
+La règle de reconstruction reste simple : si l'ask 1 s'épuise, le volume ask 2 devient le nouveau ask 1, ask 2 est réinitialisé, et le prix monte d'un demi-tick. Le cas bid est symétrique, avec un saut de prix vers le bas.
 
-On passe ensuite au prix en enchaînant les cycles. À chaque épuisement, le mid-price saute d'un demi-tick vers le haut ou vers le bas. Les intensités Hawkes sont transportées d'un cycle au suivant, ce qui conserve la mémoire du carnet.
+C'est pour cela que Q2 est central. Ce n'est pas seulement une variable auxiliaire : c'est l'état initial réel du cycle suivant. Sans couplage de lambda 2, les deux distributions sont centrées autour de 8. Avec le couplage à l'activité du premier niveau, les masses se déplacent vers des volumes plus élevés, autour de 10 à 11. Cette différence est exactement ce qu'on veut montrer : la reconstruction du carnet dépend de la loi conditionnelle retenue pour la deuxième limite, pas seulement de la règle de saut de prix.
+
+## Slide 10 - Passage au prix [10:05 -> 11:10]
+
+On passe ensuite au prix en enchaînant cette règle de reconstruction. À chaque épuisement, le mid-price saute d'un demi-tick vers le haut ou vers le bas. Les volumes de deuxième limite deviennent les nouvelles meilleures limites, et les intensités Hawkes sont transportées d'un cycle au suivant, ce qui conserve la mémoire du carnet.
 
 Dans ce cadre, la dérive moyenne par cycle dépend de p, la probabilité que l'ask s'épuise avant le bid. En régime symétrique, p vaut un demi et le prix est une martingale. En régime asymétrique, le rapport prédit une dérive de 0,238 par cycle, et la simulation mesure 0,2375. C'est une validation utile : le signe et l'ordre de grandeur de la dérive observée reflètent bien l'asymétrie introduite dans le carnet.
 
-## Slide 11 - Partie II [10:55 -> 11:05]
+## Slide 11 - Partie II [11:10 -> 11:20]
 
 Deuxième partie : on garde ce modèle, mais on s'intéresse maintenant à des scénarios très peu probables.
 
-## Slide 12 - Limite du Monte-Carlo direct [11:05 -> 12:25]
+## Slide 12 - Limite du Monte-Carlo direct [11:20 -> 12:35]
 
 Le cours donne la raison de l'échec du Monte-Carlo direct. Pour une probabilité p estimée par M trajectoires, la précision relative se comporte comme racine de (1-p) sur M p. Donc quand p devient très petit, il ne suffit pas de simuler un peu plus : le coût explose.
 
 Les probabilités visées dans le rapport descendent de 10 puissance moins 7 à 10 puissance moins 13. Pour une précision relative de l'ordre de 10 %, on arrive à des coûts de 10 puissance 9 à 10 puissance 15 trajectoires. L'événement retenu est l'épuisement du bid alors qu'il est initialement plus profond et moins fragile. Dans le modèle, cela correspond à une baisse brutale difficile à atteindre par hasard.
 
-## Slide 13 - Splitting AMS [12:25 -> 13:55]
+## Slide 13 - Splitting AMS [12:35 -> 13:45]
 
 La première méthode est le splitting adaptatif multiniveau. Au lieu d'estimer directement une probabilité minuscule, on la décompose en un produit de probabilités conditionnelles sur des niveaux de volume.
 
@@ -81,41 +85,49 @@ Techniquement, à chaque palier, on conserve les trajectoires qui se rapprochent
 
 La figure montre que l'écart-type décroît en 1 sur racine de N, avec une pente log-log proche de moins un demi. Le coefficient de variation baisse nettement quand N augmente. C'est cohérent avec la théorie AMS et avec la CLT utilisée dans le rapport.
 
-## Slide 14 - Loi de Q2 par AMS [13:55 -> 14:55]
+## Slide 14 - Flash crash de profondeur k [13:45 -> 14:45]
+
+La partie k-crash du notebook sert à passer d'un seul saut de prix à une vraie cascade. On définit un flash crash de profondeur k comme k épuisements bid successifs avant qu'un épuisement ask ne vienne interrompre la séquence.
+
+Le point important est que cette probabilité n'est pas simplement p1 puissance k. Ce serait vrai si chaque cycle repartait de zéro, comme une suite de Bernoulli indépendants. Ici ce n'est pas le cas : les volumes reconstruits et les intensités Hawkes sont transportés d'un cycle au suivant. On écrit donc la probabilité comme un produit de probabilités conditionnelles c_i.
+
+Dans le régime bid rare du notebook, on part déjà d'un événement peu fréquent : P(FC1) vaut environ 1,4 fois 10 puissance moins 1. Mais la cascade devient très vite extrême : P(FC5) est autour de 1,1 fois 10 puissance moins 7, et P(FC8) autour de 1,9 fois 10 puissance moins 13. La figure montre aussi que le Monte-Carlo direct ne valide que les premiers k ; ensuite il faut AMS.
+
+## Slide 15 - Loi de Q2 par AMS [14:45 -> 15:30]
 
 Nous avons aussi utilisé AMS pour estimer la loi conditionnelle de Q2. Comme cette loi est importante pour enchaîner les cycles, il fallait vérifier que le splitting ne la déforme pas.
 
 La comparaison avec un Monte-Carlo direct de grande taille donne des histogrammes très proches : même support, même forme générale, mêmes ordres de grandeur. Cette slide sert donc de contrôle croisé. Elle ne prouve pas tout, mais elle donne confiance dans la loi conditionnelle produite par AMS.
 
-## Slide 15 - Splitting en deux phases [14:55 -> 15:55]
+## Slide 16 - Splitting en deux phases [15:30 -> 16:15]
 
 Une amélioration pratique consiste à séparer le calcul en deux phases. Les premiers paliers du splitting sont coûteux, mais ils ne dépendent pas toujours de la requête finale. On peut donc les calculer une fois, stocker la distribution empirique des états survivants à un niveau k étoile, puis redémarrer depuis cette distribution.
 
 Dans l'expérience du rapport, le coût hors-ligne est d'environ 7,7 secondes, puis une requête en ligne coûte environ 0,7 seconde. Les moyennes obtenues sont 12,90 et 12,91, donc l'approximation est très proche tout en étant plus pratique pour tester plusieurs scénarios.
 
-## Slide 16 - Importance sampling : mesure et poids [15:55 -> 17:20]
+## Slide 17 - Importance sampling : mesure et poids [16:15 -> 17:30]
 
 La deuxième méthode est l'importance sampling. Ici, on ne sélectionne pas les trajectoires par niveaux : on modifie directement la loi simulée pour rendre l'événement plus fréquent, puis on corrige par un poids de vraisemblance.
 
 Le paramètre theta règle la force du changement de mesure. Dans nos expériences, le meilleur réglage est autour de 0,30. Au-delà, les poids deviennent instables et le coefficient de variation augmente fortement. Il y a même un cas trompeur : pour theta égal 2,1, le CV redescend, mais l'estimation de probabilité s'effondre presque à zéro. Donc il faut regarder à la fois la probabilité estimée et la dispersion des poids.
 
-## Slide 17 - Comparaison AMS / IS à N fixé [17:20 -> 18:40]
+## Slide 18 - Comparaison AMS / IS à N fixé [17:30 -> 18:40]
 
 À nombre de trajectoires fixé, l'importance sampling bien réglé donne ici une variance plus faible que l'AMS, avec une efficacité relative de 0,57. Ce résultat est intéressant parce qu'il évite de présenter AMS comme automatiquement meilleur.
 
 La nuance est importante : cette comparaison vaut pour un événement modéré. Pour des cascades plus profondes, l'avantage d'AMS est d'exploiter explicitement les niveaux de volume, alors que l'IS dépend fortement d'un bon changement de mesure. La conclusion du rapport est donc que les deux méthodes sont complémentaires.
 
-## Slide 18 - Partie III [18:40 -> 18:50]
+## Slide 19 - Partie III [18:40 -> 18:50]
 
 Dernière partie : on vérifie que la calibration est raisonnable avant d'appliquer le modèle à des données réelles.
 
-## Slide 19 - Calibration synthétique [18:50 -> 20:15]
+## Slide 20 - Calibration synthétique [18:50 -> 20:10]
 
 On commence par une validation sur données simulées, où les vrais paramètres sont connus. La log-vraisemblance du modèle Hawkes couplé permet une estimation MLE.
 
 Les paramètres de fond mu-a et mu-b sont retrouvés très précisément, autour de 3,01 et 1,50 pour des vraies valeurs 3,0 et 1,5. Les paramètres alpha et bêta sont moins précis : environ 6 % et 15 % d'erreur. Ce n'est pas surprenant, car ils sont corrélés dans la vraisemblance et l'échantillon est court. La figure de droite montre quand même que l'intensité reconstruite suit bien l'intensité vraie.
 
-## Slide 20 - Bitcoin Black Thursday : données 1h [20:15 -> 22:15]
+## Slide 21 - Bitcoin Black Thursday : données 1h [20:10 -> 22:10]
 
 L'application réelle porte sur le 12 mars 2020, le Black Thursday du Bitcoin, avec une baisse d'environ 41 % sur une journée. Nous utilisons des bougies horaires Binance et nous calibrons le modèle sur les 1696 observations précédant la crise.
 
@@ -123,13 +135,13 @@ Le résultat principal est que le régime pré-crise est calibré avec alpha pre
 
 Sous ce régime pré-crise, la séquence observée de cinq bougies négatives consécutives a une probabilité AMS d'environ 8,5 fois 10 puissance moins 6, soit environ une chance sur 118 000. L'interprétation doit rester prudente, parce qu'on travaille en bougies 1h et non en tick-by-tick, mais l'ordre de grandeur indique que la séquence est rare relativement au régime calibré.
 
-## Slide 21 - GameStop [22:15 -> 23:25]
+## Slide 22 - GameStop [22:10 -> 23:20]
 
 Nous avons aussi essayé d'appliquer la même logique au cas GameStop. Nous ne l'avons pas retenu, et c'est une limite importante à expliquer.
 
 Première limite : les données journalières disponibles donnent seulement 70 observations, donc une vraisemblance trop plate pour identifier correctement alpha et bêta. Deuxième limite, plus fondamentale : le mécanisme GameStop est largement exogène au carnet, lié à une coordination d'investisseurs. Notre modèle vise des cascades endogènes de liquidité. Dans ce cas, forcer le modèle aurait donné une lecture artificielle.
 
-## Slide 22 - Conclusion [23:25 -> 25:00]
+## Slide 23 - Conclusion [23:20 -> 25:00]
 
 Pour conclure, il y a trois résultats à retenir.
 
@@ -149,6 +161,7 @@ Les perspectives naturelles sont les données tick-by-tick pour mieux séparer a
 - **Le non-rejet KS est-il un bon résultat ?** Oui, dans ce contexte. On cherche à vérifier que la simulation Poisson est cohérente avec l'approximation IG. Une p-value de 0,0971, supérieure à 5 %, indique qu'on ne détecte pas d'écart significatif. Ce n'est pas une preuve absolue, mais c'est une validation raisonnable de l'étape de base.
 - **Le biais de troncature Hawkes invalide-t-il la suite ?** Non, mais il faut le documenter. Il explique l'écart de stationnarité dans le cas inhibiteur. Dans la suite, on compare des modèles simulés avec la même convention, donc l'effet est contrôlé.
 - **Pourquoi AMS plutôt que Monte-Carlo direct ?** Pour des probabilités entre 10^-7 et 10^-13, la précision relative du Monte-Carlo direct demanderait un nombre de trajectoires irréaliste. AMS remplace cette probabilité par un produit de probabilités conditionnelles.
+- **Pourquoi le k-crash n'est-il pas juste p1^k ?** Parce que les cycles ne sont pas réinitialisés indépendamment. Après chaque épuisement, on transporte les volumes reconstruits et les intensités Hawkes ; les probabilités conditionnelles c_i changent donc avec i.
 - **L'importance sampling meilleur que AMS sur une slide, contradiction ?** Non. Il est meilleur dans l'expérience modérée à N fixé. Pour des cascades plus profondes, AMS est plus robuste parce qu'il exploite la structure par niveaux.
 - **Pourquoi alpha vaut presque zéro sur BTC ?** C'est le diagnostic de calibration au pas horaire : le régime pré-crise ressemble à un régime quasi-Poisson. C'est précisément pour cela que la séquence de cinq baisses consécutives ressort comme rare.
 - **Pourquoi ne pas garder GameStop ?** Les données sont trop peu nombreuses et le mécanisme dominant est exogène au carnet. Le modèle vise des cascades endogènes de liquidité.

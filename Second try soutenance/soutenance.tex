@@ -185,21 +185,36 @@ Trois effets se cumulent : \textbf{(1)} minimum de deux files ; \textbf{(2)} aut
 \end{frame}
 
 %----------------------------------------------------------------
-\begin{frame}{Deuxième limite : état initial du cycle suivant}
+\begin{frame}{Deuxième limite : reconstruire le carnet}
 \begin{columns}[T]
 \begin{column}{0.40\textwidth}
-Quand la première limite s'épuise, elle est remplacée par la deuxième. Le volume $q_2(\tau)$ devient alors l'\emph{état initial} du cycle de prix suivant.\\[1ex]
+\footnotesize
+\textbf{Deux lois pour la deuxième limite.} Le niveau 2 évolue avant le saut :
+\[
+\begin{aligned}
+\lambda^+_{2,0}(t)&=\mu^+_2,\\
+\lambda^+_{2,c}(t)&=\mu^+_2+
+\sum_{T_i^\downarrow<t} a\,e^{-b(t-T_i^\downarrow)}.
+\end{aligned}
+\]
+Sans couplage : référence autonome. Avec couplage : les décréments du niveau 1 rechargent $q_2$.
 
-Il faut donc estimer sa \alert{loi conditionnelle}, pas seulement sa moyenne, car elle dépend du côté qui s'épuise.\\[1ex]
+Quand l'ask s'épuise, le volume de niveau 2 devient la nouvelle meilleure limite :
+\[
+q_{a,1}\leftarrow q_{a,2}(\tau_a),\qquad
+p_0\uparrow\tfrac{\delta^p}{2}.
+\]
 
-\textbf{Cas de base :} la moyenne vaut $\approx 7{,}7$ côté ask et $7{,}5$ côté bid. Dans la variante excitée, la distribution est décalée vers des volumes plus élevés, ce qui modifie les cycles suivants.
+\textbf{Donc :} la \alert{loi conditionnelle} de $q_2(\tau)$ dépend du choix de couplage pour $\lambda_2^+$.
 \end{column}
 \begin{column}{0.60\textwidth}
 \centering
-\includegraphics[width=\textwidth]{q2_cond.png}
+\scriptsize\textbf{Sans couplage :} $\lambda_2^+=\mu_2^+$, moyennes $\approx 8{,}0$\\[-0.2ex]
+\includegraphics[width=0.78\textwidth]{../final_report/figures/q2_symmetric_poisson.png}
 
-\vspace{0.5ex}
-{\footnotesize Loi conditionnelle de $q_2(\tau)$ selon le côté qui s'épuise (ask, g. ; bid, d.). Ligne pointillée : moyenne empirique.}
+\vspace{0.25ex}
+\scriptsize\textbf{Avec couplage :} $\lambda_2^+$ excitée par le niveau 1, moyennes $\approx 10$--$11$\\[-0.2ex]
+\includegraphics[width=0.78\textwidth]{../final_report/figures/q2_symmetric_excited.png}
 \end{column}
 \end{columns}
 \end{frame}
@@ -271,6 +286,39 @@ Deux méthodes orthogonales, puis on les confronte.
 
 \vspace{0.5ex}
 {\footnotesize Écart-type de $\hat P_{\text{AMS}}$ en fonction de $N$ : la droite log-log valide la CLT.}
+\end{column}
+\end{columns}
+\end{frame}
+
+%----------------------------------------------------------------
+\begin{frame}{Flash crash de profondeur $k$}
+\begin{columns}[T]
+\begin{column}{0.44\textwidth}
+\small
+On appelle flash crash de profondeur $k$ une série de $k$ épuisements \emph{bid} avant qu'un épuisement ask ne casse la séquence :
+\[
+\mathrm{FC}_k=\{\taub^{(1)}<\taua,\ldots,\taub^{(k)}<\taua\}.
+\]
+
+Les cycles ne sont pas i.i.d. : après chaque saut, les volumes reconstruits et les intensités Hawkes sont transportés.
+\[
+\begin{aligned}
+\PP(\mathrm{FC}_k)&=\prod_{i=1}^{k} c_i,\\
+c_i&=\PP(\taub^{(i)}<\taua\mid \mathrm{FC}_{i-1}).
+\end{aligned}
+\]
+
+\textbf{Lecture :} $p_1^k$ est seulement une référence sans mémoire, pas la loi du modèle reconstruit.
+\end{column}
+\begin{column}{0.56\textwidth}
+\centering
+\includegraphics[width=0.96\textwidth]{../final_report/figures/flash_crash_asym.png}
+
+\vspace{0.3ex}
+{\scriptsize
+\textbf{Ordres de grandeur.} Régime bid rare : $\mu_a^-=3{,}0$, $\mu_b^-=1{,}2$, $q_{a,0}=10$, $q_{b,0}=12$.\\[0.3ex]
+$\PP(\mathrm{FC}_1)\simeq1{,}4\cdot10^{-1}$ ; $\PP(\mathrm{FC}_5)\simeq1{,}1\cdot10^{-7}$ ; $\PP(\mathrm{FC}_8)\simeq1{,}9\cdot10^{-13}$.
+}
 \end{column}
 \end{columns}
 \end{frame}

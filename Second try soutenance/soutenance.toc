@@ -1,3 +1,3 @@
 \beamer@sectionintoc {1}{Construire le modèle}{3}{0}{1}
 \beamer@sectionintoc {2}{Estimer l'improbable}{11}{0}{2}
-\beamer@sectionintoc {3}{Confronter au réel}{18}{0}{3}
+\beamer@sectionintoc {3}{Confronter au réel}{19}{0}{3}
