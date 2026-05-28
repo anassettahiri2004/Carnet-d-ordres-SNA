@@ -176,6 +176,26 @@ Trois effets se cumulent : \textbf{(1)} prendre le minimum de deux files divise 
 \end{frame}
 
 %----------------------------------------------------------------
+\begin{frame}{Avant le prix : le volume qui amorce le cycle}
+\begin{columns}[T]
+\begin{column}{0.40\textwidth}
+Quand la première limite s'épuise, elle est aussitôt \alert{remplacée} par la deuxième. Le volume $q_2(\tau)$ présent à cet instant devient l'\emph{état initial} du cycle de prix qui suit.\\[1ex]
+
+Il ne suffit donc pas d'une moyenne : on a besoin de toute sa \alert{loi conditionnelle}, et elle dépend du côté qui s'épuise.\\[1ex]
+
+\textbf{Ce qu'on observe :} une loi en cloche décalée, de moyenne $\approx 7{,}7$ côté ask et $7{,}5$ côté bid — c'est cette distribution qu'on injectera dans la dynamique de prix.
+\end{column}
+\begin{column}{0.60\textwidth}
+\centering
+\includegraphics[width=\textwidth]{q2_cond.png}
+
+\vspace{0.5ex}
+{\footnotesize Loi conditionnelle de $q_2(\tau)$ selon le côté qui s'épuise (ask, g. ; bid, d.). Ligne pointillée : moyenne empirique.}
+\end{column}
+\end{columns}
+\end{frame}
+
+%----------------------------------------------------------------
 \begin{frame}{Du volume au prix : une dérive identifiable}
 \begin{columns}[T]
 \begin{column}{0.42\textwidth}
@@ -242,6 +262,51 @@ On guide ainsi l'effort de calcul exactement là où le Monte-Carlo naïf le gas
 
 \vspace{0.5ex}
 {\footnotesize Écart-type de $\hat P_{\text{AMS}}$ en fonction de $N$ : la droite log-log valide la CLT.}
+\end{column}
+\end{columns}
+\end{frame}
+
+%----------------------------------------------------------------
+\begin{frame}{La loi de $Q_2$ : comment l'estimer efficacement ?}
+\begin{columns}[T]
+\begin{column}{0.40\textwidth}
+On a vu en Partie I que la loi de $Q_{a,2}(\tau)$ amorce le cycle de prix. \alert{Comment l'estimer} ?\\[1ex]
+
+Deux estimations indépendantes :
+\begin{itemize}
+\item \textbf{Monte-Carlo direct} (force brute).
+\item \textbf{Splitting AMS} (machinerie par paliers).
+\end{itemize}
+\textbf{Verdict :} les deux lois se \alert{superposent} — l'AMS ne biaise pas la distribution conditionnelle, à coût bien moindre.
+\end{column}
+\begin{column}{0.60\textwidth}
+\centering
+\includegraphics[width=\textwidth]{q2_mc_ams.png}
+
+\vspace{0.5ex}
+{\footnotesize Loi de $Q_{a,2}(\tau_a)$ : Monte-Carlo direct ($N{=}10^5$, g.) vs splitting AMS ($N{=}3\!\cdot\!10^4$, d.). Même forme, même support.}
+\end{column}
+\end{columns}
+\end{frame}
+
+%----------------------------------------------------------------
+\begin{frame}{Splitting en deux phases : réutiliser $\hat\pi_{k^*}$}
+\begin{columns}[T]
+\begin{column}{0.40\textwidth}
+\textbf{L'idée.} Les premiers paliers du splitting sont coûteux mais \alert{indépendants de la question finale}. On les calcule \emph{une fois}, hors-ligne, et on stocke la distribution empirique $\hat\pi_{k^*}$ des survivants.\\[1ex]
+
+En ligne, on \alert{bootstrappe} depuis $\hat\pi_{k^*}$ et on ne simule que les derniers paliers :
+\[
+\hat P=\underbrace{\textstyle\prod_{j>k^*}\hat p_j}_{\text{hors-ligne}}\!\times\hat P(\cdot\mid q_{s,1}\!\le\! k^*).
+\]
+\textbf{Gain :} hors-ligne $7{,}7$\,s, puis chaque requête en ligne en $0{,}7$\,s — loi \emph{identique}.
+\end{column}
+\begin{column}{0.60\textwidth}
+\centering
+\includegraphics[width=\textwidth]{q2_boot.png}
+
+\vspace{0.5ex}
+{\footnotesize Loi de $Q_{a,2}$ : splitting complet (g.) vs bootstrap depuis $\hat\pi_{k^*=5}$ (d.). Moyennes $12{,}90$ vs $12{,}91$.}
 \end{column}
 \end{columns}
 \end{frame}
