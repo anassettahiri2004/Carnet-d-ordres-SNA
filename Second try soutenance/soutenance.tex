@@ -55,32 +55,50 @@ La question centrale se ramène donc à deux temps d'atteinte :
 \xsection{blue}[Partie I]{Construire le modèle}[beamerxbackground.jpg]
 
 %----------------------------------------------------------------
-\begin{frame}{Point de départ : modèle Poisson indépendant}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
+\begin{frame}[t]{Point de départ : modèle Poisson indépendant}
+\small
+\begin{columns}[T,onlytextwidth]
+
+\begin{column}{0.54\textwidth}
 Chaque file est d'abord modélisée par
+\vspace{-0.2em}
 \[
 \begin{aligned}
 q(t)&=q_0+N^+_t-N^-_t,\\
-\mu&=\lambda^+-\lambda^-=-0{,}8<0.
+\mu&=\lambda^+-\lambda^-=-0{,}8<0,\\
+\sigma^2&=\lambda^++\lambda^-=4.
 \end{aligned}
 \]
-La limite diffusive donne un temps d'atteinte de 0 de loi \alert{inverse-gaussienne} :
+
+\vspace{-0.7em}
+La limite diffusive donne un temps d'atteinte de 0 de loi
+\alert{inverse-gaussienne} :
+\vspace{-0.3em}
 \[
-\tau\sim \mathrm{IG}\!\left(\tfrac{q_0}{|\mu|},\tfrac{q_0^2}{\sigma^2}\right),\quad
+\tau\sim \mathrm{IG}\!\left(\frac{q_0}{|\mu|},\frac{q_0^2}{\sigma^2}\right),
+\qquad
 \E[\tau]=12{,}5.
 \]
-\textbf{Rôle dans le projet :} cette formule fournit un étalon analytique pour valider la simulation.
+
+\vspace{-0.5em}
+\textbf{Rôle dans le projet :} étalon analytique pour valider la simulation.
+
+\vspace{-0.3em}
 \begin{itemize}
-\item Simulation MC : $\E[\tau]=12{,}52$ ($+0{,}14\%$).
-\item Test KS : $p=0{,}097$ ; l'ajustement IG n'est pas rejeté.
+\setlength\itemsep{0.1em}
+\item MC : $\E[\tau]=12{,}52$ ($+0{,}14\%$).
+\item Test KS : $p=0{,}097$ ; IG non rejetée.
 \end{itemize}
 \end{column}
-\begin{column}{0.5\textwidth}
+
+\begin{column}{0.44\textwidth}
 \centering
-\includegraphics[width=\textwidth]{fig_ig.png}\\
-{\scriptsize Densité IG théorique (rouge) vs histogramme simulé.}
+\includegraphics[width=\linewidth]{fig_ig.png}
+
+\vspace{-0.3em}
+{\scriptsize Densité IG théorique vs histogramme simulé.}
 \end{column}
+
 \end{columns}
 \end{frame}
 
@@ -105,30 +123,40 @@ La quadrature de Gauss--Legendre donne une référence déterministe pour compar
 
 %----------------------------------------------------------------
 \begin{frame}{Processus de Hawkes : mémoire et troncature}
-\begin{columns}[T]
+\begin{columns}[T,onlytextwidth]
+
 \begin{column}{0.52\textwidth}
 \small
 L'intensité d'annulation intègre la mémoire des événements passés :
+\vspace{-0.2em}
 \[
 \lambda^-(t)=\mu^-+\alpha\!\!\sum_{s\in\mathcal N^-,\,s<t}\!\! e^{-\beta(t-s)}
 -\alpha\!\!\sum_{s\in\mathcal N^+,\,s<t}\!\! e^{-\beta(t-s)}.
 \]
-{\scriptsize Chaque annulation ($\mathcal N^-$) excite $\lambda^-$ de $\alpha$ ; chaque insertion ($\mathcal N^+$) l'inhibe.}\\[0.3ex]
+
+\vspace{-0.7em}
+{\scriptsize Chaque événement imprime une impulsion sur $\lambda^-$, positive pour $\mathcal N^-$ et négative pour $\mathcal N^+$, puis cette contribution s'amortit exponentiellement.}\\[0.3ex]
 Sans troncature, la théorie stationnaire donne $\bar\lambda^-_\infty=2{,}80$.\\[0.5ex]
+
 \textbf{Simulation :} la moyenne mesurée est $2{,}96$, soit \alert{$+5{,}9\%$}.
-\begin{block}{Point de vigilance numérique}
+
+\begin{block}{Lecture de l'écart}
 \footnotesize
-La mise à jour $\lambda^-\!\leftarrow\!\max(\lambda^-_{\text{pre}}-\alpha,0)$ impose un plancher à zéro. Le bilan de flux théorique n'est donc plus exactement conservé.
+La théorie est calculée sans troncature, tandis que la simulation impose un plancher
+$\lambda^-\geq 0$. Les inhibitions trop fortes sont donc coupées, ce qui explique la surestimation observée de $\bar\lambda^-$.
 \end{block}
 \end{column}
+
 \begin{column}{0.48\textwidth}
 \centering
-\includegraphics[width=\textwidth]{fig_hawkes_bias.png}\\
+\includegraphics[width=\linewidth]{fig_hawkes_bias.png}
+
+\vspace{-0.3em}
 {\scriptsize Moyennes temporelles de $\lambda^-$ ; ligne rouge $=2{,}80$. La masse est décalée à droite.}
 \end{column}
+
 \end{columns}
 \end{frame}
-
 %----------------------------------------------------------------
 \begin{frame}{Hawkes couplé : effet du couplage bid/ask}
 \begin{columns}[T]
