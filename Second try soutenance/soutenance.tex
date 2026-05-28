@@ -96,16 +96,20 @@ Une simple quadrature de Gauss--Legendre remplace des millions de tirages.\\[1ex
 %----------------------------------------------------------------
 \begin{frame}{Ajouter la mémoire : Hawkes, et un piège numérique}
 \begin{columns}[T]
-\begin{column}{0.5\textwidth}
-Intensité auto-excitée :
-$\lambda^-(t)=\mu^-+\alpha\!\!\sum_{s\in\mathcal N^-}\!\! e^{-\beta(t-s)}-\dots$\\[0.5ex]
-Théorie stationnaire : $\bar\lambda^-_\infty=2{,}80$.\\[1ex]
+\begin{column}{0.52\textwidth}
+L'intensité d'annulation intègre la mémoire des événements passés :
+\[
+\lambda^-(t)=\mu^-+\alpha\!\!\sum_{s\in\mathcal N^-,\,s<t}\!\! e^{-\beta(t-s)}
+-\alpha\!\!\sum_{s\in\mathcal N^+,\,s<t}\!\! e^{-\beta(t-s)}.
+\]
+{\scriptsize Chaque annulation ($\mathcal N^-$) excite $\lambda^-$ de $\alpha$ ; chaque insertion ($\mathcal N^+$) l'inhibe.}\\[0.3ex]
+Théorie stationnaire : $\bar\lambda^-_\infty=2{,}80$.\\[0.5ex]
 \textbf{Ce que la simulation révèle :} on mesure $2{,}96$, soit \alert{$+5{,}9\%$}. Pas du bruit.
 \begin{block}{Le clipping fait le biais}
-La mise à jour $\lambda^-\!\leftarrow\!\max(\lambda^-_{\text{pre}}-\alpha,0)$ tronque à zéro. Le bilan de flux supposé sur $\mathbb R$ est brisé : excès systématique. Connaître l'origine d'un biais vaut mieux que le cacher.
+La mise à jour $\lambda^-\!\leftarrow\!\max(\lambda^-_{\text{pre}}-\alpha,0)$ tronque à zéro. Le bilan de flux supposé sur $\mathbb R$ est brisé : excès systématique.
 \end{block}
 \end{column}
-\begin{column}{0.5\textwidth}
+\begin{column}{0.48\textwidth}
 \centering
 \includegraphics[width=\textwidth]{fig_hawkes_bias.png}\\
 {\scriptsize Moyennes temporelles de $\lambda^-$ ; ligne rouge $=2{,}80$. La masse est décalée à droite.}
@@ -116,21 +120,22 @@ La mise à jour $\lambda^-\!\leftarrow\!\max(\lambda^-_{\text{pre}}-\alpha,0)$ t
 %----------------------------------------------------------------
 \begin{frame}{Le couplage croisé : pourquoi un crash s'auto-alimente}
 \begin{columns}[T]
-\begin{column}{0.5\textwidth}
-Auto-excitation par ses décréments, \alert{inhibition par ses incréments}, excitation croisée par \emph{tout} événement de l'autre file :
+\begin{column}{0.56\textwidth}
+Auto-excitation par ses décréments, \alert{inhibition par ses incréments}, et excitation croisée par \emph{tout} événement de l'autre file :
 \[
+\resizebox{\linewidth}{!}{$\displaystyle
 \lma(t)=\mu_a^- +\alpha\!\!\sum_{s\in\mathcal D_a}\!e^{-\beta(t-s)}
 \,\alert{-\,\alpha\!\!\sum_{s\in\mathcal A_a}\!e^{-\beta(t-s)}}
-\,+\alpha\!\!\sum_{s\in\mathcal C_b}\!e^{-\beta(t-s)}.
+\,+\alpha\!\!\sum_{s\in\mathcal C_b}\!e^{-\beta(t-s)}$}
 \]
-{\scriptsize $\mathcal D_a,\mathcal A_a$ : décréments / incréments ask ; $\mathcal C_b=\mathcal D_b\cup\mathcal A_b$ : tous les événements bid.}
-\textbf{Effet mesuré} (coin $10{,}10$) :
+{\scriptsize $\mathcal D_a,\mathcal A_a$ : décréments / incréments ask ; $\mathcal C_b=\mathcal D_b\cup\mathcal A_b$ : tous les événements bid.}\\[1ex]
+\textbf{Effet mesuré} (coin $q_0=10,10$) :
 \[
-\E[\min]: \;8{,}3\ \text{(Poisson)} \to 5{,}8\ \text{(couplé)},\;\; -30\%.
+\E[\min]:\; 8{,}3\ \text{(Poisson)}\ \to\ 5{,}8\ \text{(couplé)},\quad -30\%.
 \]
 Les deux côtés se vident \alert{ensemble} : c'est la signature microstructurale d'une cascade.
 \end{column}
-\begin{column}{0.5\textwidth}
+\begin{column}{0.44\textwidth}
 \centering
 \includegraphics[width=\textwidth]{fig_couple3d.png}\\
 {\scriptsize Hawkes couplé : $\E[\min(\taua,\taub)]$ (g.) et $\PP(\taua<\taub)$ (d.).}
@@ -173,18 +178,22 @@ Trois effets se cumulent : \textbf{(1)} prendre le minimum de deux files divise 
 %----------------------------------------------------------------
 \begin{frame}{Du volume au prix : une dérive identifiable}
 \begin{columns}[T]
-\begin{column}{0.5\textwidth}
-Modèle à 4 limites : épuisement $\Rightarrow$ saut $\pm\delta^p/2$, intensités Hawkes \alert{transportées} d'un cycle à l'autre.
+\begin{column}{0.42\textwidth}
+Modèle à 4 limites : à chaque épuisement, le prix saute de $\pm\delta^p/2$, et les intensités Hawkes sont \alert{transportées} d'un cycle à l'autre.
 \[
 \Delta p_0=\tfrac{\delta^p}{2}(2p-1),\quad p=\PP(\taua<\taub).
 \]
-Martingale $\iff p=\tfrac12 \iff \mu_a^-=\mu_b^-$.\\[1ex]
-\textbf{Validation :} cas asymétrique, dérive prédite $0{,}238$, mesurée \alert{$0{,}2375$/cycle}. Donc : observer la seule dérive du prix suffit à inférer l'asymétrie cachée du carnet.
+Le prix est une martingale $\iff p=\tfrac12 \iff \mu_a^-=\mu_b^-$.\\[1ex]
+\textbf{L'enseignement :} en régime asymétrique, dérive prédite $0{,}238$, mesurée \alert{$0{,}2375$/cycle}. Observer la \emph{seule} dérive du prix suffit donc à inférer l'asymétrie cachée du carnet.
 \end{column}
-\begin{column}{0.5\textwidth}
+\begin{column}{0.58\textwidth}
 \centering
-\includegraphics[width=\textwidth]{fig_midprice.png}\\
-{\scriptsize Mid-price : symétrique (g., sans tendance) vs asymétrique (d., haussier).}
+\includegraphics[width=\textwidth]{mp_sym.png}\\
+{\scriptsize Cas symétrique : pas de tendance (martingale).}
+
+\vspace{2.5ex}
+\includegraphics[width=\textwidth]{mp_asym.png}\\
+{\scriptsize Cas asymétrique : tendance haussière nette.}
 \end{column}
 \end{columns}
 \end{frame}
@@ -233,28 +242,6 @@ On guide ainsi l'effort de calcul exactement là où le Monte-Carlo naïf le gas
 
 \vspace{0.5ex}
 {\footnotesize Écart-type de $\hat P_{\text{AMS}}$ en fonction de $N$ : la droite log-log valide la CLT.}
-\end{column}
-\end{columns}
-\end{frame}
-
-%----------------------------------------------------------------
-\begin{frame}{Le résultat que je défends : les cycles ne sont pas i.i.d.}
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-Un flash crash de profondeur $k$, c'est $k$ épuisements du bid \alert{d'affilée}.\\[1ex]
-
-La tentation : supposer les cycles indépendants et écrire $p_1^k$. \textbf{C'est faux.}\\[1ex]
-
-\textbf{Pourquoi.} La mémoire Hawkes est \alert{transportée} d'un cycle au suivant. Après un épuisement bid, le bid se reconstruit plein — mais l'ask, lui, est déjà entamé et a été excité par le couplage. Les cycles suivants sont donc \emph{plus durs}, pas identiques.\\[1ex]
-
-Mesuré : $c_1=0{,}14$, puis $c_2=0{,}04$\dots La courbe i.i.d. \alert{surestime} le risque profond.
-\end{column}
-\begin{column}{0.5\textwidth}
-\centering
-\includegraphics[width=\textwidth]{fc_1.png}
-
-\vspace{0.5ex}
-{\footnotesize L'AMS descend jusqu'à $10^{-13}$ (à $k\!=\!8$), là où le Monte-Carlo direct (triangles) s'arrête faute de trajectoires dès $k\!=\!3$.}
 \end{column}
 \end{columns}
 \end{frame}
@@ -385,7 +372,7 @@ Calibration & Instable ($\hat\alpha\to 0$ ou $\beta^-$) & Stable\\
 \begin{column}{0.6\textwidth}
 \begin{enumerate}
 \item[\textbf{I.}] La \alert{mémoire déforme la loi} d'épuisement : $\E[\min]$ de $12{,}5\to 5{,}9$, et l'asymétrie devient lisible directement dans la dérive du prix.
-\item[\textbf{II.}] La \alert{non-indépendance des cycles} est le c\oe ur du sujet : AMS et IS sont complémentaires, et la référence i.i.d. trompe sur le risque profond.
+\item[\textbf{II.}] Pour le \alert{rare}, AMS et IS sont complémentaires : l'IS gagne à $N$ fixé sur les événements modérés, l'AMS reste indispensable en profondeur.
 \item[\textbf{III.}] Sur \alert{Black Thursday}, le modèle chiffre la rareté ($\sim 10^{-6}$) avec un régime pré-crise quasi-Poisson — et sait refuser GME.
 \end{enumerate}
 \end{column}

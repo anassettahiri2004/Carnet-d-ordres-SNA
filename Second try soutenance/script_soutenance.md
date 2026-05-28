@@ -55,14 +55,7 @@ L'événement rare qu'on retient, c'est l'épuisement du bid dans un régime où
 ## Slide 12 — Splitting AMS [13:50 → 15:30]
 Première méthode : le splitting adaptatif multiniveau. L'idée : on découpe l'événement rare en paliers de volume, et à chaque palier on rééchantillonne les trajectoires survivantes — celles qui ont progressé vers l'épuisement — en réinjectant leur état Hawkes complet. On guide ainsi la simulation là où le Monte-Carlo gaspillerait tout.
 
-La figure valide la théorie : en échelle log-log, la pente est de moins un demi, donc l'écart-type décroît bien en un sur racine de N comme le prédit notre CLT par delta-méthode. Concrètement le coefficient de variation chute d'un facteur 7.
-
-## Slide 13 — Non-indépendance des cycles [15:30 → 17:30]
-Voici le résultat que je défends le plus. Un flash crash de profondeur k, c'est k épuisements bid d'affilée. La tentation est d'écrire ça comme p-un puissance k, en supposant les cycles indépendants. **C'est faux.**
-
-Parce que la mémoire Hawkes est transportée : après un épuisement bid, le bid se reconstruit plein, mais l'ask, lui, est déjà entamé et a été excité par le couplage. Donc les cycles suivants sont *plus durs*. On mesure c-un égal 0,14, c-deux 0,04, et ça s'effondre. La courbe i.i.d. **surestime** le risque profond.
-
-Et regardez la droite : l'AMS atteint dix puissance moins treize à k égal 8, là où le Monte-Carlo direct, en triangles, s'arrête à k égal 3 faute de trajectoires. C'est exactement pour ça qu'on ne peut pas se contenter d'une hypothèse Bernoulli : il faut l'AMS.
+La figure valide la théorie : en échelle log-log, la pente est de moins un demi, donc l'écart-type décroît bien en un sur racine de N comme le prédit notre CLT par delta-méthode. Concrètement le coefficient de variation chute d'un facteur 7. Et un point qu'on développe dans le rapport : comme les intensités Hawkes sont transportées d'un cycle au suivant, les cascades profondes ne sont pas de simples répétitions indépendantes — raison de plus pour ne pas se contenter d'un modèle Bernoulli.
 
 ## Slide 14 — Importance sampling [17:30 → 19:00]
 Deuxième méthode, indépendante : l'importance sampling par basculement exponentiel. On tord les intensités d'un facteur thêta pour rendre l'événement rare fréquent, et on corrige par la vraisemblance.
