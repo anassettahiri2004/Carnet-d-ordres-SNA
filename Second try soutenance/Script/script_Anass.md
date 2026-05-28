@@ -274,7 +274,7 @@ Si $\theta$ est trop grand, on force trop les trajectoires, et les poids devienn
 Dans nos expériences, le meilleur compromis est autour de
 
 $$
-\theta^\* \approx 0{,}30.
+\theta^{\ast} \approx 0{,}30.
 $$
 
 Au-delà de $0{,}6$, le coefficient de variation devient très grand, ce qui signifie que l’estimateur est dominé par quelques trajectoires avec des poids énormes.

@@ -246,15 +246,16 @@ La dernière amélioration consiste à rendre le splitting réutilisable.
 
 L’idée est que les premiers niveaux de l’AMS ne dépendent pas forcément de la cible finale.
 
-On peut donc faire une phase hors-ligne : on simule jusqu’à un niveau intermédiaire $k^\*$, puis on stocke la distribution empirique des états survivants.
+On peut donc faire une phase hors-ligne : on simule jusqu’à un niveau intermédiaire $k^{\ast}$, puis on stocke la distribution empirique des états survivants.
 
 Cette distribution empirique est simplement un ensemble de particules complètes :
 
 $$
-\widehat \pi_{k^\*}
+\widehat{\pi}_{k^{\ast}}
 =
-\{s_{k^\*}^{(i)}\}_{i=1}^N.
+\left\{s_{k^{\ast}}^{(i)}\right\}_{i=1}^{N}.
 $$
+
 
 Chaque état contient toutes les composantes nécessaires pour reprendre la simulation : volumes, intensités Hawkes, temps, éventuellement prix.
 
@@ -265,9 +266,9 @@ La probabilité est factorisée sous la forme
 $$
 \widehat P
 =
-P_{\text{off}}
+P_{\mathrm{off}}
 \times
-\widehat P_{\text{on}}.
+\widehat P_{\mathrm{on}}.
 $$
 
 Le gain est significatif : le splitting complet coûte environ $7{,}69$ secondes par requête, alors qu’avec la méthode en deux phases, ce coût est payé une fois hors-ligne, puis chaque requête coûte seulement $0{,}67$ seconde.
