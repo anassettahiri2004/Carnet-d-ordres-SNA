@@ -79,11 +79,11 @@ Les probabilités visées dans le rapport descendent de 10 puissance moins 7 à 
 
 ## Slide 13 - Splitting AMS [12:35 -> 13:45]
 
-La première méthode est le splitting adaptatif multiniveau. Au lieu d'estimer directement une probabilité minuscule, on la décompose en un produit de probabilités conditionnelles sur des niveaux de volume.
+La première méthode est le splitting adaptatif multiniveau. Le principe est avant tout un principe de recyclage des trajectoires : plutôt que de repartir de zéro à chaque niveau, on conserve les trajectoires qui ont déjà progressé vers l'événement et on les rééchantillonne. Seul le tronçon restant est simulé. C'est ce recyclage qui donne le gain en ressources de calcul par rapport au Monte-Carlo direct.
 
-Techniquement, à chaque palier, on conserve les trajectoires qui se rapprochent de l'épuisement et on rééchantillonne leurs états. Le détail important ici est que l'on doit réinjecter l'état Hawkes complet, pas seulement le volume, puisque les intensités transportent la mémoire.
+Mathématiquement, cela se traduit par une décomposition de la probabilité cible en produit de probabilités conditionnelles, chacune estimée sur les trajectoires recyclées. Le détail important est que l'on transporte l'état Hawkes complet lors du rééchantillonnage, pas seulement le volume, puisque les intensités transportent la mémoire d'un palier à l'autre.
 
-La figure montre que l'écart-type décroît en 1 sur racine de N, avec une pente log-log proche de moins un demi. Le coefficient de variation baisse nettement quand N augmente. C'est cohérent avec la théorie AMS et avec la CLT utilisée dans le rapport.
+La figure montre que l'écart-type décroît en 1 sur racine de N, avec une pente log-log proche de moins un demi. Le coefficient de variation baisse d'un facteur 7 entre N égal 50 et N égal 3200. C'est cohérent avec la théorie AMS et valide l'efficacité du recyclage.
 
 ## Slide 14 - Flash crash de profondeur k [13:45 -> 14:45]
 

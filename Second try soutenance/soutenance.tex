@@ -5,6 +5,7 @@
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
 \usepackage{array}
+\usepackage{algpseudocode}
 
 \company{MODAL --- SNA}
 \title[Simulation, événements rares et calibration]{Modélisation stochastique d'un carnet d'ordres}[Carnet d'ordres]
@@ -18,6 +19,9 @@
 \newcommand{\lmb}{\lambda_b^-}
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\PP}{\mathbb{P}}
+\newcommand{\la}{\lambda_a^-}
+\newcommand{\lb}{\lambda_b^-}
+\newcommand{\Var}{\mathrm{Var}}
 
 \begin{document}
 
@@ -274,18 +278,19 @@ Deux méthodes orthogonales, puis on les confronte.
 \begin{frame}{Splitting AMS : factoriser un événement rare}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\textbf{Principe.} On remplace une probabilité très petite par un produit de probabilités conditionnelles moins rares. Les niveaux sont définis par le volume restant avant épuisement.\\[1ex]
+\textbf{Principe.} Plutôt que de relancer $N$ trajectoires depuis zéro à chaque niveau, on \alert{recycle} celles qui ont déjà atteint le palier précédent : elles sont rééchantillonnées et seul le tronçon restant est simulé. Ce recyclage réduit considérablement le coût par rapport à un Monte-Carlo direct.\\[1ex]
 
-À chaque palier, on conserve les trajectoires qui avancent vers l'événement et on rééchantillonne leur \alert{état Hawkes complet}. Ce point est important car les intensités sont transportées entre cycles.\\[1ex]
-
-\textbf{Validation :} l'écart-type décroît en $1/\sqrt N$ (pente log-log $\approx -0{,}5$). Le coefficient de variation diminue d'un facteur $7$ entre $N=50$ et $N=3200$.
+Mathématiquement, cela revient à décomposer une probabilité infime en un produit de probabilités conditionnelles, chaque facteur étant estimé sur les trajectoires recyclées en transportant l'\alert{état Hawkes complet}.
 \end{column}
 \begin{column}{0.52\textwidth}
 \centering
 \includegraphics[width=\textwidth]{fig_ams_conv.png}
 
-\vspace{0.5ex}
+\vspace{0.3ex}
 {\footnotesize Écart-type de $\hat P_{\text{AMS}}$ en fonction de $N$ : la droite log-log valide la CLT.}
+
+\vspace{0.5ex}
+\small\textbf{Validation :} pente log-log $\approx{-0{,}5}$~; CV réduit d'un facteur $7$ entre $N=50$ et $N=3200$.
 \end{column}
 \end{columns}
 \end{frame}
@@ -327,14 +332,14 @@ $\PP(\mathrm{FC}_1)\simeq1{,}4\cdot10^{-1}$ ; $\PP(\mathrm{FC}_5)\simeq1{,}1\cdo
 \begin{frame}{Loi de $Q_2$ : contrôle par Monte-Carlo direct}
 \begin{columns}[T]
 \begin{column}{0.40\textwidth}
-La loi de $Q_{a,2}(\tau)$ conditionne l'état initial du cycle suivant. Pour vérifier que le splitting ne déforme pas cette loi, on compare deux estimateurs.\\[1ex]
+\small
+La loi de $Q_{a,2}(\tau)$ conditionne l'état initial du cycle suivant. Pour vérifier que le splitting ne déforme pas cette loi, on compare deux estimateurs.\\[0.6ex]
 
-Deux estimations indépendantes :
 \begin{itemize}
-\item \textbf{Monte-Carlo direct}, utilisé comme référence.
-\item \textbf{Splitting AMS}, utilisé pour les régimes plus rares.
+\item \textbf{MC direct} ($N{=}10^5$) : référence brute — la plupart des trajectoires ne conditionnent pas sur $\tau_a<\tau_b$.
+\item \textbf{Splitting AMS} ($N{=}3\!\cdot\!10^4$) : seules les trajectoires recyclées contribuent.
 \end{itemize}
-\textbf{Résultat :} les deux histogrammes ont même support et mêmes ordres de grandeur. C'est une validation empirique de la distribution conditionnelle obtenue par AMS.
+\textbf{Résultat :} même distribution avec $\mathbf{3\times}$ moins de calcul. Validation empirique que le recyclage ne déforme pas la loi conditionnelle.
 \end{column}
 \begin{column}{0.60\textwidth}
 \centering
@@ -350,15 +355,16 @@ Deux estimations indépendantes :
 \begin{frame}{Splitting en deux phases}
 \begin{columns}[T]
 \begin{column}{0.40\textwidth}
-\textbf{Idée.} Les premiers paliers du splitting sont coûteux mais \alert{réutilisables}. On les calcule une fois, hors-ligne, puis on stocke la distribution empirique $\hat\pi_{k^*}$ des états survivants.\\[1ex]
-
-En ligne, on redémarre depuis $\hat\pi_{k^*}$ et on ne simule que les derniers paliers :
+\small
+\textbf{Idée.} Les premiers paliers de l'AMS ne dépendent pas de la cible finale et sont \alert{réutilisables}. On les calcule une fois hors-ligne, on stocke $\hat\pi_{k^*}$, puis on ne simule que les derniers paliers en ligne :
 \[
-\widehat P(A)=
-\widehat P(q_{s,1}\le k^*)\,
-\widehat P(A\mid q_{s,1}\le k^*).
+\resizebox{\linewidth}{!}{$\displaystyle
+\hat P(\tau_s<\tau_{\bar s})=
+\underbrace{\prod_{j=Q_0-1}^{k^*+1}\hat p_j}_{P_{\mathrm{off}}}
+\times
+\hat P\!\bigl(\tau_s<\tau_{\bar s}\mid q_{s,1}\le k^*\bigr)$}
 \]
-\textbf{Gain observé :} $7{,}7$\,s hors-ligne pour estimer le premier facteur, puis $0{,}7$\,s par requête en ligne, avec des moyennes $12{,}90$ et $12{,}91$.
+\textbf{Gain de calcul :} splitting complet $= 7{,}69$\,s par requête ; avec deux phases : $7{,}69$\,s une fois hors-ligne, puis $0{,}67$\,s par requête en ligne ($\times\mathbf{11}$ plus rapide). Moyennes $12{,}90$ vs $12{,}91$.
 \end{column}
 \begin{column}{0.60\textwidth}
 \centering
@@ -513,6 +519,207 @@ Calibration & Instable ($\hat\alpha\to 0$ ou $\beta^-$) & Stable\\
 \end{columns}
 \vspace{1ex}
 \centering \rmfamily\large\color{bleu303} Merci --- questions ?
+\end{frame}
+
+%================================================================
+\appendix
+\xsection{grey}[Annexes]{Compléments techniques}[beamerxbackground.jpg]
+
+%----------------------------------------------------------------
+\begin{frame}{Annexe A : Thinning d'Ogata}
+\begin{columns}[T]
+\begin{column}{0.55\textwidth}
+\small
+\begin{algorithmic}[1]
+\State $t\gets0$,\; $q\gets q_0$,\; $\lambda^-\gets\mu^-$
+\While{condition d'arrêt non atteinte}
+  \State $\bar\lambda\gets\max(\mu^-,\lambda^-)$,\;
+         $\Lambda\gets\bar\lambda+\lambda^+$
+  \State $\Delta t\sim\mathcal{E}(\Lambda)$,\; $t'\gets t+\Delta t$
+  \State $\lambda^-_\mathrm{pre}\gets\mu^-+(\lambda^--\mu^-)e^{-\beta(t'-t)}$
+  \State $U\sim\mathcal{U}[0,1]$
+  \If{$U<\lambda^+/\Lambda$}
+    \State $q\gets q+1$,\;
+           $\lambda^-\gets\max(\lambda^-_\mathrm{pre}-\alpha,0)$
+           \Comment{insertion : inhibition}
+  \ElsIf{$U<(\max(\lambda^-_\mathrm{pre},0)+\lambda^+)/\Lambda$}
+    \State $q\gets q-1$,\;
+           $\lambda^-\gets\lambda^-_\mathrm{pre}+\alpha$
+           \Comment{annulation : auto-excitation}
+  \Else\; $\lambda^-\gets\lambda^-_\mathrm{pre}$
+    \Comment{rejet}
+  \EndIf
+  \State $t\gets t'$
+\EndWhile
+\end{algorithmic}
+\end{column}
+\begin{column}{0.45\textwidth}
+\small
+\textbf{Principe.} $\Lambda$ est une borne sur l'intensité totale $\lambda^-(t)+\lambda^+$. On propose le prochain événement à $t+\Delta t$ avec $\Delta t\sim\mathcal{E}(\Lambda)$, et on l'accepte ou le rejette par thinning.\\[1ex]
+
+\textbf{Point de vigilance.} L'inhibition par insertion ($\lambda^-\gets\max(\cdot-\alpha,0)$) impose un plancher à 0. Le bilan de flux théorique n'est plus exactement conservé~; l'intensité stationnaire mesurée ($2{,}96$) dépasse légèrement la valeur théorique ($2{,}80$).
+\end{column}
+\end{columns}
+\end{frame}
+
+%----------------------------------------------------------------
+\begin{frame}{Annexe B : Algorithme AMS}
+\begin{columns}[T]
+\begin{column}{0.52\textwidth}
+\small
+\textbf{Entrée :} $N$ particules, $Q_0$ niveaux, côté cible $s$.
+\begin{algorithmic}[1]
+\State Initialiser $N$ particules à l'état $(q_{s,0},\lambda_a^-,\lambda_b^-)$ initial
+\For{$k = Q_0-1$ \textbf{downto} $0$}
+  \State Simuler chaque particule par thinning jusqu'à $q_{s,1}=k$
+         (succès) ou $q_{\bar s,1}=0$ (échec)
+  \State $n_k\gets$ nb de succès ;\; $\hat p_k\gets n_k/N$
+  \State Rééchantillonner $N$ copies parmi les $n_k$ survivants
+         (avec remise), en héritant de $(\lambda_a^-,\lambda_b^-,t)$ finals
+\EndFor
+\State \Return $\hat P_\mathrm{AMS}=\prod_{k=0}^{Q_0-1}\hat p_k$
+\end{algorithmic}
+\end{column}
+\begin{column}{0.48\textwidth}
+\small
+\textbf{CLT (méthode delta).} Pour $N\to\infty$ :
+\[
+\sqrt{N}(\hat P_\mathrm{AMS}-P)\xrightarrow{d}
+\mathcal{N}\!\Bigl(0,P^2\!\sum_k\tfrac{1-p_k}{p_k}\Bigr).
+\]
+\textbf{Preuve.} $\hat p_k=n_k/N$ avec $n_k\sim\mathrm{Bin}(N,p_k)$. Par indépendance asymptotique des niveaux et méthode delta sur $\log\hat P=\sum_k\log\hat p_k$ :
+\[
+\Var(\hat P)\approx P^2\sum_k\frac{1-p_k}{N p_k}.
+\]
+L'IC à 95\,\% est $\hat P_\mathrm{AMS}\pm1{,}96\,\hat P_\mathrm{AMS}\sqrt{\frac{1}{N}\sum_k\frac{1-\hat p_k}{\hat p_k}}$.
+\end{column}
+\end{columns}
+\end{frame}
+
+%----------------------------------------------------------------
+\begin{frame}{Annexe C : AMS avec distribution empirique (deux phases)}
+\begin{columns}[T]
+\begin{column}{0.50\textwidth}
+\small
+\textbf{Phase hors-ligne} (calculée une fois).
+\begin{algorithmic}[1]
+\State Lancer AMS de $k=Q_0-1$ jusqu'à $k=k^*+1$
+\State Stocker les états survivants :
+       $\hat\pi_{k^*}=\{s^{(i)}_{k^*}\}_{i=1}^{N}$
+\State $P_\mathrm{off}\gets\prod_{k=k^*+1}^{Q_0-1}\hat p_k$
+\end{algorithmic}
+
+\vspace{1ex}
+\textbf{Phase en ligne} (par requête, $7{,}69\to 0{,}67$\,s).
+\begin{algorithmic}[1]
+\State Tirer $N$ états i.i.d.\ depuis $\hat\pi_{k^*}$
+\State Lancer AMS de $k=k^*$ jusqu'à $0$
+\State $P_\mathrm{on}\gets\prod_{k=0}^{k^*}\hat p_k$
+\State \Return $P_\mathrm{off}\times P_\mathrm{on}$
+\end{algorithmic}
+\end{column}
+\begin{column}{0.50\textwidth}
+\small
+\textbf{Formule.}
+\[
+\hat P(\tau_s<\tau_{\bar s})=
+\underbrace{\prod_{k=k^*+1}^{Q_0-1}\hat p_k}_{P_\mathrm{off}}
+\times
+\hat P\!\bigl(\tau_s<\tau_{\bar s}\mid q_{s,1}\le k^*\bigr).
+\]
+
+\textbf{Validité.} L'estimateur reste non-biaisé si $\hat\pi_{k^*}$ est calculé sur une phase indépendante. La convergence reste en $1/\sqrt N$ pour la phase en ligne.
+
+\vspace{0.5ex}
+\textbf{Gain.} ${\times}11$ par requête après un coût hors-ligne de $7{,}69$\,s ($k^*{=}5$, $N{=}50\,000$).
+\end{column}
+\end{columns}
+\end{frame}
+
+%----------------------------------------------------------------
+\begin{frame}{Annexe D : Importance sampling --- démonstration}
+\begin{columns}[T]
+\begin{column}{0.50\textwidth}
+\small
+\textbf{Changement de mesure.} On tord les intensités par $\theta>0$ :
+\[
+\tilde\lambda_a=e^{-\theta}\lambda_a,\quad
+\tilde\lambda_b=e^{+\theta}\lambda_b.
+\]
+L'estimateur IS est $\hat p_\mathrm{IS}=N^{-1}\sum_i L_i\,\mathbf{1}_{\tau_b<\tau_a}$ sous $\tilde P_\theta$.
+
+\begin{block}{Proposition (log-rapport de vraisemblance)}
+\small
+\[
+\log L = (e^{-\theta}-1)I_a+(e^{\theta}-1)I_b+\theta N_a-\theta N_b,
+\]
+où $I_a=\int_0^\tau\!\lambda_a\,dt$ est le compensateur ask et $N_a,N_b$ les comptages.
+\end{block}
+\end{column}
+\begin{column}{0.50\textwidth}
+\small
+\textbf{Preuve (Girsanov pour processus ponctuels).}
+\[
+\log\frac{dP}{d\tilde P}=
+\int_0^\tau\!\log\frac{\lambda_a}{\tilde\lambda_a}\,dN_a
++\int_0^\tau\!(\tilde\lambda_a-\lambda_a)\,dt+\text{bid}.
+\]
+En substituant $\tilde\lambda_a=e^{-\theta}\lambda_a$ :
+\begin{itemize}\small
+  \item terme événementiel~: $\log(e^\theta)\,N_a = +\theta N_a$
+  \item compensateur~: $(e^{-\theta}-1)I_a$
+\end{itemize}
+Le terme bid donne symétriquement $-\theta N_b+(e^\theta-1)I_b$.\\[0.5ex]
+\textbf{Optimal.} $\theta^*\approx0{,}30$ minimise $\mathrm{CV}^2(\theta)$. Au-delà de $\theta=0{,}6$, les poids dégénèrent (CV$\to100$).
+\end{column}
+\end{columns}
+\end{frame}
+
+%----------------------------------------------------------------
+\begin{frame}{Annexe E : Calibration MLE --- démonstration}
+\begin{columns}[T]
+\begin{column}{0.52\textwidth}
+\small
+Modèle réduit (excitation croisée) :
+\[
+\lambda_a(t)=\mu_a+\alpha\bigl(R_a(t)+R_b(t)\bigr),
+\]
+avec la récurrence $R_a(t_i)=e^{-\beta(t_i-t_{i-1})}R_a(t_{i-1})+\mathbf{1}_{t_i\in\mathcal{D}_a}$.
+
+\begin{block}{Proposition (log-vraisemblance $O(n)$)}
+\small
+\begin{align*}
+\ell &= \sum_{t\in\mathcal{D}_a}\!\log(\mu_a+\alpha(R_a+R_b))\\
+     &+\sum_{t\in\mathcal{D}_b}\!\log(\mu_b+\alpha(R_b+R_a))\\
+     &-(\mu_a+\mu_b)T
+      -\frac{2\alpha}{\beta}(S_a+S_b),
+\end{align*}
+$S_s=\sum_{u\in\mathcal{D}_s}(1-e^{-\beta(T-u)})$.
+\end{block}
+\end{column}
+\begin{column}{0.48\textwidth}
+\small
+\textbf{Preuve (compensateur).} La log-vraisemblance d'un processus ponctuel est $\ell=\sum_i\log\lambda(t_i)-\int_0^T\lambda\,dt$. Le compensateur total vaut :
+\[
+\int_0^T\!\lambda_a\,dt=\mu_a T+\frac{\alpha}{\beta}(S_a+S_b).
+\]
+En additionnant ask et bid, les termes croisés s'additionnent (pas de soustraction), d'où $-2\alpha(S_a+S_b)/\beta$.
+
+\vspace{0.5ex}
+\textbf{Résultat.} Sur 150 cycles synthétiques~:
+\begin{center}\scriptsize
+\begin{tabular}{lcccc}
+\toprule
+ & $\mu_a^-$ & $\mu_b^-$ & $\alpha$ & $\beta$\\
+\midrule
+Vrai & 3{,}0 & 1{,}5 & 0{,}35 & 1{,}0\\
+MLE  & 3{,}01 & 1{,}50 & 0{,}37 & 1{,}15\\
+Err. & $0\%$ & $0\%$ & $6\%$ & $15\%$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{column}
+\end{columns}
 \end{frame}
 
 \end{document}
