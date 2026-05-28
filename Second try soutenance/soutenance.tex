@@ -44,7 +44,7 @@ La question centrale se ramène donc à deux temps d'atteinte :
 \textbf{Plan de l'étude :}
 \begin{itemize}
 \item[\textbf{I.}] \textbf{Modéliser} la logique du Carnet d'Ordres — du Poisson au Hawkes couplé.
-\item[\textbf{II.}] \textbf{Estimer et Optimiser les ressources} : pour $\PP\sim 10^{-7}\!-\!10^{-13}$, le Monte-Carlo s'effondre.
+\item[\textbf{II.}] \textbf{Optimiser} les ressources computationnelles et \textbf{Simuler} quelques scénarios extrêmes.
 \item[\textbf{III.}] \textbf{Calibrer} sur un vrai crash du marché.
 \end{itemize}
 \end{column}
@@ -502,9 +502,9 @@ Calibration & Instable ($\hat\alpha\to 0$ ou $\beta^-$) & Stable\\
 \begin{columns}[T]
 \begin{column}{0.6\textwidth}
 \begin{enumerate}
-\item[\textbf{I.}] La mémoire Hawkes réduit les temps d'épuisement et modifie la loi complète : $\E[\min]$ passe de $12{,}5$ à $5{,}9$ selon le régime.
+\item[\textbf{I.}] La mémoire Hawkes réduit les temps d'épuisement et modifie la loi complète.
 \item[\textbf{II.}] Les événements rares nécessitent des méthodes dédiées : AMS exploite les niveaux, IS sert de comparaison indépendante quand les poids restent stables.
-\item[\textbf{III.}] Sur Black Thursday, le régime pré-crise calibré est quasi-Poisson, et la séquence observée reste rare dans ce régime.
+\item[\textbf{III.}] Sur Black Thursday, le régime pré-crise calibré est quasi-Poisson, et la séquence observée reste rare dans ce régime, ce qui explique le manque de couverture par les modèles classiques.
 \end{enumerate}
 \end{column}
 \begin{column}{0.4\textwidth}
