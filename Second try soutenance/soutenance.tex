@@ -28,6 +28,32 @@
 \maketitle
 
 %================================================================
+\begin{frame}{Qu'est-ce qu'un carnet d'ordres ?}
+\begin{columns}[T]
+\begin{column}{0.54\textwidth}
+\centering
+\includegraphics[width=\linewidth]{fig_lob_intro.png}
+
+\vspace{0.3ex}
+{\scriptsize Source : MODAL Queue Reactive (Lehalle, 2025-26).}
+\end{column}
+\begin{column}{0.44\textwidth}
+\small
+Un \textbf{carnet d'ordres à cours limité} centralise toutes les intentions d'achat et de vente en attente pour un actif donné.\\[0.8ex]
+
+\textbf{Côté acheteur} (\textcolor{green!60!black}{bid}, $q_b$) : ordres d'achat à prix $\leq p_0$.\\[0.5ex]
+\textbf{Côté vendeur} (\textcolor{red!70!black}{ask}, $q_a$) : ordres de vente à prix $\geq p_0$.\\[0.8ex]
+
+\begin{itemize}\setlength\itemsep{0.3em}
+  \item \textbf{Première limite} : la meilleure offre disponible de chaque côté ($Q_{-1}$ et $Q_1$).
+  \item \textbf{Spread} : écart entre la première limite ask et la première limite bid.
+  \item \textbf{Transaction} : un ordre de marché consomme la première limite du côté opposé — si elle s'épuise, le \alert{prix saute}.
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+%================================================================
 \begin{frame}{Le fil conducteur}
 \begin{columns}[T]
 \begin{column}{0.56\textwidth}
@@ -534,7 +560,7 @@ La même procédure a été testée sur le squeeze GME de janvier 2021, mais les
 \midrule
 Résolution & 70 obs. & 1696 obs.\\
 Mécanisme & Coordination Reddit (\alert{exogène}) & Liquidations (\alert{endogène})\\
-Calibration & Instable ($\hat\alpha\to 0$ ou $\beta^-$) & Stable\\
+Calibration & Instable & Stable\\
 \bottomrule
 \end{tabular}
 \vspace{1.5ex}
@@ -544,7 +570,53 @@ Calibration & Instable ($\hat\alpha\to 0$ ou $\beta^-$) & Stable\\
 \end{frame}
 
 %================================================================
-\begin{frame}{Conclusion} \begin{columns}[T] \begin{column}{0.6\textwidth} \begin{enumerate} \item[\textbf{I.}] La mémoire Hawkes réduit les temps d'épuisement et modifie la loi complète via le mécanisme d'auto-excitation. \item[\textbf{II.}] AMS sert d'abord à économiser le budget sur un benchmark modéré, puis à traiter les cascades rares ; IS sert de comparaison indépendante quand les poids restent stables. \item[\textbf{III.}] Sur Black Thursday, le régime pré-crise calibré est quasi-Poisson ; la séquence observée reste rare dans ce régime, ce qui illustre le risque de sous-estimer une crise avec une calibration calme. \end{enumerate} \end{column} \begin{column}{0.4\textwidth} \begin{block}{Perspectives} \begin{itemize} \item Données tick-by-tick (TARDIS/Kaiko) pour mieux séparer $\alpha,\beta$. \item Extension à $L>2$ niveaux. \item Résilience du carnet : réapparition possible des limites consommées. \end{itemize} \end{block} \end{column} \end{columns} \vspace{1ex} \centering \rmfamily\large\color{bleu303} Merci --- questions ? \end{frame}
+\begin{frame}{Conclusion} \begin{columns}[T] \begin{column}{0.6\textwidth} \begin{enumerate} \item[\textbf{I.}] La mémoire Hawkes réduit les temps d'épuisement et modifie la loi complète via le mécanisme d'auto-excitation. \item[\textbf{II.}] AMS sert d'abord à économiser le budget sur un benchmark modéré, puis à traiter les cascades rares ; IS sert de comparaison indépendante quand les poids restent stables. \item[\textbf{III.}] Sur Black Thursday, le régime pré-crise calibré est quasi-Poisson ; la séquence observée reste rare dans ce régime, ce qui illustre le risque de sous-estimer une crise avec une calibration calme. \end{enumerate} \end{column} \begin{column}{0.4\textwidth} \begin{block}{Perspectives} \begin{itemize} \item Données tick-by-tick (TARDIS/Kaiko) pour mieux séparer $\alpha,\beta$. \item Extension à $L>2$ niveaux. \item Résilience du carnet : réapparition possible des limites consommées. \end{itemize} \end{block} \end{column} \end{columns} \end{frame}
+
+%================================================================
+{%
+  \setlength{\unitlength}{\paperwidth/\thebmrW}%
+  \setbeamertemplate{background canvas}{%
+    \color{white}%
+    \begin{picture}(\thebmrW,\thebmrH)%
+      \setcounter{bmrX}{\thebmrW/2}\setcounter{bmrY}{\thebmrH/2}%
+      \put(\thebmrX,\thebmrY){%
+        \makebox(0,0)[c]{%
+          \includegraphics[height=\paperheight,keepaspectratio]{beamerxbackground}%
+        }%
+      }%
+      \setcounter{bmrX}{2*\thebmrTPmargin}%
+      \put(\thebmrX,\thebmrY){%
+        \makebox(0,0)[l]{\includebeamerxlogo{}}%
+      }%
+      \setcounter{bmrX}{\thebmrW/2}%
+      \put(\thebmrX,\thebmrY){%
+        \makebox(0,0)[c]{%
+          \begin{minipage}{0.75\paperwidth}\centering%
+            \Large\sffamily\bfseries\color{white}%
+            MERCI --- QUESTIONS ?\hspace*{0pt}%
+          \end{minipage}%
+        }%
+      }%
+      \put(\thebmrTPmargin,\thebmrTPmargin){%
+        \makebox(0,0)[lb]{%
+          \begin{minipage}{.5\paperwidth}\noindent%
+            \sffamily\footnotesize\color{white}\polyauteursave\hspace*{0pt}%
+          \end{minipage}%
+        }%
+      }%
+      \setcounter{bmrX}{\thebmrW-\thebmrTPmargin}%
+      \put(\thebmrX,\thebmrTPmargin){%
+        \makebox(0,0)[rb]{%
+          \begin{minipage}{.5\paperwidth}\noindent\flushright%
+            \sffamily\footnotesize\color{white}\polydatesave\hspace*{0pt}%
+          \end{minipage}%
+        }%
+      }%
+    \end{picture}%
+  }%
+  \begin{frame}[plain,c]\end{frame}%
+  \resetbackgroundcanvas{}%
+}
 
 %================================================================
 \appendix
