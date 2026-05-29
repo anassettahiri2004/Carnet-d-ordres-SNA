@@ -14,7 +14,7 @@ Aujourd’hui, nous allons vous présenter notre travail sur la **modélisation 
 
 Le premier axe est la **construction d’un modèle** de carnet d’ordres, en partant d’un modèle simple de files de Poisson, puis en introduisant progressivement de la mémoire avec des processus de Hawkes.
 
-Le deuxième axe est l’**estimation d’événements rares**. En particulier, on veut estimer la probabilité de mouvements extrêmes du prix, comme plusieurs épuisements successifs du bid.
+Le deuxième axe est la **simulation efficace**, puis l’**estimation d’événements rares**. On commence par réduire le budget de simulation sur un cas contrôlable, avant de passer aux mouvements extrêmes du prix, comme plusieurs épuisements successifs du bid.
 
 Enfin, le troisième axe est la **confrontation au réel**, avec une calibration sur un épisode de marché extrême : le Black Thursday du Bitcoin en mars 2020.
 
@@ -158,57 +158,64 @@ Mais le message le plus important est que la mémoire ne modifie pas seulement l
 
 Autrement dit, les épuisements très rapides deviennent beaucoup plus probables.
 
-C’est exactement ce qui motive ensuite l’étude des événements rares.
+C’est exactement ce qui motive ensuite le besoin de méthodes de simulation plus efficaces.
 
 Une fois qu’on a compris l’effet de la mémoire sur les temps d’épuisement, il reste à transformer ces épuisements en mouvements de prix. C’est l’objet des deux slides suivantes, que Taha va présenter.
 
 ---
 
-## Slide 11 — Transition : Estimer l’improbable
+## Slide 11 — Transition : simuler les régimes extrêmes
 
-On passe donc à la deuxième partie : l’estimation des événements rares.
+On passe donc à la deuxième partie.
 
-Le point central est que le Monte-Carlo direct devient rapidement inutilisable lorsque les probabilités deviennent très petites.
+Avant de s’intéresser aux cascades vraiment rares, on commence par une question plus pratique : comment réduire le coût de simulation ?
 
----
+Pour ça, on utilise un cas de contrôle avec une probabilité autour de $0{,}14$.
 
-## Slide 12 — Limite du Monte-Carlo direct
+Ce cas est utile parce qu’on peut encore le comparer au Monte-Carlo direct. On peut donc vérifier que l’AMS donne la même loi et une précision comparable, mais avec moins de simulations.
 
-Le Monte-Carlo direct consiste à simuler beaucoup de trajectoires, puis à compter la proportion de trajectoires où l’événement rare a lieu.
-
-Si l’événement a une probabilité $p$, l’erreur relative se comporte comme
-
-$$
-\sqrt{\frac{1-p}{Mp}}.
-$$
-
-Donc quand $p$ devient très petit, l’erreur relative explose, sauf si le nombre de trajectoires $M$ devient énorme.
-
-Dans notre cas, les probabilités cibles peuvent être de l’ordre de $10^{-7}$ à $10^{-13}$.
-
-Pour obtenir une précision relative raisonnable, par exemple autour de $10\%$, il faudrait entre $10^9$ et $10^{15}$ trajectoires.
-
-C’est totalement irréaliste.
-
-L’événement rare qui nous intéresse est l’épuisement du bid alors qu’il est initialement plus profond et moins fragile.
-
-Intuitivement, cela représente une baisse brutale du prix dans une situation où, au départ, le bid semblait pourtant robuste.
-
-Donc on ne cherche pas seulement à simuler un mouvement de prix. On cherche à estimer un scénario extrême relativement à l’état initial du carnet.
+Une fois cette étape validée, on utilise la même logique pour les vrais régimes extrêmes, comme les flash crashes à plusieurs niveaux.
 
 ---
 
-## Slide 13 — Splitting AMS : factoriser un événement rare
+## Slide 12 — Réduire le coût de simulation
+
+Cette slide introduit AMS comme outil de réduction du coût de simulation.
+
+Le cas de contrôle a une probabilité autour de $0{,}14$, donc le Monte-Carlo direct est encore possible et sert de référence.
+
+Le Monte-Carlo direct relance toutes les trajectoires depuis zéro. Son erreur décroît comme
+
+$$
+\frac{1}{\sqrt M}.
+$$
+
+Donc pour gagner un facteur deux en précision, il faut environ quatre fois plus de trajectoires.
+
+L’idée de l’AMS est d’économiser ce budget en recyclant les trajectoires qui ont déjà atteint des paliers intermédiaires.
+
+Dans notre contrôle sur $Q_2(\tau)$, on compare :
+
+- un Monte-Carlo direct avec $10^5$ trajectoires ;
+- un splitting AMS avec $3\times 10^4$ trajectoires.
+
+Les distributions obtenues ont la même forme et le même support.
+
+Le résultat est donc : à précision comparable, on réduit le nombre de simulations.
+
+Après cette validation, on applique la même logique aux probabilités rares.
+
+---
+
+## Slide 13 — Splitting AMS : recycler les trajectoires
 
 La première méthode utilisée est le splitting, dans l’esprit de l’AMS.
 
-L’idée est de remplacer une probabilité minuscule par un produit de probabilités conditionnelles plus grandes.
+L’idée est d’éviter de gaspiller des trajectoires déjà informatives.
 
-Au lieu de demander directement : quelle est la probabilité que le bid arrive à zéro avant l’ask ?
+Au lieu de relancer tout depuis zéro, on introduit des niveaux intermédiaires.
 
-On introduit des niveaux intermédiaires.
-
-Par exemple, si le bid commence à $12$, on regarde successivement la probabilité d’atteindre $11$, puis $10$, puis $9$, et ainsi de suite jusqu’à zéro, sans que l’ask s’épuise avant.
+Par exemple, si le bid commence à $12$, on regarde successivement l’atteinte de $11$, puis $10$, puis $9$, et ainsi de suite.
 
 À chaque niveau, les trajectoires qui ont réussi sont conservées, rééchantillonnées, puis prolongées.
 
@@ -232,7 +239,9 @@ La validation statistique est donnée par la figure : l’écart-type décroît 
 
 C’est le comportement attendu en $1/\sqrt N$, ce qui valide empiriquement la convergence de la méthode.
 
-L’AMS devient particulièrement naturel lorsqu’on définit un flash crash comme une succession d’épuisements du bid. Taha va maintenant présenter cette application.
+Ici, le cas de contrôle autour de $0{,}14$ sert à vérifier la méthode et le gain de budget.
+
+Taha va maintenant présenter le contrôle de la loi reconstruite avec AMS, puis l’application aux flash crashes.
 
 ---
 
@@ -305,7 +314,7 @@ L’AMS est plus géométrique et plus naturel pour des événements de type « 
 
 L’IS est plus direct, parfois plus efficace, mais plus sensible au choix de la mesure de simulation.
 
-Cela termine la partie méthodes rares. On passe maintenant à la confrontation au réel, que Taha va présenter.
+Cela termine la partie méthodes : économie de budget avec AMS, puis événements rares et comparaison avec IS. On passe maintenant à la confrontation au réel, que Taha va présenter.
 
 ---
 
@@ -349,7 +358,7 @@ Deuxième message : le couplage bid/ask est essentiel pour faire apparaître des
 
 Dans le modèle couplé, l’instabilité d’un côté peut accélérer l’épuisement de l’autre côté, ce qui rapproche le modèle de phénomènes extrêmes observés en marché.
 
-Je laisse Taha terminer sur les méthodes d’événements rares et les perspectives.
+Je laisse Taha terminer sur les méthodes de simulation, les événements rares et les perspectives.
 
 ---
 
@@ -358,4 +367,4 @@ Je laisse Taha terminer sur les méthodes d’événements rares et les perspect
 - **Après slide 2** : « Pour construire ce modèle, on commence volontairement par un cas simple, le modèle Poisson, qui servira de référence analytique. Taha va présenter cette première étape. »
 - **Après slide 8** : « Une fois qu’on a compris l’effet de la mémoire sur les temps d’épuisement, il reste à transformer ces épuisements en mouvements de prix. »
 - **Après slide 13** : « L’AMS devient particulièrement naturel lorsqu’on définit un flash crash comme une succession d’épuisements du bid. »
-- **Après slide 18** : « Après ces deux méthodes d’événements rares, on passe à la dernière étape : la calibration. »
+- **Après slide 18** : « Après l’économie de budget avec AMS et la comparaison avec IS, on passe à la dernière étape : la calibration. »

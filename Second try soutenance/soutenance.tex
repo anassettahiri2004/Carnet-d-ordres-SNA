@@ -284,47 +284,70 @@ Le prix est une martingale $\iff p=\tfrac12 \iff \mu_a^-=\mu_b^-$.\\[1ex]
 \xsection{red}[Partie II]{Simuler les régimes extrêmes}[beamerxbackground.jpg]
 
 %----------------------------------------------------------------
-\begin{frame}{Limite du Monte-Carlo direct}
+\begin{frame}{Réduire le coût de simulation}
 \begin{columns}[T]
 \begin{column}{0.55\textwidth}
-\textbf{Rappel de cours.} Pour estimer une probabilité $p$, le Monte-Carlo direct compte les succès. Si $p$ est très petit, il faut un nombre de trajectoires très supérieur à $1/p$ pour obtenir une précision relative raisonnable.\\[1ex]
+\textbf{Avant les cascades rares.} On étudie d'abord un cas de contrôle, avec probabilité \alert{$p\simeq0{,}14$}, où le Monte-Carlo direct reste disponible comme référence.\\[1ex]
 
-Formellement, la précision relative se comporte comme $\sqrt{(1-p)/(Mp)}$ : elle \alert{diverge} quand $p\to 0$.\\[1ex]
+\textbf{Objectif.} Comparer MC direct et AMS à précision comparable. Le MC direct relance chaque trajectoire depuis zéro ; le splitting AMS \alert{recycle} celles qui ont déjà atteint des paliers intermédiaires.
 
-\begin{itemize}
-\item Cible visée : $p\sim 10^{-7}$ à $10^{-13}$.
-\item Coût pour $10\%$ de précision : ordre de grandeur \alert{$10^{9}$ à $10^{15}$} trajectoires.
-\end{itemize}
+\vspace{1ex}
+Résultat attendu : \alert{même précision, moins de simulations}.
 \end{column}
 \begin{column}{0.45\textwidth}
-\begin{block}{L'événement rare retenu}
-L'épuisement du \emph{bid} alors qu'il est le côté le plus profond et le moins fragile ($\mu_a^->\mu_b^-$, $q_{b,0}>q_{a,0}$).\\[0.5ex]
-C'est le scénario retenu pour représenter une baisse brutale de prix dans le modèle.
+\begin{block}{Benchmark contrôlé}
+\begin{itemize}
+\item MC direct : $N=10^5$.
+\item Splitting AMS : $N=3\cdot10^4$.
+\item Même loi de $Q_2(\tau)$ : forme et support conservés.
+\end{itemize}
 \end{block}
 \vspace{1ex}
 \centering\footnotesize
-Deux méthodes orthogonales, puis on les confronte.
+Une fois validé sur $p\simeq0{,}14$, le même outil est utilisé pour les cascades vraiment rares.
 \end{column}
 \end{columns}
 \end{frame}
 
 %----------------------------------------------------------------
-\begin{frame}{Splitting AMS : factoriser un événement rare}
+\begin{frame}{Splitting AMS : recycler les trajectoires}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
-\textbf{Principe.} Plutôt que de relancer $N$ trajectoires depuis zéro à chaque niveau, on \alert{recycle} celles qui ont déjà atteint le palier précédent : elles sont rééchantillonnées et seul le tronçon restant est simulé. Ce recyclage réduit considérablement le coût par rapport à un Monte-Carlo direct.\\[1ex]
+\textbf{Principe.} Plutôt que de relancer $N$ trajectoires depuis zéro, on conserve celles qui ont déjà atteint le palier précédent : elles sont rééchantillonnées et seul le tronçon restant est simulé.\\[1ex]
 
-Mathématiquement, cela revient à décomposer une probabilité infime en un produit de probabilités conditionnelles, chaque facteur étant estimé sur les trajectoires recyclées en transportant l'\alert{état Hawkes complet}.
+Sur le benchmark modéré, cela mesure le gain de budget. Pour les flash crashes, cela revient ensuite à décomposer une probabilité infime en produit de probabilités conditionnelles, en transportant l'\alert{état Hawkes complet}.
 \end{column}
 \begin{column}{0.52\textwidth}
 \centering
 \includegraphics[width=\textwidth]{fig_ams_conv.png}
 
 \vspace{0.3ex}
-{\footnotesize Écart-type de $\hat P_{\text{AMS}}$ en fonction de $N$ : la droite log-log valide la CLT.}
+{\footnotesize Écart-type de $\hat P_{\text{AMS}}$ sur le benchmark $p\simeq0{,}14$ : la droite log-log valide la CLT.}
 
 \vspace{0.5ex}
 \small\textbf{Validation :} pente log-log $\approx{-0{,}5}$~; CV réduit d'un facteur $7$ entre $N=50$ et $N=3200$.
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Loi de $Q_2$ : contrôle par Monte-Carlo direct}
+\begin{columns}[T]
+\begin{column}{0.40\textwidth}
+\small
+La loi de $Q_{a,2}(\tau)$ conditionne l'état initial du cycle suivant. Pour vérifier que le splitting ne déforme pas cette loi, on compare deux estimateurs.\\[0.6ex]
+
+\begin{itemize}
+\item \textbf{MC direct} ($N{=}10^5$) : référence brute — la plupart des trajectoires ne conditionnent pas sur $\tau_a<\tau_b$.
+\item \textbf{Splitting AMS} ($N{=}3\!\cdot\!10^4$) : seules les trajectoires recyclées contribuent.
+\end{itemize}
+\textbf{Résultat :} même distribution avec $\mathbf{3\times}$ moins de calcul. Validation empirique que le recyclage ne déforme pas la loi conditionnelle.
+\end{column}
+\begin{column}{0.60\textwidth}
+\centering
+\includegraphics[width=\textwidth]{q2_mc_ams.png}
+
+\vspace{0.5ex}
+{\footnotesize Loi de $Q_{a,2}(\tau_a)$ : Monte-Carlo direct ($N{=}10^5$, g.) vs splitting AMS ($N{=}3\!\cdot\!10^4$, d.). Même forme, même support.}
 \end{column}
 \end{columns}
 \end{frame}
@@ -358,29 +381,6 @@ c_i&=\PP(\taub^{(i)}<\taua\mid \mathrm{FC}_{i-1}).
 \textbf{Ordres de grandeur.} Régime bid rare : $\mu_a^-=3{,}0$, $\mu_b^-=1{,}2$, $q_{a,0}=10$, $q_{b,0}=12$.\\[0.3ex]
 $\PP(\mathrm{FC}_1)\simeq1{,}4\cdot10^{-1}$ ; $\PP(\mathrm{FC}_5)\simeq1{,}1\cdot10^{-7}$ ; $\PP(\mathrm{FC}_8)\simeq1{,}9\cdot10^{-13}$.
 }
-\end{column}
-\end{columns}
-\end{frame}
-
-%----------------------------------------------------------------
-\begin{frame}{Loi de $Q_2$ : contrôle par Monte-Carlo direct}
-\begin{columns}[T]
-\begin{column}{0.40\textwidth}
-\small
-La loi de $Q_{a,2}(\tau)$ conditionne l'état initial du cycle suivant. Pour vérifier que le splitting ne déforme pas cette loi, on compare deux estimateurs.\\[0.6ex]
-
-\begin{itemize}
-\item \textbf{MC direct} ($N{=}10^5$) : référence brute — la plupart des trajectoires ne conditionnent pas sur $\tau_a<\tau_b$.
-\item \textbf{Splitting AMS} ($N{=}3\!\cdot\!10^4$) : seules les trajectoires recyclées contribuent.
-\end{itemize}
-\textbf{Résultat :} même distribution avec $\mathbf{3\times}$ moins de calcul. Validation empirique que le recyclage ne déforme pas la loi conditionnelle.
-\end{column}
-\begin{column}{0.60\textwidth}
-\centering
-\includegraphics[width=\textwidth]{q2_mc_ams.png}
-
-\vspace{0.5ex}
-{\footnotesize Loi de $Q_{a,2}(\tau_a)$ : Monte-Carlo direct ($N{=}10^5$, g.) vs splitting AMS ($N{=}3\!\cdot\!10^4$, d.). Même forme, même support.}
 \end{column}
 \end{columns}
 \end{frame}
@@ -487,7 +487,7 @@ IS ($\theta^*$) & \textbf{$0{,}57$}\\
 \midrule
 Vrai & 3{,}0 & 1{,}5 & 0{,}35 & 1{,}0\\
 MLE & 3{,}01 & 1{,}50 & 0{,}37 & 1{,}15\\
-Err. & $0\%$ & $0\%$ & $6\%$ & $15\%$\\
+Err. & $<1\%$ & $<1\%$ & $6\%$ & $15\%$\\
 \bottomrule
 \end{tabular}
 \end{column}
@@ -532,7 +532,7 @@ Calibration & Instable ($\hat\alpha\to 0$ ou $\beta^-$) & Stable\\
 \end{frame}
 
 %================================================================
-\begin{frame}{Conclusion} \begin{columns}[T] \begin{column}{0.6\textwidth} \begin{enumerate} \item[\textbf{I.}] La mémoire Hawkes réduit les temps d'épuisement et modifie la loi complète via le mécanisme d'auto-excitation. \item[\textbf{II.}] Les événements rares nécessitent des méthodes dédiées : AMS exploite les niveaux, IS sert de comparaison indépendante quand les poids restent stables. \item[\textbf{III.}] Sur Black Thursday, le régime pré-crise calibré est quasi-Poisson, et la séquence observée reste rare dans ce régime, ce qui explique le manque de couverture par les modèles classiques. \end{enumerate} \end{column} \begin{column}{0.4\textwidth} \begin{block}{Perspectives} \begin{itemize} \item Données tick-by-tick (TARDIS/Kaiko) pour mieux séparer $\alpha,\beta$. \item Extension à $L>2$ niveaux. \item Résilience du carnet : réapparition possible des limites consommées. \end{itemize} \end{block} \end{column} \end{columns} \vspace{1ex} \centering \rmfamily\large\color{bleu303} Merci --- questions ? \end{frame}
+\begin{frame}{Conclusion} \begin{columns}[T] \begin{column}{0.6\textwidth} \begin{enumerate} \item[\textbf{I.}] La mémoire Hawkes réduit les temps d'épuisement et modifie la loi complète via le mécanisme d'auto-excitation. \item[\textbf{II.}] AMS sert d'abord à économiser le budget sur un benchmark modéré, puis à traiter les cascades rares ; IS sert de comparaison indépendante quand les poids restent stables. \item[\textbf{III.}] Sur Black Thursday, le régime pré-crise calibré est quasi-Poisson ; la séquence observée reste rare dans ce régime, ce qui illustre le risque de sous-estimer une crise avec une calibration calme. \end{enumerate} \end{column} \begin{column}{0.4\textwidth} \begin{block}{Perspectives} \begin{itemize} \item Données tick-by-tick (TARDIS/Kaiko) pour mieux séparer $\alpha,\beta$. \item Extension à $L>2$ niveaux. \item Résilience du carnet : réapparition possible des limites consommées. \end{itemize} \end{block} \end{column} \end{columns} \vspace{1ex} \centering \rmfamily\large\color{bleu303} Merci --- questions ? \end{frame}
 
 %================================================================
 \appendix
@@ -610,8 +610,8 @@ L'IC à 95\,\% est $\hat P_\mathrm{AMS}\pm1{,}96\,\hat P_\mathrm{AMS}\sqrt{\frac
 \end{frame}
 
 %----------------------------------------------------------------
-\begin{frame}{Annexe C : AMS avec distribution empirique (deux phases)}
-\begin{columns}[T]
+\begin{frame}{Annexe C : AMS deux phases}
+\begin{columns}[T,onlytextwidth]
 \begin{column}{0.50\textwidth}
 \small
 \textbf{Phase hors-ligne} (calculée une fois).
@@ -690,9 +690,9 @@ Le terme bid donne symétriquement $-\theta N_b+(e^\theta-1)I_b$.\\[0.5ex]
 
 %----------------------------------------------------------------
 \begin{frame}{Annexe E : Calibration MLE --- démonstration}
-\begin{columns}[T]
-\begin{column}{0.52\textwidth}
-\small
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.55\textwidth}
+\footnotesize
 Modèle réduit (excitation croisée) :
 \[
 \lambda_a(t)=\mu_a+\alpha\bigl(R_a(t)+R_b(t)\bigr),
@@ -700,7 +700,7 @@ Modèle réduit (excitation croisée) :
 avec la récurrence $R_a(t_i)=e^{-\beta(t_i-t_{i-1})}R_a(t_{i-1})+\mathbf{1}_{t_i\in\mathcal{D}_a}$.
 
 \begin{block}{Proposition (log-vraisemblance $O(n)$)}
-\small
+\scriptsize
 \begin{align*}
 \ell &= \sum_{t\in\mathcal{D}_a}\!\log(\mu_a+\alpha(R_a+R_b))\\
      &+\sum_{t\in\mathcal{D}_b}\!\log(\mu_b+\alpha(R_b+R_a))\\
@@ -710,13 +710,19 @@ avec la récurrence $R_a(t_i)=e^{-\beta(t_i-t_{i-1})}R_a(t_{i-1})+\mathbf{1}_{t_
 $S_s=\sum_{u\in\mathcal{D}_s}(1-e^{-\beta(T-u)})$.
 \end{block}
 \end{column}
-\begin{column}{0.48\textwidth}
-\small
-\textbf{Preuve (compensateur).} La log-vraisemblance d'un processus ponctuel est $\ell=\sum_i\log\lambda(t_i)-\int_0^T\lambda\,dt$. Le compensateur total vaut :
+\begin{column}{0.39\textwidth}
+\scriptsize
+\vspace{3ex}
+\textbf{Preuve (compensateur).}\\[-0.2ex]
+Pour un processus ponctuel :
+\[
+\ell=\sum_i\log\lambda(t_i)-\int_0^T\lambda(t)\,dt.
+\]
+Le compensateur total vaut :
 \[
 \int_0^T\!\lambda_a\,dt=\mu_a T+\frac{\alpha}{\beta}(S_a+S_b).
 \]
-En additionnant ask et bid, les termes croisés s'additionnent (pas de soustraction), d'où $-2\alpha(S_a+S_b)/\beta$.
+En additionnant ask et bid, les termes croisés s'additionnent, d'où $-2\alpha(S_a+S_b)/\beta$.
 
 \vspace{0.5ex}
 \textbf{Résultat.} Sur 150 cycles synthétiques~:
@@ -727,7 +733,7 @@ En additionnant ask et bid, les termes croisés s'additionnent (pas de soustract
 \midrule
 Vrai & 3{,}0 & 1{,}5 & 0{,}35 & 1{,}0\\
 MLE  & 3{,}01 & 1{,}50 & 0{,}37 & 1{,}15\\
-Err. & $0\%$ & $0\%$ & $6\%$ & $15\%$\\
+Err. & $<1\%$ & $<1\%$ & $6\%$ & $15\%$\\
 \bottomrule
 \end{tabular}
 \end{center}

@@ -98,7 +98,7 @@ $$
 q_{a,1} \leftarrow q_{a,2}(\tau_a).
 $$
 
-Et le prix monte d’un demi-tick ou d’un tick selon la convention retenue.
+Dans notre convention de slides, le prix monte de $\delta^p/2$ ; l’important est le signe du saut.
 
 La question devient donc : quelle est la loi de $q_2(\tau)$, le volume disponible au deuxième niveau au moment de l’épuisement ?
 
@@ -156,11 +156,39 @@ On a donc une très bonne cohérence entre la formule probabiliste et la simulat
 
 ## Transition après la slide 13
 
-L’AMS devient particulièrement naturel lorsqu’on définit un flash crash comme une succession d’épuisements du bid.
+Avant de passer aux flash crashes, on vérifie que le recyclage AMS ne déforme pas l’état du carnet reconstruit.
 
 ---
 
-## Slide 14 — Flash crash de profondeur $k$
+## Slide 14 — Loi de $Q_2$ : contrôle par Monte-Carlo direct
+
+Cette slide sert de contrôle de budget.
+
+La probabilité de référence est autour de $0{,}14$, ce qui permet une comparaison propre avec le Monte-Carlo direct.
+
+Un risque du splitting est de déformer la distribution des états recyclés.
+
+Or, dans notre modèle, cette distribution est importante, parce que le volume du niveau 2 au moment de l’épuisement devient le nouveau volume au niveau 1.
+
+On compare donc la loi de $Q_{a,2}(\tau_a)$ obtenue de deux manières.
+
+D’un côté, un Monte-Carlo direct avec $10^5$ trajectoires.
+
+De l’autre, un splitting AMS avec $3\times 10^4$ trajectoires.
+
+Les histogrammes obtenus ont la même forme et le même support.
+
+Cela suggère que le recyclage ne déforme pas la loi conditionnelle du volume reconstruit.
+
+Et on obtient ce résultat avec environ trois fois moins de trajectoires, donc à précision comparable pour un budget de simulation plus faible.
+
+Cette validation est importante parce qu’elle montre que l’AMS n’est pas seulement efficace pour estimer une probabilité : il conserve aussi correctement la distribution des états nécessaires pour poursuivre la dynamique.
+
+---
+
+## Slide 15 — Flash crash de profondeur $k$
+
+Une fois ce contrôle fait, on utilise AMS pour les vraies cascades rares.
 
 On définit un flash crash de profondeur $k$ comme une suite de $k$ épuisements successifs du bid avant qu’un épuisement ask ne casse la séquence.
 
@@ -215,28 +243,6 @@ P(FC_8) \simeq 1{,}9\times 10^{-13}.
 $$
 
 C’est précisément l’échelle où le Monte-Carlo direct devient impossible, alors que le splitting reste exploitable.
-
----
-
-## Slide 15 — Loi de $Q_2$ : contrôle par Monte-Carlo direct
-
-Un risque du splitting est de déformer la distribution des états recyclés.
-
-Or, dans notre modèle, cette distribution est importante, parce que le volume du niveau 2 au moment de l’épuisement devient le nouveau volume au niveau 1.
-
-On compare donc la loi de $Q_{a,2}(\tau_a)$ obtenue de deux manières.
-
-D’un côté, un Monte-Carlo direct avec $10^5$ trajectoires.
-
-De l’autre, un splitting AMS avec $3\times 10^4$ trajectoires.
-
-Les histogrammes obtenus ont la même forme et le même support.
-
-Cela suggère que le recyclage ne déforme pas la loi conditionnelle du volume reconstruit.
-
-Et on obtient ce résultat avec environ trois fois moins de trajectoires.
-
-Cette validation est importante parce qu’elle montre que l’AMS n’est pas seulement efficace pour estimer une probabilité : il conserve aussi correctement la distribution des états nécessaires pour poursuivre la dynamique.
 
 ---
 
@@ -379,7 +385,7 @@ Cette application au Bitcoin est pertinente pour des cascades endogènes de marc
 
 ## Slide 23 — Conclusion, deuxième partie
 
-Troisième message : les événements rares nécessitent des méthodes spécifiques.
+Troisième message : AMS sert d’abord à réduire le budget de simulation sur un benchmark modéré, puis les événements vraiment rares nécessitent des méthodes spécifiques.
 
 Le Monte-Carlo direct devient inutilisable dès qu’on atteint des probabilités comme $10^{-7}$ ou $10^{-13}$.
 
