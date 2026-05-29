@@ -146,11 +146,7 @@ Si $p>1/2$, l’ask s’épuise plus souvent en premier, donc le prix a une tend
 
 Si $p<1/2$, le bid s’épuise plus souvent en premier, donc le prix a une tendance baissière.
 
-Dans le cas asymétrique testé, on a $\hat p>1/2$, donc le drift observé est positif : environ $0{,}2375$ par cycle.
-
-Il faut être précis : ce n’est pas une validation indépendante. Comme la probabilité de hausse et le drift sont calculés sur les mêmes trajectoires, l’égalité est mécanique à l’arrondi près.
-
-Ce que cette slide vérifie, c’est la cohérence interne de l’implémentation : la règle de saut de prix respecte bien la formule théorique, et l’asymétrie du carnet se traduit dans le signe de la dérive.
+Les figures illustrent ces deux régimes : dans le cas symétrique, la trajectoire n’a pas de tendance claire ; dans le cas asymétrique, la trajectoire présente une tendance haussière nette.
 
 À ce stade, on dispose d’un modèle capable de produire des mouvements de prix. La question suivante est : comment estimer des mouvements extrêmes ?
 

@@ -259,23 +259,34 @@ p_0\uparrow\tfrac{\delta^p}{2}.
 
 %----------------------------------------------------------------
 \begin{frame}{Passage au prix : dérive induite par l'asymétrie}
-\begin{columns}[T]
-\begin{column}{0.42\textwidth}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.40\textwidth}
+\small
 Modèle à 4 limites : à chaque épuisement, le prix saute de $\pm\delta^p/2$, et les intensités Hawkes sont \alert{transportées} d'un cycle à l'autre.
 \[
 \Delta p_0=\tfrac{\delta^p}{2}(2p-1),\quad p=\PP(\taua<\taub).
 \]
-Le prix est une martingale $\iff p=\tfrac12 \iff \mu_a^-=\mu_b^-$.\\[1ex]
-\textbf{Cohérence interne :} si $\Delta p_i=\frac{\delta^p}{2}(2I_i-1)$, alors
-$\overline{\Delta p}=\frac{\delta^p}{2}(2\hat p-1)$ à l'arrondi près. En régime asymétrique, $\hat p>1/2$ et le drift observé est positif : \alert{$0{,}2375$/cycle}.
+
+\vspace{0.5ex}
+\begin{block}{Lecture}
+\small
+\begin{itemize}
+\item $p=\tfrac12$ : prix martingale.
+\item $p>\tfrac12$ : dérive haussière.
+\item $p<\tfrac12$ : dérive baissière.
+\end{itemize}
+\end{block}
+
+\vspace{0.2ex}
+Le cas symétrique sert de référence ; l'asymétrie $\mu_a^-\neq\mu_b^-$ crée une tendance directionnelle.
 \end{column}
 \begin{column}{0.58\textwidth}
 \centering
-\includegraphics[width=0.96\textwidth]{mp_sym.png}\\
+\includegraphics[width=\textwidth]{mp_sym.png}\\
 {\scriptsize Cas symétrique : pas de tendance (martingale).}
 
 \vspace{0.5ex}
-\includegraphics[width=0.96\textwidth]{mp_asym.png}\\
+\includegraphics[width=\textwidth]{mp_asym.png}\\
 {\scriptsize Cas asymétrique : tendance haussière nette.}
 \end{column}
 \end{columns}
