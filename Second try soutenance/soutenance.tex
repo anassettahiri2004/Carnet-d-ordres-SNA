@@ -162,7 +162,7 @@ $\lambda^-\geq 0$. Les inhibitions trop fortes sont donc coupées, ce qui expliq
 \begin{columns}[T]
 \begin{column}{0.56\textwidth}
 \small
-Chaque côté garde son auto-excitation par les décréments, son \alert{inhibition par les incréments}, et reçoit une excitation croisée par les événements de l'autre file :
+Chaque côté conserve une mémoire décroissante : auto-excitation par les décréments, \alert{inhibition par les incréments}, et excitation croisée par l'autre file :
 \[
 \resizebox{\linewidth}{!}{$\displaystyle
 \lma(t)=\mu_a^- +\alpha\!\!\sum_{s\in\mathcal D_a}\!e^{-\beta(t-s)}
@@ -187,7 +187,9 @@ Le couplage accélère l'épuisement conjoint des deux côtés : il introduit un
 %----------------------------------------------------------------
 \begin{frame}{Quatre régimes : effet progressif de la mémoire}
 \begin{columns}[T]
+
 \begin{column}{0.40\textwidth}
+\vspace*{7ex}
 \centering
 \scriptsize
 \begin{tabular}{lcc}
@@ -201,10 +203,11 @@ Hawkes indiv. & 8{,}8 & 6{,}9\\
 \bottomrule
 \end{tabular}
 
-\vspace{1ex}
+\vspace{6ex}
 \raggedright\small
-\textbf{Lecture :} la mémoire ne déplace pas seulement la moyenne ; elle \alert{modifie aussi la forme de la loi}, en particulier sa queue gauche.
+\textbf{Lecture :} l'ajout de mémoire accélère l'épuisement et renforce la queue gauche de la distribution des temps d'arrêt.
 \end{column}
+
 \begin{column}{0.58\textwidth}
 \centering
 \includegraphics[width=0.88\textwidth]{fig_compare4.png}
@@ -213,8 +216,10 @@ Hawkes indiv. & 8{,}8 & 6{,}9\\
 \scriptsize\raggedright
 Trois effets se cumulent : \textbf{(1)} minimum de deux files ; \textbf{(2)} auto-excitation ; \textbf{(3)} couplage bid/ask. Le facteur global est proche de $2{,}1$.
 \end{column}
+
 \end{columns}
 \end{frame}
+
 
 %----------------------------------------------------------------
 \begin{frame}{Deuxième limite : reconstruire le carnet}
@@ -229,7 +234,8 @@ Trois effets se cumulent : \textbf{(1)} minimum de deux files ; \textbf{(2)} aut
 \sum_{T_i^\downarrow<t} a\,e^{-b(t-T_i^\downarrow)}.
 \end{aligned}
 \]
-Sans couplage : référence autonome. Avec couplage : les décréments du niveau 1 rechargent $q_2$.
+Sans couplage : référence autonome.\\
+ Avec couplage : les décréments du niveau 1 rechargent $q_2$.
 
 Quand l'ask s'épuise, le volume de niveau 2 devient la nouvelle meilleure limite :
 \[
@@ -275,7 +281,7 @@ Le prix est une martingale $\iff p=\tfrac12 \iff \mu_a^-=\mu_b^-$.\\[1ex]
 \end{frame}
 
 %================================================================
-\xsection{red}[Partie II]{Estimer l'improbable}[beamerxbackground.jpg]
+\xsection{red}[Partie II]{Simuler les régimes extrêmes}[beamerxbackground.jpg]
 
 %----------------------------------------------------------------
 \begin{frame}{Limite du Monte-Carlo direct}
@@ -341,7 +347,7 @@ c_i&=\PP(\taub^{(i)}<\taua\mid \mathrm{FC}_{i-1}).
 \end{aligned}
 \]
 
-\textbf{Lecture :} $p_1^k$ est seulement une référence sans mémoire, pas la loi du modèle reconstruit.
+\textbf{Lecture :} au-delà de $k=3$, l'événement devient invisible au MC direct ; le splitting AMS permet de poursuivre l'estimation.
 \end{column}
 \begin{column}{0.56\textwidth}
 \centering
@@ -409,6 +415,7 @@ Moyennes $12{,}90$ vs $12{,}91$.}
 \begin{frame}{Importance sampling : mesure et poids}
 \begin{columns}[T]
 \begin{column}{0.48\textwidth}
+\vspace{3ex}
 \textbf{Principe.} Au lieu de sélectionner les trajectoires par niveaux, on \alert{modifie la loi simulée} pour rendre l'événement plus fréquent, puis on corrige par un poids de vraisemblance. Le paramètre $\theta$ règle l'intensité de la déformation.\\[1ex]
 
 \begin{itemize}
@@ -416,7 +423,6 @@ Moyennes $12{,}90$ vs $12{,}91$.}
 \item $\theta>0{,}6$ : les poids deviennent instables, avec un CV qui dépasse $100$.
 \end{itemize}
 
-\textbf{Point de contrôle :} à $\theta=2{,}1$, le CV baisse alors que l'estimation s'effondre. Il faut donc analyser simultanément la probabilité estimée et la dispersion des poids.
 \end{column}
 \begin{column}{0.52\textwidth}
 \centering
@@ -526,28 +532,7 @@ Calibration & Instable ($\hat\alpha\to 0$ ou $\beta^-$) & Stable\\
 \end{frame}
 
 %================================================================
-\begin{frame}{Conclusion}
-\begin{columns}[T]
-\begin{column}{0.6\textwidth}
-\begin{enumerate}
-\item[\textbf{I.}] La mémoire Hawkes réduit les temps d'épuisement et modifie la loi complète.
-\item[\textbf{II.}] Les événements rares nécessitent des méthodes dédiées : AMS exploite les niveaux, IS sert de comparaison indépendante quand les poids restent stables.
-\item[\textbf{III.}] Sur Black Thursday, le régime pré-crise calibré est quasi-Poisson, et la séquence observée reste rare dans ce régime, ce qui explique le manque de couverture par les modèles classiques.
-\end{enumerate}
-\end{column}
-\begin{column}{0.4\textwidth}
-\begin{block}{Perspectives}
-\begin{itemize}
-\item Données tick-by-tick (TARDIS/Kaiko) pour mieux séparer $\alpha,\beta$.
-\item Extension à $L>2$ niveaux.
-\item Relier $\PP(\taua<\taub)$ à une surface de volatilité implicite.
-\end{itemize}
-\end{block}
-\end{column}
-\end{columns}
-\vspace{1ex}
-\centering \rmfamily\large\color{bleu303} Merci --- questions ?
-\end{frame}
+\begin{frame}{Conclusion} \begin{columns}[T] \begin{column}{0.6\textwidth} \begin{enumerate} \item[\textbf{I.}] La mémoire Hawkes réduit les temps d'épuisement et modifie la loi complète via le mécanisme d'auto-excitation. \item[\textbf{II.}] Les événements rares nécessitent des méthodes dédiées : AMS exploite les niveaux, IS sert de comparaison indépendante quand les poids restent stables. \item[\textbf{III.}] Sur Black Thursday, le régime pré-crise calibré est quasi-Poisson, et la séquence observée reste rare dans ce régime, ce qui explique le manque de couverture par les modèles classiques. \end{enumerate} \end{column} \begin{column}{0.4\textwidth} \begin{block}{Perspectives} \begin{itemize} \item Données tick-by-tick (TARDIS/Kaiko) pour mieux séparer $\alpha,\beta$. \item Extension à $L>2$ niveaux. \item Résilience du carnet : réapparition possible des limites consommées. \end{itemize} \end{block} \end{column} \end{columns} \vspace{1ex} \centering \rmfamily\large\color{bleu303} Merci --- questions ? \end{frame}
 
 %================================================================
 \appendix

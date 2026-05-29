@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew) (preloaded format=pdflatex 2026.3.4)  29 MAY 2026 01:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew) (preloaded format=pdflatex 2026.3.4)  29 MAY 2026 02:51
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -842,286 +842,282 @@ Package pdftex.def Info: beamerxarmes.pdf  used on input line 122.
 <beamerxfiletcourt.pdf, id=113, 28.40613pt x 2.1681pt>
 File: beamerxfiletcourt.pdf Graphic file (type pdf)
 <use beamerxfiletcourt.pdf>
-Package pdftex.def Info: beamerxfiletcourt.pdf  used on input line 160.
+Package pdftex.def Info: beamerxfiletcourt.pdf  used on input line 159.
 (pdftex.def)             Requested size: 18.49548pt x 1.41171pt.
 <fig_hawkes_bias.png, id=114, 636.87938pt x 412.54124pt>
 File: fig_hawkes_bias.png Graphic file (type png)
 <use fig_hawkes_bias.png>
-Package pdftex.def Info: fig_hawkes_bias.png  used on input line 160.
+Package pdftex.def Info: fig_hawkes_bias.png  used on input line 159.
 (pdftex.def)             Requested size: 202.12657pt x 130.92688pt.
-
-Overfull \vbox (5.04988pt too high) detected at line 160
- []
-
 File: beamerxarmes.pdf Graphic file (type pdf)
 <use beamerxarmes.pdf>
-Package pdftex.def Info: beamerxarmes.pdf  used on input line 160.
+Package pdftex.def Info: beamerxarmes.pdf  used on input line 159.
 (pdftex.def)             Requested size: 31.90558pt x 42.67912pt.
-[6
+ [6
 
  <./beamerxfiletcourt.pdf> <./fig_hawkes_bias.png (PNG copy)>]
-<fig_couple3d.png, id=131, 1172.88188pt x 499.11469pt>
+<fig_couple3d.png, id=130, 1172.88188pt x 499.11469pt>
 File: fig_couple3d.png Graphic file (type png)
 <use fig_couple3d.png>
-Package pdftex.def Info: fig_couple3d.png  used on input line 186.
+Package pdftex.def Info: fig_couple3d.png  used on input line 185.
 (pdftex.def)             Requested size: 177.8752pt x 75.69409pt.
 File: beamerxarmes.pdf Graphic file (type pdf)
 <use beamerxarmes.pdf>
-Package pdftex.def Info: beamerxarmes.pdf  used on input line 186.
+Package pdftex.def Info: beamerxarmes.pdf  used on input line 185.
 (pdftex.def)             Requested size: 31.90558pt x 42.67912pt.
  [7
 
  <./fig_couple3d.png (PNG copy)>]
-<fig_compare4.png, id=141, 753.5653pt x 528.47438pt>
+<fig_compare4.png, id=140, 753.5653pt x 528.47438pt>
 File: fig_compare4.png Graphic file (type png)
 <use fig_compare4.png>
-Package pdftex.def Info: fig_compare4.png  used on input line 218.
+Package pdftex.def Info: fig_compare4.png  used on input line 221.
 (pdftex.def)             Requested size: 214.9317pt x 150.72964pt.
 File: beamerxarmes.pdf Graphic file (type pdf)
 <use beamerxarmes.pdf>
-Package pdftex.def Info: beamerxarmes.pdf  used on input line 218.
+Package pdftex.def Info: beamerxarmes.pdf  used on input line 221.
 (pdftex.def)             Requested size: 31.90558pt x 42.67912pt.
  [8
 
  <./fig_compare4.png (PNG copy)>]
-<../final_report/figures/q2_symmetric_poisson.png, id=151, 860.013pt x 354.123pt>
+<../final_report/figures/q2_symmetric_poisson.png, id=150, 860.013pt x 354.123pt>
 File: ../final_report/figures/q2_symmetric_poisson.png Graphic file (type png)
 <use ../final_report/figures/q2_symmetric_poisson.png>
-Package pdftex.def Info: ../final_report/figures/q2_symmetric_poisson.png  used on input line 253.
+Package pdftex.def Info: ../final_report/figures/q2_symmetric_poisson.png  used on input line 258.
 (pdftex.def)             Requested size: 197.07686pt x 81.14937pt.
-<../final_report/figures/q2_symmetric_excited.png, id=153, 860.013pt x 354.123pt>
+<../final_report/figures/q2_symmetric_excited.png, id=152, 860.013pt x 354.123pt>
 File: ../final_report/figures/q2_symmetric_excited.png Graphic file (type png)
 <use ../final_report/figures/q2_symmetric_excited.png>
-Package pdftex.def Info: ../final_report/figures/q2_symmetric_excited.png  used on input line 253.
+Package pdftex.def Info: ../final_report/figures/q2_symmetric_excited.png  used on input line 258.
 (pdftex.def)             Requested size: 197.07686pt x 81.14937pt.
 File: beamerxarmes.pdf Graphic file (type pdf)
 <use beamerxarmes.pdf>
-Package pdftex.def Info: beamerxarmes.pdf  used on input line 253.
+Package pdftex.def Info: beamerxarmes.pdf  used on input line 258.
 (pdftex.def)             Requested size: 31.90558pt x 42.67912pt.
  [9
 
  <../final_report/figures/q2_symmetric_poisson.png> <../final_report/figures/q2_symmetric_excited.png>]
-<mp_sym.png, id=167, 895.09406pt x 293.59688pt>
+<mp_sym.png, id=166, 895.09406pt x 293.59688pt>
 File: mp_sym.png Graphic file (type png)
 <use mp_sym.png>
-Package pdftex.def Info: mp_sym.png  used on input line 276.
+Package pdftex.def Info: mp_sym.png  used on input line 281.
 (pdftex.def)             Requested size: 234.47128pt x 76.90681pt.
-<mp_asym.png, id=168, 895.09406pt x 293.59688pt>
+<mp_asym.png, id=167, 895.09406pt x 293.59688pt>
 File: mp_asym.png Graphic file (type png)
 <use mp_asym.png>
-Package pdftex.def Info: mp_asym.png  used on input line 276.
+Package pdftex.def Info: mp_asym.png  used on input line 281.
 (pdftex.def)             Requested size: 234.47128pt x 76.90681pt.
 File: beamerxarmes.pdf Graphic file (type pdf)
 <use beamerxarmes.pdf>
-Package pdftex.def Info: beamerxarmes.pdf  used on input line 276.
+Package pdftex.def Info: beamerxarmes.pdf  used on input line 281.
 (pdftex.def)             Requested size: 31.90558pt x 42.67912pt.
  [10
 
  <./mp_sym.png (PNG copy)> <./mp_asym.png (PNG copy)>]
 File: beamerxbackground.jpg Graphic file (type jpg)
 <use beamerxbackground.jpg>
-Package pdftex.def Info: beamerxbackground.jpg  used on input line 279.
+Package pdftex.def Info: beamerxbackground.jpg  used on input line 284.
 (pdftex.def)             Requested size: 455.24408pt x 255.79922pt.
-LaTeX Info: Redefining \\ on input line 279.
+LaTeX Info: Redefining \\ on input line 284.
  [11
 
 ]
 File: beamerxfiletcourt.pdf Graphic file (type pdf)
 <use beamerxfiletcourt.pdf>
-Package pdftex.def Info: beamerxfiletcourt.pdf  used on input line 304.
+Package pdftex.def Info: beamerxfiletcourt.pdf  used on input line 309.
 (pdftex.def)             Requested size: 19.99512pt x 1.52617pt.
 File: beamerxarmes.pdf Graphic file (type pdf)
 <use beamerxarmes.pdf>
-Package pdftex.def Info: beamerxarmes.pdf  used on input line 304.
+Package pdftex.def Info: beamerxarmes.pdf  used on input line 309.
 (pdftex.def)             Requested size: 31.90558pt x 42.67912pt.
  [12
 
 ]
-<fig_ams_conv.png, id=192, 986.9372pt x 384.6872pt>
+<fig_ams_conv.png, id=191, 986.9372pt x 384.6872pt>
 File: fig_ams_conv.png Graphic file (type png)
 <use fig_ams_conv.png>
-Package pdftex.def Info: fig_ams_conv.png  used on input line 325.
+Package pdftex.def Info: fig_ams_conv.png  used on input line 330.
 (pdftex.def)             Requested size: 218.97421pt x 85.34756pt.
 File: beamerxarmes.pdf Graphic file (type pdf)
 <use beamerxarmes.pdf>
-Package pdftex.def Info: beamerxarmes.pdf  used on input line 325.
+Package pdftex.def Info: beamerxarmes.pdf  used on input line 330.
 (pdftex.def)             Requested size: 31.90558pt x 42.67912pt.
  [13
 
  <./fig_ams_conv.png (PNG copy)>]
-<../final_report/figures/flash_crash_asym.png, id=203, 586.1097pt x 369.2997pt>
+<../final_report/figures/flash_crash_asym.png, id=202, 586.1097pt x 369.2997pt>
 File: ../final_report/figures/flash_crash_asym.png Graphic file (type png)
 <use ../final_report/figures/flash_crash_asym.png>
-Package pdftex.def Info: ../final_report/figures/flash_crash_asym.png  used on input line 358.
+Package pdftex.def Info: ../final_report/figures/flash_crash_asym.png  used on input line 363.
 (pdftex.def)             Requested size: 226.38437pt x 142.64008pt.
 File: beamerxarmes.pdf Graphic file (type pdf)
 <use beamerxarmes.pdf>
-Package pdftex.def Info: beamerxarmes.pdf  used on input line 358.
+Package pdftex.def Info: beamerxarmes.pdf  used on input line 363.
 (pdftex.def)             Requested size: 31.90558pt x 42.67912pt.
  [14
 
  <../final_report/figures/flash_crash_asym.png>]
-<q2_mc_ams.png, id=216, 986.9372pt x 384.6872pt>
+<q2_mc_ams.png, id=215, 986.9372pt x 384.6872pt>
 File: q2_mc_ams.png Graphic file (type png)
 <use q2_mc_ams.png>
-Package pdftex.def Info: q2_mc_ams.png  used on input line 381.
+Package pdftex.def Info: q2_mc_ams.png  used on input line 386.
 (pdftex.def)             Requested size: 252.66304pt x 98.47841pt.
 File: beamerxarmes.pdf Graphic file (type pdf)
 <use beamerxarmes.pdf>
-Package pdftex.def Info: beamerxarmes.pdf  used on input line 381.
+Package pdftex.def Info: beamerxarmes.pdf  used on input line 386.
 (pdftex.def)             Requested size: 31.90558pt x 42.67912pt.
  [15
 
  <./q2_mc_ams.png (PNG copy)>]
-<q2_boot.png, id=227, 986.9372pt x 384.6872pt>
+<q2_boot.png, id=226, 986.9372pt x 384.6872pt>
 File: q2_boot.png Graphic file (type png)
 <use q2_boot.png>
-Package pdftex.def Info: q2_boot.png  used on input line 407.
+Package pdftex.def Info: q2_boot.png  used on input line 412.
 (pdftex.def)             Requested size: 252.66304pt x 98.47841pt.
 File: beamerxarmes.pdf Graphic file (type pdf)
 <use beamerxarmes.pdf>
-Package pdftex.def Info: beamerxarmes.pdf  used on input line 407.
+Package pdftex.def Info: beamerxarmes.pdf  used on input line 412.
 (pdftex.def)             Requested size: 31.90558pt x 42.67912pt.
  [16
 
  <./q2_boot.png (PNG copy)>]
-<fig_is.png, id=236, 986.9372pt x 384.6872pt>
+<fig_is.png, id=235, 986.9372pt x 384.6872pt>
 File: fig_is.png Graphic file (type png)
 <use fig_is.png>
-Package pdftex.def Info: fig_is.png  used on input line 430.
+Package pdftex.def Info: fig_is.png  used on input line 435.
 (pdftex.def)             Requested size: 218.97421pt x 85.34756pt.
 File: beamerxarmes.pdf Graphic file (type pdf)
 <use beamerxarmes.pdf>
-Package pdftex.def Info: beamerxarmes.pdf  used on input line 430.
+Package pdftex.def Info: beamerxarmes.pdf  used on input line 435.
 (pdftex.def)             Requested size: 31.90558pt x 42.67912pt.
  [17
 
  <./fig_is.png (PNG copy)>]
-<fig_amsvis.png, id=245, 986.9372pt x 384.6872pt>
+<fig_amsvis.png, id=244, 986.9372pt x 384.6872pt>
 File: fig_amsvis.png Graphic file (type png)
 <use fig_amsvis.png>
-Package pdftex.def Info: fig_amsvis.png  used on input line 458.
+Package pdftex.def Info: fig_amsvis.png  used on input line 463.
 (pdftex.def)             Requested size: 328.4581pt x 128.0272pt.
 File: beamerxarmes.pdf Graphic file (type pdf)
 <use beamerxarmes.pdf>
-Package pdftex.def Info: beamerxarmes.pdf  used on input line 458.
+Package pdftex.def Info: beamerxarmes.pdf  used on input line 463.
 (pdftex.def)             Requested size: 31.90558pt x 42.67912pt.
  [18
 
  <./fig_amsvis.png (PNG copy)>]
 File: beamerxbackground.jpg Graphic file (type jpg)
 <use beamerxbackground.jpg>
-Package pdftex.def Info: beamerxbackground.jpg  used on input line 461.
+Package pdftex.def Info: beamerxbackground.jpg  used on input line 466.
 (pdftex.def)             Requested size: 455.24408pt x 255.79922pt.
-LaTeX Info: Redefining \\ on input line 461.
+LaTeX Info: Redefining \\ on input line 466.
  [19
 
 ]
-<cal_0.png, id=261, 986.9372pt x 384.6872pt>
+<cal_0.png, id=260, 986.9372pt x 384.6872pt>
 File: cal_0.png Graphic file (type png)
 <use cal_0.png>
-Package pdftex.def Info: cal_0.png  used on input line 490.
+Package pdftex.def Info: cal_0.png  used on input line 495.
 (pdftex.def)             Requested size: 336.88191pt x 131.30846pt.
 File: beamerxarmes.pdf Graphic file (type pdf)
 <use beamerxarmes.pdf>
-Package pdftex.def Info: beamerxarmes.pdf  used on input line 490.
+Package pdftex.def Info: beamerxarmes.pdf  used on input line 495.
 (pdftex.def)             Requested size: 31.90558pt x 42.67912pt.
  [20
 
  <./cal_0.png (PNG copy)>]
-<fig_btc.png, id=270, 1363.34344pt x 422.32782pt>
+<fig_btc.png, id=269, 1363.34344pt x 422.32782pt>
 File: fig_btc.png Graphic file (type png)
 <use fig_btc.png>
-Package pdftex.def Info: fig_btc.png  used on input line 506.
+Package pdftex.def Info: fig_btc.png  used on input line 511.
 (pdftex.def)             Requested size: 404.25958pt x 125.23004pt.
 File: beamerxarmes.pdf Graphic file (type pdf)
 <use beamerxarmes.pdf>
-Package pdftex.def Info: beamerxarmes.pdf  used on input line 506.
+Package pdftex.def Info: beamerxarmes.pdf  used on input line 511.
 (pdftex.def)             Requested size: 31.90558pt x 42.67912pt.
  [21
 
  <./fig_btc.png (PNG copy)>]
 File: beamerxfiletcourt.pdf Graphic file (type pdf)
 <use beamerxfiletcourt.pdf>
-Package pdftex.def Info: beamerxfiletcourt.pdf  used on input line 527.
+Package pdftex.def Info: beamerxfiletcourt.pdf  used on input line 532.
 (pdftex.def)             Requested size: 19.99512pt x 1.52617pt.
 File: beamerxarmes.pdf Graphic file (type pdf)
 <use beamerxarmes.pdf>
-Package pdftex.def Info: beamerxarmes.pdf  used on input line 527.
+Package pdftex.def Info: beamerxarmes.pdf  used on input line 532.
 (pdftex.def)             Requested size: 31.90558pt x 42.67912pt.
  [22
 
 ]
 File: beamerxfiletcourt.pdf Graphic file (type pdf)
 <use beamerxfiletcourt.pdf>
-Package pdftex.def Info: beamerxfiletcourt.pdf  used on input line 551.
+Package pdftex.def Info: beamerxfiletcourt.pdf  used on input line 535.
 (pdftex.def)             Requested size: 19.99512pt x 1.52617pt.
 File: beamerxarmes.pdf Graphic file (type pdf)
 <use beamerxarmes.pdf>
-Package pdftex.def Info: beamerxarmes.pdf  used on input line 551.
+Package pdftex.def Info: beamerxarmes.pdf  used on input line 535.
 (pdftex.def)             Requested size: 31.90558pt x 42.67912pt.
  [23
 
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\translate ' on input line 555.
+(hyperref)                removing `\translate ' on input line 539.
 
 File: beamerxbackground.jpg Graphic file (type jpg)
 <use beamerxbackground.jpg>
-Package pdftex.def Info: beamerxbackground.jpg  used on input line 555.
+Package pdftex.def Info: beamerxbackground.jpg  used on input line 539.
 (pdftex.def)             Requested size: 455.24408pt x 255.79922pt.
-LaTeX Info: Redefining \\ on input line 555.
+LaTeX Info: Redefining \\ on input line 539.
 [24
 
 ]
 File: beamerxarmes.pdf Graphic file (type pdf)
 <use beamerxarmes.pdf>
-Package pdftex.def Info: beamerxarmes.pdf  used on input line 592.
+Package pdftex.def Info: beamerxarmes.pdf  used on input line 576.
 (pdftex.def)             Requested size: 31.90558pt x 42.67912pt.
  [25
 
 ]
 File: beamerxarmes.pdf Graphic file (type pdf)
 <use beamerxarmes.pdf>
-Package pdftex.def Info: beamerxarmes.pdf  used on input line 626.
+Package pdftex.def Info: beamerxarmes.pdf  used on input line 610.
 (pdftex.def)             Requested size: 31.90558pt x 42.67912pt.
  [26
 
 ]
-Overfull \hbox (10.88pt too wide) in paragraph at lines 666--666
+Overfull \hbox (10.88pt too wide) in paragraph at lines 650--650
 [][][][]  
  []
 
 File: beamerxarmes.pdf Graphic file (type pdf)
 <use beamerxarmes.pdf>
-Package pdftex.def Info: beamerxarmes.pdf  used on input line 666.
+Package pdftex.def Info: beamerxarmes.pdf  used on input line 650.
 (pdftex.def)             Requested size: 31.90558pt x 42.67912pt.
 [27
 
 ]
 File: beamerxfiletcourt.pdf Graphic file (type pdf)
 <use beamerxfiletcourt.pdf>
-Package pdftex.def Info: beamerxfiletcourt.pdf  used on input line 705.
+Package pdftex.def Info: beamerxfiletcourt.pdf  used on input line 689.
 (pdftex.def)             Requested size: 18.49548pt x 1.41171pt.
 File: beamerxarmes.pdf Graphic file (type pdf)
 <use beamerxarmes.pdf>
-Package pdftex.def Info: beamerxarmes.pdf  used on input line 705.
+Package pdftex.def Info: beamerxarmes.pdf  used on input line 689.
 (pdftex.def)             Requested size: 31.90558pt x 42.67912pt.
  [28
 
 ]
 File: beamerxfiletcourt.pdf Graphic file (type pdf)
 <use beamerxfiletcourt.pdf>
-Package pdftex.def Info: beamerxfiletcourt.pdf  used on input line 752.
+Package pdftex.def Info: beamerxfiletcourt.pdf  used on input line 736.
 (pdftex.def)             Requested size: 18.49548pt x 1.41171pt.
 
-Overfull \vbox (1.11975pt too high) detected at line 752
+Overfull \vbox (1.11975pt too high) detected at line 736
  []
 
 File: beamerxarmes.pdf Graphic file (type pdf)
 <use beamerxarmes.pdf>
-Package pdftex.def Info: beamerxarmes.pdf  used on input line 752.
+Package pdftex.def Info: beamerxarmes.pdf  used on input line 736.
 (pdftex.def)             Requested size: 31.90558pt x 42.67912pt.
 [29
 
@@ -1141,21 +1137,21 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
 Package rerunfilecheck Info: File `soutenance.out' has not changed.
-(rerunfilecheck)             Checksum: F97F9A7F2FA356E23A34FADFE7B0D828;688.
+(rerunfilecheck)             Checksum: 1EDD306EBDA13439ADE578477A664A26;740.
  ) 
 Here is how much of TeX's memory you used:
- 24969 strings out of 467525
- 483916 string characters out of 5408440
+ 24967 strings out of 467525
+ 483895 string characters out of 5408440
  874842 words of memory out of 5000000
- 53254 multiletter control sequences out of 15000+600000
- 663644 words of font info for 118 fonts, out of 8000000 for 9000
+ 53253 multiletter control sequences out of 15000+600000
+ 662872 words of font info for 117 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,17n,123p,481b,884s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfbx0700.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfbx0800.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm0500.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfsi1000.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfss0500.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfss0600.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfss0800.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfss0900.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfss1000.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfss1440.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfss2488.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfsx0500.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfsx1000.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfsx1440.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfti0900.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb>
-Output written on soutenance.pdf (29 pages, 2527771 bytes).
+ 128i,17n,123p,1207b,884s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfbx0700.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfbx0800.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfbx0900.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfbx1200.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm0500.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm0600.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm0900.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfsi1000.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfss0500.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfss0800.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfss0900.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfss1000.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfss1440.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfss2488.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfsx0500.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfsx1000.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfsx1440.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfti0900.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfti1000.pfb>
+Output written on soutenance.pdf (29 pages, 2518380 bytes).
 PDF statistics:
- 569 PDF objects out of 1000 (max. 8388607)
- 372 compressed objects within 4 object streams
+ 564 PDF objects out of 1000 (max. 8388607)
+ 369 compressed objects within 4 object streams
  64 named destinations out of 1000 (max. 500000)
  188 words of extra memory for PDF output out of 10000 (max. 10000000)
 
