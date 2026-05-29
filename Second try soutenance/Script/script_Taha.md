@@ -124,16 +124,16 @@ On peut maintenant passer du modèle de carnet au modèle de prix.
 
 À chaque épuisement, le prix bouge.
 
-Si l'ask s'épuise d'abord, le prix monte.
+Si l'ask s'épuise d'abord, c'est-à-dire si $\tau_a<\tau_b$, le prix monte de $\delta^p/2$.
 
-Si le bid s'épuise d'abord, le prix baisse.
+Si le bid s'épuise d'abord, c'est-à-dire si $\tau_b<\tau_a$, le prix baisse de $\delta^p/2$.
 
 La variation moyenne de prix sur un cycle est donc
 
 $$
 \Delta p_0
 =
-\frac{\delta p}{2}(2p-1),
+\frac{\delta^p}{2}(2p-1),
 \qquad
 p = \mathbb P(\tau_a<\tau_b).
 $$
@@ -145,8 +145,6 @@ Si $p=1/2$, le prix est une martingale : il n'a pas de dérive moyenne.
 Si $p>1/2$, l'ask s'épuise plus souvent en premier, donc le prix a une tendance haussière.
 
 Si $p<1/2$, le bid s'épuise plus souvent en premier, donc le prix a une tendance baissière.
-
-Les figures illustrent ces deux régimes : dans le cas symétrique, la trajectoire n'a pas de tendance claire ; dans le cas asymétrique, la trajectoire présente une tendance haussière nette.
 
 À ce stade, on dispose d'un modèle capable de produire des mouvements de prix. La question suivante est : comment estimer des mouvements extrêmes ?
 

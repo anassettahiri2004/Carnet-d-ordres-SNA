@@ -288,9 +288,14 @@ p_0\uparrow\tfrac{\delta^p}{2}.
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.40\textwidth}
 \small
-Modèle à 4 limites : à chaque épuisement, le prix saute de $\pm\delta^p/2$, et les intensités Hawkes sont \alert{transportées} d'un cycle à l'autre.
+\textbf{Dynamique du prix.}
+Si l'ask s'épuise avant le bid, $\taua<\taub$, le prix \alert{monte} de $\delta^p/2$.
+Si le bid s'épuise avant l'ask, $\taub<\taua$, le prix \alert{baisse} de $\delta^p/2$.
+
+\vspace{0.8ex}
+Avec $p=\PP(\taua<\taub)$, la variation moyenne sur un cycle est :
 \[
-\Delta p_0=\tfrac{\delta^p}{2}(2p-1),\quad p=\PP(\taua<\taub).
+\Delta p_0=\tfrac{\delta^p}{2}(2p-1).
 \]
 
 \vspace{0.5ex}
@@ -302,9 +307,6 @@ Modèle à 4 limites : à chaque épuisement, le prix saute de $\pm\delta^p/2$, 
 \item $p<\tfrac12$ : dérive baissière.
 \end{itemize}
 \end{block}
-
-\vspace{0.2ex}
-Le cas symétrique sert de référence ; l'asymétrie $\mu_a^-\neq\mu_b^-$ crée une tendance directionnelle.
 \end{column}
 \begin{column}{0.58\textwidth}
 \centering
