@@ -306,7 +306,7 @@ Résultats du rapport :
 
 Message :
 
-> L'asymétrie des intensités de vidage se transmet directement à l'asymétrie des mouvements de prix.
+> Ce n'est pas une validation indépendante : si `p_up` et le drift sont calculés sur les mêmes cycles avec des sauts fixes `+/- delta^p/2`, l'égalité empirique est mécanique à l'arrondi près. C'est une vérification de cohérence interne : la règle de prix implémentée respecte la formule théorique, et l'asymétrie des intensités se transmet bien au signe de la dérive.
 
 ## 10. Réduire le coût de simulation avant les événements rares
 
