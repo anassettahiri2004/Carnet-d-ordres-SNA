@@ -1,9 +1,9 @@
 # Fdb version 4
-["pdflatex"] 1780036964.8613 "/Users/ramlaoui/Desktop/SNA/Carnet-d-ordres-SNA/Second try soutenance/soutenance.tex" "soutenance.pdf" "soutenance" 1780036966.20191 0
+["pdflatex"] 1780037386.39973 "/Users/ramlaoui/Desktop/SNA/Carnet-d-ordres-SNA/Second try soutenance/soutenance.tex" "soutenance.pdf" "soutenance" 1780037387.87379 0
   "../final_report/figures/flash_crash_asym.png" 1779792847.89583 52087 0d0b52f35fe9535d6f478597ad58c9e5 ""
   "../final_report/figures/q2_symmetric_excited.png" 1779792847.90568 60549 78fc7d44fa2768400adce491db84660a ""
   "../final_report/figures/q2_symmetric_poisson.png" 1779792847.90612 58160 d8df0c593f9ab94308c31f231f841137 ""
-  "/Users/ramlaoui/Desktop/SNA/Carnet-d-ordres-SNA/Second try soutenance/soutenance.tex" 1780036963.04272 28918 37427a7f4647bd08d5dc9dd95b27cf23 ""
+  "/Users/ramlaoui/Desktop/SNA/Carnet-d-ordres-SNA/Second try soutenance/soutenance.tex" 1780037386.16855 28854 9b756f9fe7ac67b0d8422170195436ce ""
   "/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1772380719 2971 def0b6c1f0b107b3b936def894055589 ""
   "/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/map/fontname/texfonts.map" 1772380719 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/map/pdftex/updmap/pdftex.map" 1772380719 5541360 f183aac233c4cd1e5ef882fcbe8e7096 ""
@@ -320,10 +320,10 @@
   "mp_sym.png" 1780002038.91589 22400 3d2ea57009b80e682e01441f88138c07 ""
   "q2_boot.png" 1780002038.91729 49918 b43bff7a037147d73ba02ea59c5ad99e ""
   "q2_mc_ams.png" 1780002038.919 46821 fd3c6123a0a71c7696f9690fb16cbf59 ""
-  "soutenance.aux" 1780036966.02413 5776 3975c0096e79d40b44a517e5da05714a "pdflatex"
-  "soutenance.nav" 1780036966.02504 3805 a76132479a3db8ad1e7d7d5fb258ad26 "pdflatex"
-  "soutenance.out" 1780036966.02486 740 1edd306ebda13439ade578477a664a26 "pdflatex"
-  "soutenance.tex" 1780036963.04272 28918 37427a7f4647bd08d5dc9dd95b27cf23 ""
+  "soutenance.aux" 1780037387.67737 5776 3975c0096e79d40b44a517e5da05714a "pdflatex"
+  "soutenance.nav" 1780037387.67825 3805 a76132479a3db8ad1e7d7d5fb258ad26 "pdflatex"
+  "soutenance.out" 1780037387.6781 740 1edd306ebda13439ade578477a664a26 "pdflatex"
+  "soutenance.tex" 1780037386.16855 28854 9b756f9fe7ac67b0d8422170195436ce ""
   (generated)
   "soutenance.aux"
   "soutenance.log"
