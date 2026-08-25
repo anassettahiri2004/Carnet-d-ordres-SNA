@@ -1,4 +1,0 @@
-\beamer@sectionintoc {1}{Construire le modèle}{4}{0}{1}
-\beamer@sectionintoc {2}{Simuler les régimes extrêmes}{12}{0}{2}
-\beamer@sectionintoc {3}{Confronter au réel}{20}{0}{3}
-\beamer@sectionintoc {4}{Compléments techniques}{26}{1}{4}
