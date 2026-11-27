@@ -1,0 +1,12 @@
+# LaTeX build files
+*.aux
+*.log
+*.toc
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Python / Jupyter
+__pycache__/
+.ipynb_checkpoints/
